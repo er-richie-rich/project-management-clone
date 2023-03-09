@@ -1,0 +1,101 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4 actions">
+    <!--BreadCrumb-->
+    <ul class="breadcrumb">
+      <li class="pointer-event" routerLink="/project-management">Project Management</li>
+      <li class="pointer-event" routerLink="/project-management/project-details/project-data/{{projectId}}">Project Change Request</li>
+      <li>{{editMode}} Change Request</li>
+    </ul>
+    <div>
+      <button class="btn-style red-btn" form="ngForm" type="submit">Save</button>
+      <button (click)="back()" class="btn-style black-btn" type="reset">Back</button>
+    </div>
+    <!--BreadCrumb-->
+  </div>
+  <!--<div class="mt-4" color="warn">
+    <div class="box-style-breadcrumb mt-4 p-5">-->
+      <!--Card-->
+      <form (ngSubmit)="addNewChangeRequest()" [formGroup]="addChangeReqForm" class="w-100" id="ngForm" name="addChangeReqForm"
+            novalidate>
+        <div class="box-style-breadcrumb mt-4 p-5">
+          <div class="form-main">
+            <h2>{{editMode}} Change Request</h2>
+            <div class="form-row-wrapper">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Title</mat-label>
+                      <input (keydown)="space($event)" formControlName="title" matInput maxlength="150" name="title" required
+                             type="text" />
+                      <mat-error *ngIf="addChangeReqForm.controls.title.errors?.required">
+                        Title is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Version</mat-label>
+                      <input (keydown)="space($event)" formControlName="version" matInput maxlength="150" name="version" required
+                             type="text" />
+                      <mat-error *ngIf="addChangeReqForm.controls.version.errors?.required">
+                        Version is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Estimation</mat-label>
+                      <input (keydown)="space($event)" formControlName="estimation" matInput maxlength="150" name="estimation"
+                             onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                             required type="text" />
+                      <mat-error *ngIf="addChangeReqForm.controls.estimation.errors?.required">
+                        Estimation is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Receive Date</mat-label>
+                      <input (click)="release_picker.open();" [matDatepicker]="release_picker" autocomplete="off" formControlName="receiveDate"
+                             matInput maxlength="150"  name="receiveDate" required>
+                      <mat-datepicker-toggle [for]="release_picker" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #release_picker></mat-datepicker>
+                      <mat-error *ngIf="addChangeReqForm.controls.receiveDate.errors?.required">
+                        Receive Date is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Description</mat-label>
+                      <textarea (keydown)="space($event)" formControlName="description" matInput name="description" required
+                                type="text" ></textarea>
+                      <mat-error *ngIf="addChangeReqForm.controls.description.errors?.required">
+                        Description is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+	      <!--<div class="form-footer box-style-breadcrumb mt-3 p-3">
+		      <button class="btn-style red-btn" type="submit">Save</button>
+		      <button class="btn-style black-btn" routerLink="/project-management/project-details/project-data/{{projectId}}" type="reset">Back</button>
+	      </div>-->
+      </form>
+      <!--Card-->
+   <!-- </div>
+  </div>-->
+
+</section>

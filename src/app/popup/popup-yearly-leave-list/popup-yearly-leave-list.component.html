@@ -1,0 +1,50 @@
+<div class="popup-content text-center" >
+    <div class="popup-header">
+        {{data.message}} Of Current year
+    </div>
+    <div style="text-align: left">
+        <table [dataSource]="leaveList" mat-table matSort matSortDisableClear
+               style="width: 100%">
+            <!--Action Column-->
+            <ng-container matColumnDef="fullName">
+                <th  *matHeaderCellDef  mat-header-cell >
+                    Employee Name
+                </th>
+                <td *matCellDef="let element" class="text-capitalize " mat-cell>
+                    {{element.fullName}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th *matHeaderCellDef  mat-header-cell >
+                    Employee Email
+                </th>
+                <td *matCellDef="let element"  mat-cell style="text-transform: lowercase;"> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="department">
+                <th *matHeaderCellDef  mat-header-cell >
+                    Mobile Number
+                </th>
+                <td *matCellDef="let element" class="text-capitalize " mat-cell> {{element.mobileNumber}} </td>
+            </ng-container>
+            <tr *matHeaderRowDef="leaveListColumns;sticky:true" mat-header-row></tr>
+            <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: leaveListColumns;" mat-row></tr>
+            <!-- Row shown when there is no matching data. -->
+            <tr *matNoDataRow class="mat-row">
+                <td class="mat-cell " colspan="10">Data Not Available</td>
+            </tr>
+        </table>
+        <mat-paginator
+                (page)="pageChange($event)"
+                [length]="count"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageSize]="perPage"
+                aria-label="Select page of periodic elements"
+                showFirstLastButtons="true">
+        </mat-paginator>
+    </div>
+    <div class="popup-footer">
+        <div class="btn-wrapper justify-content-between">
+            <button (click)="onNoClick(false)" class="btn-style sm-btn black-btn" mat-button>Cancel</button>
+        </div>
+    </div>
+</div>

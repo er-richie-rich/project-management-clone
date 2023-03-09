@@ -1,0 +1,58 @@
+<section class="dashboard-content">
+    <div class="box-style-breadcrumb p-4">
+        <div class="form-top d-flex justify-content-between align-items-center">
+            <ul class="breadcrumb">
+                <!--BreadCrumb-->
+                <ul class="breadcrumb">
+	                <li><a (click)="goToDepartmentList()" style="color: black; font-weight: 500">Department Management</a></li>
+	                <li *ngIf="departmentData?.departmentTitle" class="active" style="color: black; font-weight: 500">{{departmentData.departmentTitle}}</li>
+                    <!--<li class="pointer-event" routerLink="/department-management">Department Management</li>
+                    <li *ngIf="departmentData?.departmentTitle">{{departmentData.departmentTitle}}</li>-->
+                </ul>
+                <!--BreadCrumb-->
+            </ul>
+            <div class="btn-wrapper btn-wrapper-width">
+                <button class="btn-style red-btn" routerLink="/department-management/add-edit-department/{{_departmentId}}">
+                    Edit
+                </button>
+                <button (click)="deleteDepartment()"  class="btn-style red-btn">Delete</button>
+                <button (click)="goToDepartmentList()" class="btn-style black-btn">Back</button>
+            </div>
+        </div>
+    </div>
+    <div class="box-style-breadcrumb mt-4 p-5">
+        <!--Card-->
+        <div class="leadBox bg-gray mt-3">
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Department Id</span>
+                            <div class="text-weight mt-2 field">{{ (departmentData?.departmentId)?departmentData?.departmentId:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Title</span>
+                            <div class="text-weight mt-2 field">{{ (departmentData?.departmentTitle)?departmentData.departmentTitle:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Access Module</span>
+                            <div class="text-weight mt-2 field">{{ (departmentData?.accessModule)?departmentData.accessModule:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

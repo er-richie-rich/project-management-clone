@@ -1,0 +1,48 @@
+@import "../../../theme-colors.scss";
+
+$breakpoint-desktop: 1500px;
+$breakpoint-tablet: 1199px;
+$breakpoint-tablet-sm: 991px;
+$breakpoint-mobile: 767px;
+
+.main-header{
+  background: #ffffff;box-shadow: 1px 1px 8px rgb(0 0 0 / 16%);color: #000000;height: 64px;left: 300px;position: fixed;right: 0px;top: 0;transition: all 0.3s ease;width: initial;    z-index: 999;
+  @media (max-width: $breakpoint-desktop){
+    left: 250px;
+  }
+  .page-title{
+    text-transform: uppercase;
+  }
+  .menu-icon{
+    color: $theme_color;
+  }
+  a{
+    color: white;text-decoration: none;
+    &.add-oppo{
+      align-items: center;
+      background-color: #ffffff;
+      border-radius: 3px;
+      color: #3b7097;
+      display: flex;
+      font-size: 16px;
+      justify-content: center;
+      padding: 2px 15px 2px 10px;
+      &:hover{
+        background-color: #161923;
+        color: #fff;
+      }
+    }
+  }
+  .navigation-items{
+    list-style-type: none;margin: 0;padding: 0;
+  }
+  .user-menu {
+    display: flex;float: right;
+    .user-profile-img {
+      background-position: center center;background-size: cover;border-radius: 100%;height: 40px;margin-right: 10px;width: 40px;
+    }
+    .user-profile-info {
+      align-items: center;display: flex;font-family: 'ProximaNova-Regular';font-weight: 400;
+    }
+  }
+}

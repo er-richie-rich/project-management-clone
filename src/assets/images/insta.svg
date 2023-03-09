@@ -1,0 +1,23 @@
+<svg height="100" viewBox="0 0 100 100" width="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <clipPath id="clip-insta">
+      <rect height="100" width="100"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip-insta)" id="insta">
+    <g id="instagram" transform="translate(-780 -12791)">
+      <g data-name="Rectangle 330" fill="none" id="Rectangle_330" stroke="#010101" stroke-width="5" transform="translate(780 12791)">
+        <rect height="100" rx="26" stroke="none" width="100"/>
+        <rect fill="none" height="95" rx="23.5" width="95" x="2.5" y="2.5"/>
+      </g>
+      <g data-name="Rectangle 331" fill="none" id="Rectangle_331" stroke="#010101" stroke-width="5" transform="translate(805 12816)">
+        <rect height="52" rx="25" stroke="none" width="50"/>
+        <rect fill="none" height="47" rx="22.5" width="45" x="2.5" y="2.5"/>
+      </g>
+      <g data-name="Rectangle 332" fill="none" id="Rectangle_332" stroke="#010101" stroke-width="5" transform="translate(851 12806)">
+        <rect height="14" rx="7" stroke="none" width="14"/>
+        <rect fill="none" height="9" rx="4.5" width="9" x="2.5" y="2.5"/>
+      </g>
+    </g>
+  </g>
+</svg>

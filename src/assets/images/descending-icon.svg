@@ -1,0 +1,15 @@
+<svg height="298.074" viewBox="0 0 291.975 298.074" width="291.975" xmlns="http://www.w3.org/2000/svg">
+  <g data-name="Z to A left side arrow-01" id="Z_to_A_left_side_arrow-01" transform="translate(-7.825 -10.4)">
+    <g data-name="Group 14042" id="Group_14042">
+      <g data-name="Group 14040" id="Group_14040">
+        <path d="M220.5,114.9h63v20.7H188.3V120.5l61.8-89H188.4V10.6h93.7V25.4Z" data-name="Path 102722" id="Path_102722"/>
+      </g>
+      <g data-name="Group 14041" id="Group_14041">
+        <path d="M263.8,281.9H218.7l-8.6,25.7H182.7l46.5-125H253l46.8,125H272.4Zm-38.2-20.8h31.2l-15.7-46.8Z" data-name="Path 102723" id="Path_102723"/>
+      </g>
+    </g>
+    <g id="Layer_2_4_" transform="translate(7.825 10.4)">
+      <path d="M159.8,95.875a10.684,10.684,0,0,1-15,0l-49.3-48.5v250.5a10.6,10.6,0,0,1-21.2,0V47.675L26,95.875a10.593,10.593,0,0,1-15,.1l-.1-.1a10.684,10.684,0,0,1,0-15l67.7-67.7a9.6,9.6,0,0,1,13.5,0l67.6,67.7C163.6,84.975,163.4,91.575,159.8,95.875Z" data-name="Path 102724" id="Path_102724" transform="translate(-7.825 -10.4)"/>
+    </g>
+  </g>
+</svg>

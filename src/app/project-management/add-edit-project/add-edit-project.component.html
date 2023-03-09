@@ -1,0 +1,177 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4 actions">
+    <!--BreadCrumb-->
+    <ul class="breadcrumb">
+	    <li><a (click)="backToProjectList()" style="color: black; font-weight: 500">Project Management</a></li>
+	    <li class="active" style="color: black; font-weight: 500">{{editMode}} Project</li>
+      <!--<li class="pointer-event" routerLink="/project-management">Project Management</li>
+      <li>{{editMode}} Project</li>-->
+    </ul>
+    <div >
+      <button class="btn-style red-btn" form="ngForm" type="submit">Save</button>
+      <button (click)="backToProjectList()" class="btn-style black-btn" routerLink="/project-management/" type="reset">Back</button>
+    </div>
+    <!--BreadCrumb-->
+  </div>
+<!--  <div class="mt-4" color="warn">-->
+<!--    <div class="box-style-breadcrumb mt-4 p-5">-->
+      <!--Card-->
+      <form (ngSubmit)="addProject()" [formGroup]="addProjectForm" class="w-100" id="ngForm" name="addProjectForm"
+            novalidate>
+        <div class="box-style-breadcrumb mt-4 p-5">
+          <div class="form-main">
+            <h2>{{editMode}} Project</h2>
+
+
+            <div class="form-row-wrapper">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Project Code </mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="projectCode" matInput maxlength="15" name="projectCode"
+                             required type="text" />
+                      <mat-error *ngIf="addProjectForm.controls.projectName.errors?.required">
+                        Project Code is required!
+                      </mat-error>
+                      <mat-error *ngIf="addProjectForm.controls.projectName.errors?.isvalid">
+                        Project Code is take empty space
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Project Name </mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="projectName" matInput maxlength="150" name="projectName"
+                             required    type="text" />
+                      <mat-error *ngIf="addProjectForm.controls.projectName.errors?.required">
+                        Project Name is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Client Name </mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="clientName" matInput maxlength="100" name="clientName" required type="text" />
+                      <mat-error *ngIf="addProjectForm.controls.clientName.errors?.required">
+                        Client Name is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Client Email </mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="email" matInput maxlength="100" name="email" required type="text" />
+                      <mat-error *ngIf="addProjectForm.controls.email.errors?.required">
+	                      Client Email is required!
+                      </mat-error>
+                      <mat-error *ngIf="addProjectForm.controls.email.errors?.pattern">
+	                      Enter Valid Email Address!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div *ngIf="getRole.roleName !== 'Project Manager' " class="col-sm-3">
+                  <div class="form-field" >
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Project Manager </mat-label>
+                      <mat-select formControlName="projectManagerId" maxlength="150" name="projectManagerId" required>
+                        <mat-option *ngFor="let proTypes of projectManagerName" [value]="proTypes.userId">
+                          {{ proTypes.fullName}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="addProjectForm.controls.projectManagerId.errors?.required">
+                        Project Manager is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Start Date</mat-label>
+                      <input (click)="release_picker.open()" [matDatepicker]="release_picker" autocomplete="off" formControlName="startDate" matInput
+                             maxlength="150" name="startDate">
+                      <mat-datepicker-toggle [for]="release_picker" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #release_picker></mat-datepicker>
+                      <mat-error *ngIf="addProjectForm.controls.startDate.errors?.required">
+                        Start Date is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Estimated Hours</mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="estimatedHours" matInput maxlength="50" name="estimatedHours" type="text" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Completed Hours</mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="completedHours" matInput maxlength=" 50" name="completedHours" type="text" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Technology </mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="technology" matInput maxlength="150" name="technology" required type="text" />
+                      <mat-error *ngIf="addProjectForm.controls.technology.errors?.required">
+                        Technology is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Status</mat-label>
+                      <mat-select formControlName="projectStatus" maxlength="150" name="projectStatus" required>
+                        <mat-option *ngFor="let proTypes of projectStatus" [value]="proTypes.value">
+                          {{ proTypes.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="
+                      addProjectForm.controls.projectStatus.errors?.required">
+                        Status is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Project Description </mat-label>
+                      <textarea (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="projectDescription" matInput name="projectDescription" required
+                                type="text"></textarea>
+                      <mat-error *ngIf="addProjectForm.controls.projectDescription.errors?.required">
+                        Project Description is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+	      <!--<div class="form-footer box-style-breadcrumb mt-3 p-3">
+		      <button class="btn-style red-btn" type="submit" (click)="addProject()">Save</button>
+		      <button class="btn-style black-btn" routerLink="/project-management/" type="reset">Back</button>
+	      </div>-->
+      </form>
+      <!--Card-->
+<!--    </div>-->
+<!--  </div>-->
+
+</section>

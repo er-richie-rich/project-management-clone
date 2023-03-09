@@ -1,0 +1,460 @@
+<section class="dashboard-content">
+	<div class="box-style-breadcrumb p-4 actions">
+		<!--BreadCrumb-->
+		<ul class="breadcrumb">
+			<li><a (click)="backToEmployeeList()" style="color: black; font-weight: 500">Employee Management</a></li>
+			<li class="active" style="color: black; font-weight: 500">{{editMode}} Employee</li>
+			<!--<li class="pointer-event" routerLink="/employee-management/">Employee Management</li>
+			<li>{{editMode}} User</li>-->
+		</ul>
+		<div>
+			<button class="btn-style red-btn" form="ngForm" type="submit">Save</button>
+			<button (click)="backToEmployeeList()" class="btn-style black-btn" type="reset">Back</button>
+		</div>
+		<!--BreadCrumb-->
+	</div>
+	<!--Card-->
+	<form (ngSubmit)="onAddUser()" [formGroup]="myProfileForm" class="w-100" id="ngForm" name="addUserForm" novalidate>
+		<div class="box-style-breadcrumb mt-4 p-5">
+			<div class="form-main">
+				<h2>{{editMode}} Employee</h2>
+				<div class="form-row-wrapper">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="profile-upload">
+								<label for="emp-input-profile">
+									
+									<img height="200" src="{{url}}">
+									<span class="material-icons">photo_camera</span>
+								</label>
+								<input (change)="onFileChanged2($event)" (keyup)="helper.spaceTrim($event)"
+								       [(ngModel)]="empProfileImage" [ngModelOptions]="{standalone: true}"
+								       class="device-input-img" id="emp-input-profile" name="idProofFiles"
+								       type="file"/>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Employee Code</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="empCode" matInput
+										   maxlength="15" name="empCode" required type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.empCode.errors?.required">
+										Employee code is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Full Name</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="fullName" matInput
+									       maxlength="100" name="fullName"
+									       required type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.fullName.errors?.required">
+										Full Name is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Email Id</mat-label>
+									
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="email" matInput
+									       maxlength="50" name="email"
+									       required type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.email.errors?.required">Email Address is
+										required!
+									</mat-error>
+									<mat-error *ngIf="myProfileForm.controls.email.errors?.pattern">Please enter a valid
+										Email Address.
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Mobile No</mat-label>
+									<input (keydown)="space($event)" (paste)="checkNumber($event)" formControlName="mobileNumber"
+										   matInput
+									       maxlength="10" name="mobileNumber"
+									       onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+									       required type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.mobileNumber.errors?.required">
+										Mobile No is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Date Of Birth</mat-label>
+									<input #date (click)="date_of_birth.open()" (dateChange)="getDate($event)"
+									       (focus)="date_of_birth.open()" [matDatepicker]="date_of_birth"
+									       [max]="minBirthDate" autocomplete="off"
+									       formControlName="dateOfBirth" matInput
+									       maxlength="150" name="dateOfBirth" required>
+									<mat-datepicker-toggle [for]="date_of_birth" matSuffix></mat-datepicker-toggle>
+									<mat-datepicker #date_of_birth></mat-datepicker>
+									<mat-error
+											*ngIf=" myProfileForm.controls.dateOfBirth.errors?.required">
+										Date Of Birth is required!
+									</mat-error>
+									
+									<mat-error
+											*ngIf="(myProfileForm.controls.dateOfBirth.touched ) && myProfileForm.controls.dateOfBirth.errors?.minAge">
+										Age must greater then 18 years
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Date Of Join</mat-label>
+									<input (click)="date_of_join.open()" (dateChange)="getProbDate($event)" [matDatepicker]="date_of_join"
+									       [max]="maxDate" [min]="minDate" autocomplete="off"
+									       formControlName="dateOfJoining" matInput
+									       maxlength="150" name="dateOfJoining" required>
+									<mat-datepicker-toggle [for]="date_of_join" matSuffix></mat-datepicker-toggle>
+									<mat-datepicker #date_of_join></mat-datepicker>
+									<mat-error
+											*ngIf="myProfileForm.controls.dateOfJoining.errors?.required">
+										Date Of Join is required!
+									</mat-error>
+									<mat-error
+											*ngIf="(myProfileForm.controls.dateOfJoining.touched ) && myProfileForm.controls.dateOfJoining.errors?.minJoin">
+										Only those eighteen years of age or older may be employed.
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Designation</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="designation"
+									       matInput maxlength="150" name="designation" required
+									       type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.designation.errors?.required">
+										Designation is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>PAN No</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" (ngModelChange)="panCardNumberUpperCase = $event.toUpperCase()" [ngModel]="panCardNumberUpperCase"
+										   formControlName="panCardNumber" matInput
+										   maxlength="10" minlength="10" name="panCardNumber"
+										   onkeypress="return  event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122" required type="text" />
+									<mat-error *ngIf="myProfileForm.controls.panCardNumber.errors?.required">
+										PAN NO is required!
+									</mat-error>
+									<mat-error *ngIf="myProfileForm.controls.panCardNumber.errors?.minlength">
+										Enter valid PAN NO!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div [hidden]="activeStatus" class="col-sm-3" >
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Select Status</mat-label>
+									<mat-select formControlName="status" name="status" required>
+										<mat-option *ngFor="let empTypes of userStatus" [value]="empTypes.value">
+											{{empTypes.valueName}}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Role</mat-label>
+									<mat-select formControlName="userRole" maxlength="100" name="userRole" required>
+										<mat-option *ngFor="let role of userRoleData" [value]="role._id">
+											{{role.roleName}}
+										</mat-option>
+									</mat-select>
+									<mat-error *ngIf="myProfileForm.controls.userRole.errors?.required">
+										UserRole is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Select Reporting Manager</mat-label>
+									<mat-select formControlName="reportingManager" required>
+										<div *ngFor="let selectReportingManager of reportingManagerName; index as i; first as isFirst">
+											<div *ngIf="userId !== selectReportingManager.userId">
+												<mat-option
+														value="{{selectReportingManager.userId}}">{{ selectReportingManager.fullName }}</mat-option>
+											</div>
+										</div>
+									</mat-select>
+									<mat-error *ngIf="myProfileForm.controls.reportingManager.errors?.required">
+										Reporting manager is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Department</mat-label>
+									<mat-select formControlName="department" maxlength="100" required>
+										<mat-option *ngFor="let department of departmentList" [value]="department.departmentId">
+											{{department.departmentTitle}}
+										</mat-option>
+									</mat-select>
+									<mat-error>
+										Department is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Probation Period End Date</mat-label>
+									<input (click)="ProbationPeriodEndDate.open()" [matDatepicker]="ProbationPeriodEndDate" [min]="minProbDate" autocomplete="off" formControlName="probationPeriodEndDate" matInput name="probationPeriodEndDate" required>
+									<mat-datepicker-toggle [for]="ProbationPeriodEndDate" matSuffix></mat-datepicker-toggle>
+									<mat-datepicker #ProbationPeriodEndDate></mat-datepicker>
+									<mat-error *ngIf="myProfileForm.controls.probationPeriodEndDate.errors?.required">
+										Probation period end date is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div *ngIf="isAddShow && editMode !== 'Edit'" class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Password</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="password" matInput
+										   maxlength="100"   name="password" type="password"/>
+								</mat-form-field>
+							</div>
+						</div>
+
+						<h2>Additional Details</h2>
+						<hr>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Marital Status</mat-label>
+									<mat-select #marital (selectionChange)="getMaritalStatus(marital.value)" formControlName="maritalStatus" name="maritalStatus" required>
+										<mat-option *ngFor="let maritalVal of MaritalStatus" [value]="maritalVal.value">
+											{{maritalVal.valueName}}
+										</mat-option>
+									</mat-select>
+									<mat-error *ngIf="myProfileForm.controls.maritalStatus.errors?.required">
+										Marital status is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<!--If Married-->
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Father Name</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="fatherName" matInput name="fatherName" required/>
+									<mat-error *ngIf="myProfileForm.controls.fatherName.errors?.required">
+										Father name is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div *ngIf="myProfileForm.value.maritalStatus === true" class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Spouse Name</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="spouseName"
+										   matInput maxlength="150" name="spouseName" required
+										   type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.spouseName.errors?.required">
+										Spouse name is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3" >
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Father/Spouse Contact Number</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" (paste)="checkNumber($event)"
+										   formControlName="fatherOrSpouseContactNumber" matInput
+										   maxlength="10" name="fatherOrSpouseContactNumber"
+										   onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+										   required type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.fatherOrSpouseContactNumber.errors?.required">
+										Mobile number is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Personal Email ID</mat-label>
+
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="personalEmail" matInput
+										   maxlength="50" name="email"
+										   required type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.personalEmail.errors?.required">Email Address is
+										required!
+									</mat-error>
+									<mat-error *ngIf="myProfileForm.controls.personalEmail.errors?.pattern">Please enter a valid
+										Email Address.
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<!--							<div class="form-field">-->
+							<!--									<mat-radio-group>-->
+							<!--										<mat-radio-button value="1" style="padding: 5px">Male</mat-radio-button>-->
+							<!--										<mat-radio-button value="2" style="padding: 5px">Female</mat-radio-button>-->
+							<!--									</mat-radio-group>-->
+							<!--							</div>-->
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Gender</mat-label>
+									<mat-select formControlName="gender" maxlength="150" required>
+										<!--(selectionChange)="getEmpNameAndDepartment()"-->
+										<mat-option *ngFor="let genderVal of GenderDetail" [value]="genderVal.value">
+											{{genderVal.value}}
+										</mat-option>
+									</mat-select>
+									<mat-error *ngIf="myProfileForm.controls.gender.errors?.required">
+										Gender is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3" >
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Aadhar Number</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="aadhaarNumber" matInput maxlength="12"
+										   minlength="12"
+										   onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57" required type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.aadhaarNumber.errors?.required">
+										Aadhaar number is required!
+									</mat-error>
+									<mat-error *ngIf="myProfileForm.controls.aadhaarNumber.errors?.minlength">
+										Minimum 12 characters required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3"></div>
+						<div class="col-sm-6">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Current Address</mat-label>
+									<textarea (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="currentAddress" matInput required type="text"></textarea>
+									<mat-error *ngIf="myProfileForm.controls.currentAddress.errors?.required">
+										Current address is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Permanent Address</mat-label>
+									<textarea (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="permanentAddress"
+											  matInput  required type="text"></textarea>
+									<mat-error *ngIf="myProfileForm.controls.permanentAddress.errors?.required">
+										Permanent address is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Additional Notes</mat-label>
+									<textarea (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="additionalNotes"
+									          matInput name="additionalNotes"
+									          type="text"></textarea>
+									<mat-error *ngIf="myProfileForm.controls.additionalNotes.errors?.required">
+										Additional Notes is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<h4 style="font-size: 18px;">Upload ID Proof</h4>
+							<div class="generate-button">
+								<button class="btn-style red-btn file-upload-button" type="button">
+									<span class="material-icons">upload</span>
+									Drag and Drop here <br> Or <br>
+									Browse File
+									<input (change)="onFileChanged($event)" formControlName="idProofFiles"
+									       id="file"
+									       name="image"
+									       type="file"
+									/>
+								</button>
+								<span class="file-info">{{fileName}}
+									<span (click)="resetCoverValue()"
+									      class="material-icons close-icon">{{ fileName ? "close" : null }}
+									</span>
+								</span>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="fileName" class="form-footer box-style-breadcrumb mt-3 p-3">
+			<ng-template #content let-modal>
+				<div class="modal-header document-modal">
+					<h4 class="modal-title" id="modal-basic-title">{{documentName}}</h4>
+					<div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
+					     type="button">
+						<img src="assets/images/cross-icon.svg">
+					</div>
+				</div>
+				<div class="modal-body">
+					<!--<ngx-doc-viewer
+							[url]="imagePreview"
+							style="width:100%;height:80vh;"
+							viewer="url">
+					</ngx-doc-viewer>-->
+					
+					<pdf-viewer [autoresize]="true" [original-size]="false" [src]="imagePreview" class="pdf-viewer"></pdf-viewer>
+				</div>
+				<div class="modal-footer">
+					<button (click)="modal.close()"
+					        class="btn-style black-btn" type="button">Close
+					</button>
+				</div>
+			</ng-template>
+			<button (click)="openTemplate(content)" class="btn-style red-btn" type="button">Preview</button>
+			<!--<button (click)="onAddUser()" class="btn-style red-btn" type="submit">Save</button>
+			<button class="btn-style black-btn" routerLink="/employee-management/" type="reset">Back</button>-->
+		</div>
+		<!--<div *ngIf="!fileName" class="form-footer box-style-breadcrumb mt-3 p-3">
+			<button (click)="onAddUser()" class="btn-style red-btn" type="submit">Save</button>
+			<button class="btn-style black-btn" routerLink="/employee-management/" type="reset">Back</button>
+		</div>-->
+	</form>
+	<!--Card-->
+
+</section>

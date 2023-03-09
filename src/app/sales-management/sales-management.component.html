@@ -1,0 +1,250 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0"
+      rel="stylesheet"/>
+<section class="dashboard-content">
+  <div class="table-content box-style m-0 p-0">
+    <div class="table-heading box-style-breadcrumb p-4">
+	    <a><h3 style="font-weight: 500; cursor: default">Lead Management</h3></a>
+      <div class="search-form-wrapper">
+        <div class="me-3">
+          <!--Hot Lead-->
+          <mat-slide-toggle #hotLeads (change)="filterHotLead(hotLeads.checked)"
+                            [(ngModel)]="selectedHotLead"
+                            [checked]="selectedNewValue === 'hot-lead' ? true : false" class="button-switch mb-0">Hot Lead
+          </mat-slide-toggle>
+          <!--Hot Lead-->
+        </div>
+        <div>
+          <!--Lead Status-->
+          <mat-form-field appearance="outline">
+            <mat-select #topp (selectionChange)="filterByLeadStatus(topp.value)" [(ngModel)]="selectedValue"
+                        [formControl]="toppings">
+              <mat-select-trigger>
+                {{toppings.value}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let topping of toppingList" [value]="topping.value">
+                <span style="text-transform: capitalize!important">{{topping.name}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!--Lead Status-->
+        </div>
+        <!--Search-->
+        <div class="search-form">
+          <span class="material-icons">search</span>
+          <input #input #searchString (keydown)="space($event)" (keyup)="applyFilter($event)" placeholder="Search" type="text">
+          <span #clearString (click)="clearSearch($event)" *ngIf="isVisible"
+                class="closeIcon material-icons">clear</span>
+        </div>
+        <!--Search-->
+        <!--Add Lead Button-->
+        <button class="btn-style red-btn" routerLink="/sales-management/add-new-lead/0">
+          <span class="material-icons">add</span>Add Lead
+        </button>
+        <!--Add Lead Button-->
+        <!--Add Lead Button-->
+        <button [matMenuTriggerFor]="menu" class="btn-style red-btn menuStyle ms-2">
+          <span class="material-icons menuIcon">more_horiz</span>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="deleteRow()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+            <span class="material-icons">delete</span>
+            Delete Leads
+          </button>
+          <button (click)="importLeadsData()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+            <span class="material-icons">cloud_download</span>
+            Import Leads
+          </button>
+          <!--          <button mat-menu-item class="d-flex align-items-center topRightMenu" (click)="downloadSampleFile($event)">-->
+          <!--            <span class="material-symbols-outlined">file_download</span>-->
+          <!--            Download Sample File-->
+          <!--          </button>-->
+          <button (click)="exportAllLeads()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+            <span class="material-icons">exit_to_app</span>
+            Export Leads
+          </button>
+        </mat-menu>
+        <!--Add Lead Button-->
+      </div>
+    </div>
+    <div>
+      <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear
+             style="width: 100%">
+        <!--Select All Checkbox-->
+        <ng-container matColumnDef="selectall">
+          <th *matHeaderCellDef mat-header-cell style="width: 2%">
+            <mat-checkbox (change)="$event ? masterToggle($event) : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [disabled]="isDisabled"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td *matCellDef="let element;index as i;" mat-cell>
+            <mat-checkbox (change)="$event ? selection.toggle(element) : null" (click)="$event.stopPropagation()"
+                          [checked]="selection.isSelected(element)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <!--Select All Checkbox-->
+        <!--Action Column-->
+        <ng-container matColumnDef="action2">
+          <th *matHeaderCellDef class="th-header" mat-header-cell style="width: 5%">Action</th>
+          <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
+            <div class="hover-effect-menu three-icon">
+              <span class="material-icons short-arrow">more_horiz</span>
+              <div class="hover-half-round-three">
+                <div class="quarter-circle">
+                  <button (click)="editLeads(element.leadId)"
+                          class="material-icons mat-menu-item"
+                          matTooltip="Edit"
+                          matTooltipClass='tooltip-color'
+                          tabindex="0">
+                    drive_file_rename_outline
+                  </button>
+                  <button
+                    (click)="deleteLeads(element.leadId)"
+                    class="material-icons mat-menu-item"
+                    matTooltip="Delete"
+                    matTooltipClass='tooltip-color'
+                    tabindex="0">
+                    delete
+                  </button>
+                  <button (click)="leadsDetail(element.leadId)" class="material-icons mat-menu-item"
+                          matTooltip="Detail"
+                          matTooltipClass='tooltip-color'
+                          tabindex="0">web
+                  </button>
+                  <div class="quarter-circle-nested"></div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <!--Action Column-->
+        <!-- Lead Title Column -->
+        <ng-container matColumnDef="leadTitle">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">
+            <div class=" th-header d-flex align-items-center text-left">
+              Lead Title
+            </div>
+          </th>
+          <td *matCellDef="let element" class="text-capitalize" mat-cell>
+            {{element.leadTitle}}
+          </td>
+        </ng-container>
+        <!-- Lead Title Column -->
+        <!-- Client Name Column -->
+        <ng-container matColumnDef="clientName">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class="th-header d-flex align-items-center text-left">
+              Client Name
+            </div>
+          </th>
+          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.clientName}} </td>
+        </ng-container>
+        <!-- Client Name Column -->
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class=" th-header d-flex align-items-center text-left">
+              Email
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{element.email}} </td>
+        </ng-container>
+        <!-- Email Column -->
+        <!--Lead Created At-->
+        <ng-container matColumnDef="createdAt">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class="th-header d-flex align-items-center text-left">
+              Lead Created Date
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell> {{element.createdAt | date: "dd/MM/YYYY"}} </td>
+        </ng-container>
+        <!--Lead Created At-->
+        <!-- Lead Created Date Column -->
+        <ng-container matColumnDef="leadGenerationDate">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class="th-header d-flex align-items-center text-left">
+              Lead Generated Date
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell> {{element.leadGenerationDate | date: "dd/MM/YYYY"}} </td>
+        </ng-container>
+        <!-- Lead Created Date Column -->
+        <!-- Lead Type Column -->
+        <ng-container matColumnDef="leadType">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class="th-header d-flex align-items-center text-left">
+              Lead Type
+            </div>
+          </th>
+          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.leadType}}</td>
+        </ng-container>
+        <!-- Lead Type Column -->
+        <!-- Lead Generation By Column -->
+        <ng-container matColumnDef="leadGeneratedBy">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class="th-header d-flex align-items-center text-left">
+              Lead Generated By
+            </div>
+          </th>
+          <td *matCellDef="let element" class="text-capitalize" mat-cell>
+            {{(element.leadGeneratedByName)?element.leadGeneratedByName: '-'}}
+          </td>
+        </ng-container>
+        <!-- Lead Generation By Column -->
+        <!-- Lead Status Column -->
+        <ng-container matColumnDef="leadStatus">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class="th-header d-flex align-items-center text-left">
+              Status
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell style="text-transform: capitalize">
+            {{element.leadStatus}}
+          </td>
+        </ng-container>
+        <!-- Lead Status Column -->
+        <!-- Is Hot Lead Column -->
+        <ng-container matColumnDef="isHotLead">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            <div class="th-header d-flex align-items-center text-left">
+              Hot Lead
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell>
+            <!--{{element.leadStatus}}-->
+            <div *ngIf="element.leadStatus !== 'won' && element.leadStatus !== 'lost'">
+              <mat-slide-toggle (change)="changeHotLeadStatus(element.leadId, $event)" [checked]="element.isHotLead"
+                                class="button-switch"></mat-slide-toggle>
+            </div>
+
+            <div *ngIf="element.leadStatus === 'won' || element.leadStatus === 'lost'">
+              <span>-</span>
+            </div>
+
+          </td>
+        </ng-container>
+        <!-- Is Hot Lead Column -->
+        <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
+	      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+<!--        <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
+        <!-- Row shown when there is no matching data. -->
+        <tr *matNoDataRow class="mat-row">
+          <td class="mat-cell text-center" colspan="10">Data Not Available</td>
+        </tr>
+      </table>
+    </div>
+    <mat-paginator
+      (page)="pageChange($event)"
+      [length]="meta"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageSize]="perPage"
+      color="warn"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</section>

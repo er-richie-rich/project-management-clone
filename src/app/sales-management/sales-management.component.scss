@@ -1,0 +1,69 @@
+.mat-sort-header-content {
+  text-align: left !important;
+}
+
+mat-select-trigger {
+  text-transform: capitalize !important;
+}
+
+.menuIcon {
+  font-size: 38px;
+}
+
+.menuStyle {
+  padding: 5px 10px !important;
+}
+
+.topRightMenu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  span {
+    width: 30px;
+  }
+}
+
+.hover-effect-menu .hover-half-round-three .quarter-circle .quarter-circle-nested {
+  background: white;
+  border-radius: 0 50px 0 0;
+  height: 41px;
+  position: relative;
+  top: 59px;
+  transform: rotate(0deg);
+  width: 42px;
+}
+
+
+$size: 65px;
+.hover-half-round-three button {
+  background: none;
+  position: absolute;
+  left: -15px;
+  top: -10px;
+  font-size: 25px;
+  color: #fff;
+
+  &:hover {
+    color: #F8FF59;
+  }
+}
+
+.hover-half-round-three button:nth-child(2) {
+  left: 13px;
+  top: 13px;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+  animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+}
+
+.hover-half-round-three button:nth-child(3) {
+  left: 38px;
+  top: 38px;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+  animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+}
+
+
+.custom-table-overflow {
+ overflow: unset;
+}

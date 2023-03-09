@@ -1,0 +1,289 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0"
+      rel="stylesheet"/>
+<section class="dashboard-content">
+    <div class="table-content box-style m-0 p-0">
+        <div class="table-heading box-style-breadcrumb p-4">
+            <a><h3 style="font-weight: 500; cursor: default">Employee Management</h3></a>
+            <div class="search-form-wrapper">
+                <div>
+                    <!--Lead Status-->
+                    <mat-form-field appearance="outline">
+                        <mat-select #topp (selectionChange)="filterByUserRole(topp.value)" [(ngModel)]="selectedRole" [formControl]="toppings" ngModel>
+                            <mat-select-trigger>
+                                {{toppings.value}}
+                            </mat-select-trigger>
+                            <mat-option *ngFor="let topping of toppingList" [value]="topping.value">
+                                <span style="text-transform: capitalize!important">{{topping.name}}</span>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!--Lead Status-->
+                </div>
+                <!--Search-->
+                <div class="search-form">
+                    <span class="material-icons">search</span>
+                    <input #input #searchString (input)="applyFilter($event)" (keydown)="space($event)"
+                           placeholder="Search Employee" type="text">
+                    <span #clearString (click)="clearSearch($event)" *ngIf="isVisible"
+                          class="closeIcon material-icons">clear</span>
+                </div>
+                <!--Search-->
+                <!--Add Employee Button-->
+                <button class="btn-style red-btn" routerLink="/employee-management/add-edit-employee/0"><span
+                        class="material-icons">add</span>Add Employee
+                </button>
+            </div>
+        </div>
+        <div class="custom-table-overflow">
+            <table [dataSource]="dataSource" mat-table matSort style="width: 100%;">
+                <ng-container matColumnDef="action2">
+                    <th *matHeaderCellDef mat-header-cell style="width: 5%;">Action</th>
+                    <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
+                        <div class="hover-effect-menu">
+                            <span class="material-icons short-arrow">more_horiz</span>
+                            <div class="hover-round-effect">
+                                <button (click)="editUser(element.userId)"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Edit"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    drive_file_rename_outline
+                                </button>
+                                <button (click)="deleteUser(element.userId, i, $event)"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Delete"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    delete
+                                </button>
+
+                                <button (click)="userDetail(element.userId)"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Detail"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    web
+                                </button>
+
+                                <button (click)="addLeave(element.userId)"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Add Leave"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    directions_walk
+                                </button>
+
+                                <button
+                                        (click)="sendEMail(element.userId,element.isMailSend)"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Send E-Mail"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    email
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                <!-- profilePic Column -->
+                <ng-container matColumnDef="profilePic">
+                    <th *matHeaderCellDef mat-header-cell style="width: 10%">
+                        <div class=" th-header d-flex align-items-center text-left">
+                            Profile
+                        </div>
+
+                    </th>
+                    <td *matCellDef="let element" mat-cell style="white-space: nowrap">
+                        <img height="36px"
+                             src="{{ (element.profileImage) ? element.profileImage:url }}" style="object-fit: cover;"
+                             width="36"/>
+                    </td>
+                </ng-container>
+                <!-- profilePic Column -->
+                <ng-container matColumnDef="EmpCode">
+                    <th (click)="sortData('empCode', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Employee Code
+                        </div><span [ngClass]="{'down': sortBy === -1 && sortKey === 'empCode', 'up': sortBy === 1 && sortKey === 'empCode'}">
+                      </span>
+                    </th>
+                    <td *matCellDef="let element" mat-cell> {{ element.empCode ? element.empCode : '-' }} </td>
+                </ng-container>
+                <!-- fullName Column -->
+                <ng-container matColumnDef="fullName">
+                    <th (click)="sortData('fullName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Full Name <span [ngClass]="{'down': sortBy === -1 && sortKey === 'fullName', 'up': sortBy === 1 && sortKey === 'fullName'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell> {{ element.fullName ? element.fullName : '-' }} </td>
+                </ng-container>
+                <!-- fullName Column -->
+
+                <!-- emailId Column -->
+                <ng-container matColumnDef="emailId">
+                    <th (click)="sortData('email', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Email Id <span [ngClass]="{'down': sortBy === -1 && sortKey === 'email', 'up': sortBy === 1 && sortKey === 'email'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell style="text-transform: lowercase;">
+                        {{ element.email ? element.email : '-' }}
+                    </td>
+                </ng-container>
+                <!-- emailId Column -->
+
+                <!-- emailId Column -->
+                <ng-container matColumnDef="role">
+                    <th (click)="sortData('userRole', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header
+                        style="min-width: 220px">
+                        <div class="d-flex align-items-center text-left" style="min-width: 220px">
+                            Role <span [ngClass]="{'down': sortBy === -1 && sortKey === 'userRole', 'up': sortBy === 1 && sortKey === 'userRole'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                        {{ element.userRole ? element.userRole : '-' }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="departmentName">
+                    <th (click)="sortData('departmentData.departmentTitle', sortBy)" *matHeaderCellDef mat-header-cell
+                        mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Department <span [ngClass]="{'down': sortBy === -1 && sortKey === 'departmentData.departmentTitle', 'up': sortBy === 1 && sortKey === 'departmentData.departmentTitle'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                        {{ element.departmentName ? element.departmentName : '-' }}
+                    </td>
+                </ng-container>
+                <!-- emailId Column -->
+                <ng-container matColumnDef="totalLeaveBalance">
+                    <th (click)="sortData('totalLeaveBalance', sortBy)" *matHeaderCellDef mat-header-cell
+                        mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Total Leave Balance <span [ngClass]="{'down': sortBy === -1 && sortKey === 'totalLeaveBalance', 'up': sortBy === 1 && sortKey === 'totalLeaveBalance'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell style="text-transform: lowercase;">
+                        {{ element.totalLeaveBalance}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="totalTakenLeave">
+                    <th (click)="sortData('totalTakenLeave', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header style="min-width: 150px">
+                        <div class="d-flex align-items-center text-left">
+                            Total Taken Leave <span [ngClass]="{'down': sortBy === -1 && sortKey === 'totalTakenLeave', 'up': sortBy === 1 && sortKey === 'totalTakenLeave'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell style="text-transform: lowercase;">
+                        {{ element.totalTakenLeave}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="dob">
+                    <th (click)="sortData('dateOfBirth', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header style="min-width: 120px">
+                        <div class="d-flex align-items-center text-left">Date of Birth
+                            <span [ngClass]="{'down': sortBy === -1 && sortKey === 'dateOfBirth', 'up': sortBy === 1 && sortKey === 'dateOfBirth'}">
+                            </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                        {{ element.dateOfBirth ? (element.dateOfBirth | date:"dd/MM/YYYY" : '-') : '-' }}
+                    </td>
+                </ng-container>
+                <!-- dob Column -->
+
+                <!-- doj Column -->
+                <ng-container matColumnDef="doj">
+                    <th (click)="sortData('dateOfJoining', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header style="min-width: 120px">
+                        <div class="d-flex align-items-center text-left">
+                            Date of Join <span [ngClass]="{'down': sortBy === -1 && sortKey === 'dateOfJoining', 'up': sortBy === 1 && sortKey === 'dateOfJoining'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                        <!--            {{ element.dateOfJoining | date:"MM/dd/YYYY" }}-->
+                        {{ element.dateOfJoining ? (element.dateOfJoining | date:"dd/MM/YYYY" : '-') : '-' }}
+                    </td>
+                </ng-container>
+                <!-- doj Column -->
+
+                <!-- status Column -->
+                <ng-container matColumnDef="status">
+                    <th *matHeaderCellDef mat-header-cell>
+                        <div class="d-flex align-items-center text-left">
+                            Status
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell style="white-space: nowrap">
+                        <mat-slide-toggle (change)="updateActiveStatus(element.userId, element.status, $event)"
+                                          [checked]="element.status === 1"
+                                          class="button-switch"></mat-slide-toggle>
+                    </td>
+                </ng-container>
+                <!-- status Column -->
+
+                <!-- viewDetails Column -->
+                <!--        <ng-container matColumnDef="viewDetails">-->
+                <!--          <th *matHeaderCellDef mat-header-cell style="width: 130px;min-width: 130px;max-width: 130px;">View Details</th>-->
+                <!--          <td *matCellDef="let element" mat-cell style="white-space: nowrap; width: 130px;min-width: 130px;max-width: 130px;" >-->
+                <!--            <button (click)="userDetail(element.userId)" class="btn-style light-red-btn sm-btn">View Details</button>-->
+                <!--          </td>-->
+                <!--        </ng-container>-->
+                <!-- viewDetails Column -->
+
+                <!-- reportingManager Column -->
+                <ng-container matColumnDef="reportingManager">
+                    <th (click)="sortData('reportingManagerArr.fullName', sortBy)" *matHeaderCellDef mat-header-cell
+                        mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Reporting Manager <span
+                                [ngClass]="{'down': sortBy === -1 && sortKey === 'reportingManagerArr.fullName', 'up': sortBy === 1 && sortKey === 'reportingManagerArr.fullName'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" mat-cell>
+                        {{ element.reportingManagerName ? element.reportingManagerName : '-'  }}
+                    </td>
+                </ng-container>
+                <!-- reportingManager Column -->
+
+
+                <tr *matHeaderRowDef="userColumns;sticky:true" mat-header-row></tr>
+                <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: userColumns;" mat-row></tr>
+                <!-- Row shown when there is no matching data. -->
+                <tr *matNoDataRow class="mat-row">
+                    <td class="mat-cell text-center" colspan="10">Data Not Available</td>
+                </tr>
+            </table>
+        </div>
+        <!--    <mat-paginator-->
+        <!--      showFirstLastButtons-->
+        <!--      color="warn"-->
+        <!--      [length]="meta"-->
+        <!--      [pageSize]="perPage"-->
+        <!--      [pageIndex]="page"-->
+        <!--      [pageSizeOptions]="pageSizeOptions"-->
+        <!--      [hidePageSize]="false"-->
+        <!--      (page)="pageChange($event)"-->
+        <!--    ></mat-paginator>-->
+
+        <mat-paginator
+                (page)="pageChange($event)"
+                [length]="meta"
+                [pageIndex]="page"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageSize]="perPage"
+                aria-label="Select page of periodic elements"
+                showFirstLastButtons="true">
+        </mat-paginator>
+    </div>
+</section>
+

@@ -1,0 +1,33 @@
+//body, html {
+//  width: 100%;
+//
+//}
+//
+//.bg {
+//  background-image: url("../../assets/images/page-not-found.jpg");
+//  /* Full height */
+//  height: 80%;
+//
+//  /* Center and scale the image nicely */
+//  background-position: center;
+//  background-repeat: no-repeat;
+//  background-size: cover;
+//}
+.button-login{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color:white;
+  background-color:#fe5c58 ;
+  font-size: 48px;
+  padding: 20px;
+}
+.bg{
+  display: block;
+  margin: 0 auto;
+  max-width: fit-content;
+}
+.image{
+  height:600px; width:100%;
+
+}

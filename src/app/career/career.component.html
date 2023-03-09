@@ -1,0 +1,128 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"/>
+<section class="dashboard-content">
+	<div class="table-content box-style m-0 p-0">
+		<div class="table-heading box-style-breadcrumb p-4">
+			<a><h3 style="font-weight: 500; cursor: default">Career Management</h3></a>
+			<div class="search-form-wrapper">
+				<!-- <button class="btn-style red-bordered-btn" >View All</button> -->
+				<div class="search-form" style="background: #fff">
+					<span class="material-icons">search</span>
+					<input #searchString (keydown)="space($event)" (keyup)="applyFilter($event)" matInput
+					       placeholder="Search">
+					<span #clearString (click)="clearSearch($event)" *ngIf="isVisible"
+					      class="closeIcon material-icons">clear</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear
+			       style="width: 100%">
+				<!-- Action Column -->
+				<ng-container matColumnDef="action2">
+					<th *matHeaderCellDef mat-header-cell>
+						<div class=" th-header d-flex align-items-center text-left">
+							Action
+						</div>
+					</th>
+					<td *matCellDef="let element;index as i;" mat-cell>
+						<div class="hover-effect-menu">
+							<!--              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>-->
+							<span class="material-icons short-arrow">more_horiz</span>
+							<div class="hover-half-round-two">
+								<div class="quarter-circle">
+									<button
+											(click)="deleteItem(element.id, $event)"
+											class="material-icons mat-menu-item"
+											matTooltip="Delete"
+											matTooltipClass='tooltip-color'
+											tabindex="0">
+										delete
+									</button>
+									<button (click)="candidateDetail(element.id)"
+											class="material-icons mat-menu-item"
+											matTooltip="Detail"
+											matTooltipClass='tooltip-color'
+											tabindex="0">
+										web
+									</button>
+									<div class="quarter-circle-nested"></div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</ng-container>
+				<!-- Full Name Column -->
+				<ng-container matColumnDef="full_name">
+					<th *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class=" th-header d-flex align-items-center text-left">
+							Full Name
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{element.full_name}} </td>
+				</ng-container>
+				<!-- Email Column -->
+				<ng-container matColumnDef="email">
+					<th *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class=" th-header d-flex align-items-center text-left">
+							Email
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{element.email}} </td>
+				</ng-container>
+				<!-- Job Column -->
+				<ng-container matColumnDef="job">
+					<th *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class=" th-header d-flex align-items-center text-left">
+							Job
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{element.job}} </td>
+				</ng-container>
+				<!-- Lead Generation Date Column -->
+				<ng-container matColumnDef="contact_no">
+					<th *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class=" th-header d-flex align-items-center text-left">
+							Contact Number
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{element.contact_no}} </td>
+				</ng-container>
+				<!-- Experience Column -->
+				<ng-container matColumnDef="experience">
+					<th *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class=" th-header d-flex align-items-center text-left">
+							Experience
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{element.experience}} </td>
+				</ng-container>
+				
+				<tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
+				<tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+				<!-- Row shown when there is no matching data. -->
+				<tr *matNoDataRow class="mat-row">
+					<td class="mat-cell text-center" colspan="6">Data Not Available</td>
+				</tr>
+			</table>
+		</div>
+		<!--    <mat-paginator-->
+		<!--      showFirstLastButtons-->
+		<!--      [length]="meta?.total"-->
+		<!--      [pageSize]="perPage"-->
+		<!--      [pageIndex]="currentPage"-->
+		<!--      [pageSizeOptions]="pageSizeOptions"-->
+		<!--      [hidePageSize]="false"-->
+		<!--      (page)="pageChange($event)"></mat-paginator>-->
+		
+		<mat-paginator
+				(page)="pageChange($event)"
+				[length]="meta"
+				[pageSizeOptions]="pageSizeOptions"
+				[pageSize]="perPage"
+				aria-label="Select page of periodic elements"
+				showFirstLastButtons
+				showFirstLastButtons="true">
+		</mat-paginator>
+	</div>
+</section>

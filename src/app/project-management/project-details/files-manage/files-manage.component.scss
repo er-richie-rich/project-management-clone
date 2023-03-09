@@ -1,0 +1,80 @@
+.mat-sort-header-content {
+  text-align: left !important;
+}
+
+mat-select-trigger {
+  text-transform: capitalize !important;
+}
+
+.menuIcon {
+  font-size: 38px;
+}
+
+.menuStyle {
+  padding: 5px 10px !important;
+}
+
+.topRightMenu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  span {
+    width: 30px;
+  }
+}
+
+$size: 65px;
+.pdf-viewer {
+  height: 500px;
+  width: 100%;
+}
+.hover-effect-menu:hover button.mat-menu-item:first-child {
+  left: 10px;
+  top: 25px;
+  transition-delay: .3s
+}
+
+.hover-effect-menu:hover button.mat-menu-item:nth-child(2) {
+  left: 48px;
+  top: 60px;
+  transition-delay: .4s
+}
+
+.hover-effect-menu:hover button.mat-menu-item:nth-child(3) {
+  left: 45px;
+  top: 115px;
+  transition-delay: .4s
+}
+
+.hover-effect-menu:hover button.mat-menu-item:nth-child(4) {
+  left: 10px;
+  top: 150px;
+  transition-delay: .4s
+}
+/*.hover-half-round-three button {
+  background: none;
+  position: absolute;
+  left: -15px;
+  top: -10px;
+  font-size: 25px;
+  color: #fff;
+
+  &:hover {
+    color: #F8FF59;
+  }
+}
+
+.hover-half-round-three button:nth-child(2) {
+  left: 13px;
+  top: 13px;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+  animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+}
+
+.hover-half-round-three button:nth-child(3) {
+  left: 38px;
+  top: 38px;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+  animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+}*/

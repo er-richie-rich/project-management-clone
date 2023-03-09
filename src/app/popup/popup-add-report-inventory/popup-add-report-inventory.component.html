@@ -1,0 +1,39 @@
+<form [formGroup]="reportForm" class="popup-content text-center" novalidate>
+    <div class="popup-header">
+        Add Report <span (click)="onNoClick(false)" class="material-icons">close</span>
+    </div>
+    <div class="popup-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                        <mat-label>Inventory Type</mat-label>
+                        <mat-select formControlName="inventoryType" required>
+                            <mat-option *ngFor="let inventory of inventories" [value]="inventory.value">
+                                {{inventory.value}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="reportForm.controls.inventoryType.errors?.required">
+                            Please select Inventory type!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                        <mat-label>Report Description</mat-label>
+                        <textarea (keydown)="space($event)"  formControlName="message" matInput name="message" required type="text"></textarea>
+                        <mat-error *ngIf="reportForm.controls.message.errors?.required">
+                            Description is required!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup-footer">
+        <div class="btn-wrapper justify-content-between">
+            <button (click)="onNoClick(false)" class="btn-style sm-btn black-btn" mat-button>Cancel</button>
+            <button (click)="addLeave()" class="btn-style sm-btn red-btn" mat-button type="submit">Add</button>
+        </div>
+    </div>
+</form>

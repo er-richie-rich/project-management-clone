@@ -1,0 +1,16 @@
+<div class="popup-content text-center overflow-hidden">
+  <div class="popup-header">
+    Status Update <span (click)="onNoClick(false)" class="material-icons">close</span>
+  </div>
+  <div class="popup-body">
+    <img [hidden]="data.key !== 'resolve'" alt="delete icon" src="assets/images/resolve.png"/>
+    <img  [hidden]="data.key === 'resolve'" alt="delete icon" src="assets/images/edit.svg"/>
+    <p>{{data.message}}</p>
+  </div>
+  <div class="popup-footer">
+    <div class="btn-wrapper justify-content-between" mat-dialog-actions>
+      <button (click)="onNoClick(true)" class="btn-style sm-btn red-btn" mat-button>Confirm</button>
+      <button (click)="onNoClick(false)" class="btn-style sm-btn" mat-button>Cancel</button>
+    </div>
+  </div>
+</div>

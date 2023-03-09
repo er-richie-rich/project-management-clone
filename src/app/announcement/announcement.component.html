@@ -1,0 +1,107 @@
+<section class="dashboard-content">
+	<div class="box-style-breadcrumb p-4 actions">
+		<!--BreadCrumb-->
+		<ul class="breadcrumb">
+			<li><a class="active" style="color: black; font-weight: 500">Announcement</a></li>
+<!--			<li>Announcement</li>-->
+		</ul>
+		<div>
+			<button class="btn-style red-btn" form="ngForm" type="submit">Broadcast</button>
+		</div>
+		<!--BreadCrumb-->
+	</div>
+	<form (ngSubmit)="onBroadcast()" [formGroup]="annoucementForm" class="w-100" id="ngForm" name="annoucementForm"
+	      novalidate>
+		<div class="box-style-breadcrumb mt-4 p-5">
+			<div class="form-main">
+				<div class="form-row-wrapper">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Title</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="title" matInput
+										   maxlength="150" name="title" required type="text"/>
+									<mat-error
+											*ngIf="(newAnnouncementFormControl.title.touched || submitted ) && newAnnouncementFormControl.title.errors?.required ">
+										Title is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div appearance="outline" class="element-full-width">
+								<mat-label style="font-size: 16px;margin-bottom: 8px;display: block;"><strong>Description</strong>
+								</mat-label>
+								<angular-editor (keydown)="space($event)" [config]="config" class="editor-custom" formControlName="description"
+												 id="ngEditor" required></angular-editor>
+								<mat-error
+										*ngIf="((newAnnouncementFormControl.description.touched) || submitted ) && newAnnouncementFormControl.description.errors?.required ">
+									Message is required!
+								</mat-error>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<div class="form-footer box-style-breadcrumb mt-3 p-3">
+			<button class="btn-style red-btn" type="submit">Broadcast</button>
+		</div>-->
+	
+	</form>
+	<!--  </div>-->
+</section>
+
+
+<!--
+<section class="dashboard-content">
+  <form #myform="ngForm" (ngSubmit)="onBroadcast()" [formGroup]="annoucementForm" class="w-100" name="annoucementForm" novalidate>
+    <div class="form-content-box box-style">
+      <div class="form-top">
+        <ul class="breadcrumb">
+          <li class="pointer-event" routerLink="/hr-dashboard">
+            Dashboard
+          </li>
+          <li>Announcement</li>
+        </ul>
+      </div>
+      <div class="form-main">
+        <div class="form-row-wrapper">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-field">
+                <mat-form-field appearance="outline" class="element-full-width">
+                  <mat-label>Title</mat-label>
+                  <input formControlName="title" matInput maxlength="150" name="title" required type="text" (keydown)="space($event)"/>
+                  &lt;!&ndash;<mat-error *ngIf="annoucementForm.controls.title.errors?.required">
+                    Title is required!
+                  </mat-error>&ndash;&gt;
+                  <mat-error
+                    *ngIf="(newAnnouncementFormControl.title.touched ) && newAnnouncementFormControl.title.errors?.required ">
+                    Title is required!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div appearance="outline" class="element-full-width">
+                <mat-label style="font-size: 16px;margin-bottom: 8px;display: block;"><strong>Description</strong></mat-label>
+                <angular-editor [config]="editorConfig" class="editor-custom" formControlName="description"  required></angular-editor>
+                <mat-error
+                  *ngIf="(newAnnouncementFormControl.description.touched ) && newAnnouncementFormControl.description.errors?.required ">
+                  Message is required!
+                </mat-error>
+                {{ newAnnouncementFormControl.description.value  }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button class="btn-style red-btn" type="submit">Broadcast</button>
+      </div>
+    </div>
+  </form>
+</section>
+-->

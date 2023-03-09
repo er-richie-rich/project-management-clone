@@ -1,0 +1,20 @@
+<form [formGroup]="rejectLeaveForm" class="popup-content text-center" novalidate>
+  <div class="popup-header">
+    Reason For Rejection <span (click)="onNoClick(false)" class="material-icons">close</span>
+  </div>
+  <div class="popup-body">
+    <mat-form-field appearance="outline" class="element-full-width">
+      <mat-label>Enter Reason For Rejection</mat-label>
+      <textarea  (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="rejectReason" matInput name="rejectReason" required type="text"></textarea>
+      <mat-error *ngIf="rejectLeaveForm.controls.rejectReason.errors?.required">
+        Reason is required!
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="popup-footer">
+    <div class="btn-wrapper justify-content-between">
+      <button (click)="rejectLeave()" class="btn-style sm-btn red-btn" mat-button type="submit">Reject</button>
+      <button (click)="onNoClick(false)" class="btn-style sm-btn" mat-button>Cancel</button>
+    </div>
+  </div>
+</form>

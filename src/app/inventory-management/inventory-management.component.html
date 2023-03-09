@@ -1,0 +1,143 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0"
+      rel="stylesheet"/>
+<section class="dashboard-content">
+	<div class="table-content box-style m-0 p-0">
+		<div class="table-heading box-style-breadcrumb p-4">
+			<a><h3 style="font-weight: 500; cursor: default">Inventory Management</h3></a>
+			<div class="search-form-wrapper">
+				<!--Search-->
+				<div class="search-form">
+					<span class="material-icons">search</span>
+					<input #input #searchString (keyup)="applyFilter($event)" placeholder="Search" type="text">
+					<span #clearString (click)="clearSearch()" *ngIf="isVisible"
+					      class="closeIcon material-icons">clear</span>
+				</div>
+				<!--Search-->
+				<!--Add Inventory Button-->
+				<button class="btn-style red-btn"  routerLink="/inventory-management/add-edit-inventory/0"><span class="material-icons">add</span>Add Inventory</button>
+				<!--Add Inventory Button-->
+			</div>
+		</div>
+		<div>
+			<table [dataSource]="dataSource" mat-table matSort matSortDisableClear
+			       style="width: 100%">
+				<!--Action Column-->
+				<ng-container matColumnDef="action2">
+					<th *matHeaderCellDef class="th-header" mat-header-cell style="width: 5%">Action</th>
+					<td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
+						<div class="hover-effect-menu three-icon">
+							<span class="material-icons short-arrow">more_horiz</span>
+							<div class="hover-half-round-three">
+								<div class="quarter-circle">
+									<button (click)="editInventory(element.inventoryId)"
+									        class="material-icons mat-menu-item"
+									        matTooltip="Edit"
+									        matTooltipClass='tooltip-color'
+									        tabindex="0">
+										drive_file_rename_outline
+									</button>
+									<button (click)="deleteInventory(element.inventoryId)"
+											class="material-icons mat-menu-item"
+											matTooltip="Delete"
+											matTooltipClass='tooltip-color'
+											tabindex="0">
+										delete
+									</button>
+<!--									[routerLink]="[ 'view-lead', element.inventoryId]"-->
+									<button (click)="inventoryDetail(element.inventoryId)"
+											class="material-icons mat-menu-item"
+									        matTooltip="Detail"
+									        matTooltipClass='tooltip-color'
+									        tabindex="0">web
+									</button>
+									<div class="quarter-circle-nested"></div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</ng-container>
+				<!--Action Column-->
+				<!-- Employee Code Column -->
+				<!-- Employee Code Column -->
+				<!-- Employee Name Column -->
+				<ng-container matColumnDef="employeeName">
+					<th (click)="sortingData('userData.fullName', sortBy)"  *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class=" th-header d-flex align-items-center text-left">
+							Employee Name <span [ngClass]="{'down': sortBy === -1 && sortKey === 'userData.fullName', 'up': sortBy === 1 && sortKey === 'userData.fullName'}"></span>
+						</div>
+					</th>
+					<td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.empName}} </td>
+				</ng-container>
+				<!-- Employee Name Column -->
+				<!--SystemType Column-->
+				<ng-container matColumnDef="systemType">
+					<th *matHeaderCellDef mat-header-cell>
+						<div class="th-header d-flex align-items-center text-left">
+							System
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{element.systemType}} </td>
+				</ng-container>
+				<!--SystemType Column-->
+				<!-- System Column-->
+				<ng-container matColumnDef="system">
+					<th *matHeaderCellDef mat-header-cell >
+						<div class="th-header d-flex align-items-center text-left">
+							System Type
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{(element.pc)?element.pc:'-'}} </td>
+				</ng-container>
+				<!-- System Column -->
+				<!-- Operating System Column -->
+				<ng-container matColumnDef="os">
+					<th *matHeaderCellDef mat-header-cell >
+						<div class="th-header d-flex align-items-center text-left">
+							Operating System
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{element.os }} </td>
+				</ng-container>
+				<!-- Operating System Column -->
+				<!-- RAM Column -->
+				<ng-container matColumnDef="ram">
+					<th (click)="sortingData('ram', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class="th-header d-flex align-items-center text-left">
+							RAM <span [ngClass]="{'down': sortBy === -1 && sortKey === 'ram', 'up': sortBy === 1 && sortKey === 'ram'}"></span>
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell>{{element.ram}} </td>
+				</ng-container>
+				<!-- RAM Column -->
+				<!--  -->
+				<!--<ng-container matColumnDef="storage">
+					<th *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class="d-flex align-items-center text-left">
+							Storage
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{element.os }} </td>
+				</ng-container>-->
+				<!--  -->
+
+
+				<tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
+				<tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+				<!-- Row shown when there is no matching data. -->
+				<tr *matNoDataRow class="mat-row">
+					<td class="mat-cell text-center" colspan="10">Data Not Available</td>
+				</tr>
+			</table>
+		</div>
+		<mat-paginator
+				(page)="pageChange($event)"
+				[length]="meta"
+				[pageSizeOptions]="pageSizeOptions"
+				[pageSize]="perPage"
+				color="warn"
+				showFirstLastButtons
+		></mat-paginator>
+	</div>
+</section>

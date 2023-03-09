@@ -1,0 +1,41 @@
+// infnite scroller
+.search-results {
+  list-style: none;
+  margin: 0;
+  max-height: calc(100vh - 220px);
+  overflow: auto;
+  padding: 0;
+ }
+
+.hover-effect-menu:hover button.mat-menu-item:first-child {
+  left: 10px;
+  top: 25px;
+  transition-delay: .3s
+}
+
+.hover-effect-menu:hover button.mat-menu-item:nth-child(2) {
+  left: 42px;
+  top: 50px;
+  transition-delay: .4s
+}
+
+.hover-effect-menu:hover button.mat-menu-item:nth-child(3) {
+  left: 52px;
+  top: 90px;
+  transition-delay: .4s
+}
+
+.hover-effect-menu:hover button.mat-menu-item:nth-child(4) {
+  left: 38px;
+  top: 125px;
+  transition-delay: .4s
+}
+.hover-effect-menu:hover button.mat-menu-item:nth-child(5) {
+  left: 10px;
+  top: 150px;
+  transition-delay: .4s
+}
+
+.align-items-center{
+  font-size: 16px;
+}

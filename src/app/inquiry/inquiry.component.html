@@ -1,0 +1,157 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0"
+      rel="stylesheet"/>
+<section class="dashboard-content">
+  <div class="table-content box-style m-0 p-0">
+    <div class="table-heading box-style-breadcrumb p-4">
+	    <a><h3 style="font-weight: 500;cursor: default">Inquiry Management</h3></a>
+      <div class="search-form-wrapper">
+        <!-- <button class="btn-style red-bordered-btn" >View All</button> -->
+        <div class="search-form">
+          <span class="material-icons">search</span>
+          <input #searchString (keydown)="space($event)" (keyup)="applyFilter($event)" matInput placeholder="Search" type="text">
+          <span #clearString (click)="clearSearch($event)" *ngIf="isVisible"
+                class="closeIcon material-icons">clear</span>
+        </div>
+        <!--Add Lead Button-->
+        <button [matMenuTriggerFor]="menu" class="btn-style red-btn menuStyle ms-2">
+          <span class="material-icons menuIcon">more_horiz</span>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="deleteRow()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+            <span class="material-icons">delete</span>
+            Delete Inquiry
+          </button>
+          <button (click)="importInquiryData()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+            <span class="material-icons">cloud_download</span>
+            Import Inquiry
+          </button>
+          <!--          <button mat-menu-item class="d-flex align-items-center topRightMenu" (click)="downloadSampleFile()">-->
+          <!--           <span class="material-symbols-outlined">file_download</span>-->
+          <!--            Download Sample File-->
+          <!--          </button>-->
+          <button (click)="exportAllLeads()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+            <span class="material-icons">exit_to_app</span>
+            Export Inquiry
+          </button>
+        </mat-menu>
+        <!--Add Lead Button-->
+      </div>
+    </div>
+    <div>
+      <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear
+             style="width: 100%">
+        <!--Select All Checkbox-->
+        <ng-container matColumnDef="selectall">
+          <th *matHeaderCellDef mat-header-cell style="width: 2%">
+            <mat-checkbox (change)="$event ? masterToggle($event) : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [disabled]="isDisabled"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td *matCellDef="let element;index as i;" mat-cell>
+            <mat-checkbox (change)="$event ? selection.toggle(element) : null" (click)="$event.stopPropagation()"
+                          [checked]="selection.isSelected(element)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <!--Select All Checkbox-->
+        <!--Action Column-->
+        <ng-container matColumnDef="action2">
+          <th *matHeaderCellDef class="th-header" mat-header-cell>Action</th>
+          <td *matCellDef="let element;index as i;" mat-cell>
+            <div class="hover-effect-menu">
+              <!--              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>-->
+              <span class="material-icons short-arrow">more_horiz</span>
+              <div class="hover-half-round-two">
+                <div class="quarter-circle">
+                  <button
+                    (click)="deleteItem(element.id)"
+                    class="material-icons mat-menu-item mat-menu-delete"
+                    matTooltip="Delete"
+                    matTooltipClass='tooltip-color'
+                    tabindex="0">
+                    delete
+                  </button>
+                  <button (click)="inquiryDetail(element.id)" class="material-icons mat-menu-item mat-menu-web"
+                          matTooltip="Detail"
+                          matTooltipClass='tooltip-color'
+                          tabindex="0">web
+                  </button>
+                  <div class="quarter-circle-nested"></div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <!--Action Column-->
+        <!-- Service Type Column -->
+        <ng-container matColumnDef="service_type">
+          <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
+            <div class=" th-header d-flex align-items-center text-left">
+              Service Type
+            </div>
+          </th>
+          <td *matCellDef="let element;index as i;" mat-cell>{{element.service_type}} </td>
+        </ng-container>
+        <!-- Full Name Column -->
+        <ng-container matColumnDef="full_name">
+          <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
+            <div class=" th-header d-flex align-items-center text-left">
+              Full Name
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell> {{element.full_name}} </td>
+        </ng-container>
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
+            <div class=" th-header d-flex align-items-center text-left">
+              Email
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{element.email}} </td>
+
+        </ng-container>
+        <!-- Lead Generation Date Column -->
+        <ng-container matColumnDef="contact_no">
+          <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
+            <div class=" th-header d-flex align-items-center text-left">
+              Contact Number
+            </div>
+          </th>
+          <td *matCellDef="let element" mat-cell> {{element.contact_no}} </td>
+        </ng-container>
+        <!-- Lead Generation By Column -->
+        <ng-container matColumnDef="additionalInfo">
+          <th *matHeaderCellDef class="th-header" mat-header-cell>Additional Info</th>
+          <td *matCellDef="let element" mat-cell> {{element.additional_info}} </td>
+        </ng-container>
+        <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        <!-- Row shown when there is no matching data. -->
+        <tr *matNoDataRow class="mat-row">
+          <td class="mat-cell text-center" colspan="6">Data Not Available</td>
+        </tr>
+      </table>
+    </div>
+<!--    <mat-paginator-->
+<!--      showFirstLastButtons-->
+<!--      [length]="meta?.total"-->
+<!--      [pageSize]="perPage"-->
+<!--      [pageIndex]="currentPage"-->
+<!--      [pageSizeOptions]="pageSizeOptions"-->
+<!--      [hidePageSize]="false"-->
+<!--      (page)="pageChange($event)"></mat-paginator>-->
+    <mat-paginator
+            (page)="pageChange($event)"
+            [length]="meta"
+            [pageSizeOptions]="pageSizeOptions"
+            [pageSize]="perPage"
+            aria-label="Select page of periodic elements"
+            showFirstLastButtons="true">
+    </mat-paginator>
+  </div>
+</section>

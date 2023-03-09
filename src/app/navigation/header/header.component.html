@@ -1,0 +1,40 @@
+<mat-toolbar class="main-header justify-content-between" color="primary">
+  <div class="menu-icon d-flex align-items-center">
+    <div>
+      <button (click)="callSidemenuCollapse()" class="sidemenu-collapse" mat-icon-button>
+        <mat-icon class="menu-icon">menu</mat-icon>
+      </button>
+    </div>
+<!--    <div *ngIf="title === 'IMPORTANT DOCUMENT'" class="page-title">
+      DOCUMENT MANAGEMENT
+    </div>-->
+    <div class="page-title">
+      {{title}}
+    </div>
+    <!-- <div class="search-form-wrapper">
+     <div class="search-form">
+        <span class="material-icons">search</span>
+        <input  placeholder="Search" />
+      </div>
+</div>-->
+  </div>
+
+  <div class="user-menu">
+    <button [matMenuTriggerFor]="usermenu" mat-button>
+      <span class="user-profile-info">
+        <span *ngIf="profile_img" [style.background-image]="'url(' + profile_img + ')'" class="user-profile-img"></span>
+        <span *ngIf="!profile_img" [style.background-image]="'url(' + url + ')'" class="user-profile-img"></span>
+        {{nameOfUser}}<span class="material-icons">expand_more</span>
+      </span>
+    </button>
+    <mat-menu #usermenu="matMenu" class="profile-dropdown">
+      <button class="d-flex align-items-center" mat-menu-item routerLink="/my-account/my-profile">
+        <span class="material-icons">person_outline</span>My Account
+      </button>
+      <button (click)="logOUT()" class="d-flex align-items-center" mat-menu-item type="button">
+        <span class="material-icons">logout</span>Logout
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+

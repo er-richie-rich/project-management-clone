@@ -1,0 +1,146 @@
+.task-manage-wrap {
+  word-break: break-all;
+  display: flex;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.task-column {
+  max-width: 425px;
+  min-width: 425px;
+  padding-right: 25px;
+  width: 425px;
+  word-break: break-all;
+  .task-card {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px rgb(0 0 0 / 10%);
+    padding-bottom: 20px;
+    .task-head {
+      align-items: center;
+      cursor: all-scroll;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 15px 0px 15px;
+      h3 {
+        color: #000000;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0px;
+      }
+    }
+    .filter-list {
+      margin: 0px;
+    }
+  }
+}
+
+.action-icon .material-icons {
+  font-size: 34px;
+  line-height: initial;
+}
+
+.task-card-wrapper {
+  font-size: 18px;
+  padding: 20px 10px 10px;
+  word-break: break-all;
+}
+.task-sub-card {
+  background: #F5F6F8;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 0px rgb(0 0 0 / 25%);
+  color: #5B5B5B;
+  cursor: all-scroll;
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding: 25px 15px;
+  position: relative;
+  word-break: break-all;
+}
+
+
+.add-card {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10px;
+  padding: 0px 10px;
+    a {
+      color: inherit;
+    }
+  }
+
+button.mat-menu-item {
+  align-items: center;
+  display: flex;
+  .material-icons {
+    font-size: 20px;
+    margin-right: 6px;
+  }
+}
+
+.task-sub-card {
+  .more-dropown {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    .action-icon {
+      .material-icons {
+        font-size: 26px;
+      }
+    }
+    .mat-menu-trigger {
+      opacity: 0;
+    }
+  }
+  &:hover{
+    .more-dropown {
+      .mat-menu-trigger{
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// .task-sub-wrap{
+//   &.cdk-drag-preview {
+//     .task-sub-card{
+//       transform: rotate(5deg);
+//     }
+//   }
+//   &.cdk-drag-placeholder {
+//     .task-sub-card {
+//       color: #ededed;
+//       background: #ededed;
+//     }
+//   }
+// }
+
+.cdk-drag-placeholder {
+  background-color: #eeeeee;
+  border-radius: 10px;
+}
+
+.cdk-drag-placeholder > div {
+  visibility: hidden;
+}
+
+.cdk-drag-preview > div {
+  transform: rotate(2deg);
+}
+.wordBreak{
+  word-break: break-all;
+}
+
+.task-sub-card[_ngcontent-ofe-c217] {
+  background: #F5F6F8;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 0px rgb(0 0 0 / 25%);
+  color: #5B5B5B;
+  cursor: all-scroll;
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding: 25px 15px;
+  position: relative;
+
+}

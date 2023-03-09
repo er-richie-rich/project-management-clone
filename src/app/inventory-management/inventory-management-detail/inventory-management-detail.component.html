@@ -1,0 +1,152 @@
+<section class="dashboard-content">
+    <div class="box-style-breadcrumb p-4">
+        <div class="form-top d-flex justify-content-between align-items-center">
+            <ul class="breadcrumb">
+                <!--BreadCrumb-->
+                <ul class="breadcrumb">
+	                <li><a (click)="backToInventoryList()" style="color: black; font-weight: 500">Inventory Management</a></li>
+	                <li *ngIf="inventoryData?.empName" class="active" style="color: black; font-weight: 500">{{inventoryData?.empName}}</li>
+                    <!--<li class="pointer-event" routerLink="/inventory-management">Inventory Management</li>
+                    <li></li>-->
+                </ul>
+                <!--BreadCrumb-->
+            </ul>
+            <div class="btn-wrapper btn-wrapper-width">
+                <button class="btn-style red-btn" routerLink="/inventory-management/add-edit-inventory/{{_inventoryId}}">
+                    Edit
+                </button>
+                <button (click)="deleteInventory()"  class="btn-style red-btn">Delete</button>
+                <button (click)="backToInventoryList()" class="btn-style black-btn">Back</button>
+            </div>
+        </div>
+    </div>
+    <div class="box-style-breadcrumb mt-4 p-5">
+        <!--Card-->
+        <div class="leadBox bg-gray mt-3">
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Employee Code</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.empCode)?inventoryData.empCode:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Employee Name</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.empName)?inventoryData.empName:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">System Type</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.systemType)?inventoryData.systemType:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">PC</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.pc)?inventoryData.pc:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">OS</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.os)?inventoryData.os:"-" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Ram Size</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.ram)?inventoryData.ram:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="leadBox mt-2">
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Storage Type</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.storageType)?inventoryData.storageType:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">SSD size</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.ssdSize)?inventoryData.ssdSize:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">HDD size</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.hddSize)?inventoryData.hddSize:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Lcd/Led</span>
+                            <div class="text-weight mt-2 field">{{(inventoryData?.lcdAndLed)?inventoryData.lcdAndLed:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Keyboard And Mouse</span>
+                            <div class="text-weight mt-2 field">{{ (inventoryData?.keyboardAndMouse)?inventoryData.keyboardAndMouse:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Headphone</span>
+                            <div class="text-weight mt-2 field">{{inventoryData?.headphone ? 'Yes' : 'No'}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Card-->
+    </div>
+</section>

@@ -1,0 +1,257 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4 actions">
+    <!--BreadCrumb-->
+    <ul class="breadcrumb">
+      <li><a (click)="backToLead()" style="color: black; font-weight: 500">Lead Management</a></li>
+      <li class="active" style="color: black; font-weight: 500">{{title}} Lead</li>
+      <!--<li class="pointer-event" routerLink="/sales-management">Lead Management</li>
+      <li>{{title}} Lead</li>-->
+    </ul>
+    <div >
+      <button class="btn-style red-btn" form="ngForm" type="submit" >Save</button>
+      <button (click)="backToLead()" class="btn-style black-btn">Back</button>
+    </div>
+    <!--BreadCrumb-->
+  </div>
+  <!--<div class="mt-4" color="warn">
+    <div class="box-style-breadcrumb mt-4 p-5">-->
+  <!--Card-->
+  <form (ngSubmit)="onSubmit($event)" [formGroup]="addNewLeadForm" action="" id="ngForm" name="addNewLeadForm">
+    <div class="box-style-breadcrumb mt-4 p-5">
+      <div class="form-main">
+        <div class="page-name">
+          <h2>{{title}} Lead</h2>
+          <div class="requiredField"><span>*</span> Indicates a required field</div>
+        </div>
+        <div class="form-row-wrapper">
+          <div class="customGrid">
+            <!-- ---------------------------------------------------Lead Title--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Lead Title</mat-label>
+                <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="leadTitle" matInput name="leadTitle" required type="text" />
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.leadTitle.touched || submitted) && addNewLeadFormControl.leadTitle.errors?.required">
+                  Lead Title is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Lead Title--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Lead Generation Date--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Lead Generated Date</mat-label>
+                <input (click)="picker.open();" (keyup)="helper.spaceTrim($event)" [(ngModel)]="myDate" [matDatepicker]="picker" autocomplete="off"
+                       formControlName="leadGenerationDate" matInput name="leadGenerationDate" required type="text" />
+                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.leadGenerationDate.touched || submitted) && addNewLeadFormControl.leadGenerationDate.errors?.required">
+                  Lead generation date is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Lead Generation Date--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Lead Type--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Lead Type</mat-label>
+                <mat-select (selectionChange)="changeSource()" [(ngModel)]="optionValue" formControlName="leadType" required>
+                  <mat-option value="Inbound">Inbound</mat-option>
+                  <mat-option value="Outbound">Outbound</mat-option>
+                </mat-select>
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.leadType.touched || submitted) && addNewLeadFormControl.leadType.errors?.required">
+                  Lead type is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Lead Type--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Lead Source--------------------------------------------------- -->
+            <div *ngIf="optionValue === 'Inbound'" class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Lead Source</mat-label>
+                <mat-select [(value)]="leadSource" formControlName="leadSource" required>
+                  <mat-option value="Website">Website</mat-option>
+                  <mat-option value="Dribble">Dribble</mat-option>
+                  <mat-option value="Email">Email</mat-option>
+                  <mat-option value="Reference">Reference</mat-option>
+                  <mat-option value="Others">Others</mat-option>
+                </mat-select>
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.leadSource?.touched || submitted) && addNewLeadFormControl.leadSource?.errors?.required">
+                  Lead Source is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div *ngIf="optionValue === 'Outbound'" class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Lead Source</mat-label>
+                <mat-select [(value)]="leadSource" formControlName="leadSource" required>
+                  <mat-option value="LinkedIn">LinkedIn</mat-option>
+                  <mat-option value="Email Marketing">Email Marketing</mat-option>
+                  <mat-option value="Upwork">Upwork</mat-option>
+                  <mat-option value="Others">Others</mat-option>
+                </mat-select>
+                <!--                  {{addNewLeadFormControl.leadSource.errors | json }}-->
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.leadSource?.touched || submitted) && addNewLeadFormControl.leadSource?.errors?.required">
+                  Lead Source is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Lead Source--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Lead Source Others--------------------------------------------------- -->
+            <div *ngIf="leadSource === 'Others'" class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Others</mat-label>
+                <input (keyup)="helper.spaceTrim($event)" formControlName="other"  matInput name="other" required type="text"/>
+                <!--                  {{addNewLeadFormControl.other.errors | json }}-->
+                <mat-error *ngIf="(addNewLeadFormControl.other.touched || submitted)">
+                  <mat-error *ngIf="addNewLeadFormControl.other.errors?.required">Others is required!</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Lead Source Others--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Lead Generated By--------------------------------------------------- -->
+            <div *ngIf="optionValue !== 'Inbound' && roleName !== 'BUSINESSDEVELOPMENTEXECUTIVE'" class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Lead Generated By</mat-label>
+                <mat-select [(value)]="leadGeneratedBy"  formControlName="leadGeneratedBy" required>
+                  <mat-option *ngFor="let person of lead_generated_by; index as i;"
+                              [value]="person.salesPersonId">
+                    {{person.fullName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="addNewLeadFormControl.leadGeneratedBy.errors?.required">
+                  Lead generated by field is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Lead Generated By--------------------------------------------------- -->
+            <!-- ---------------------------------------------------LinkedIn Profile URL--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>LinkedIn Profile URL</mat-label>
+                <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="linkedinProfileUrl" matInput name="linkedInProfileUrl" type="url" url/>
+                <mat-error *ngIf="addNewLeadFormControl.linkedinProfileUrl.errors">
+                  Please enter valid profile link
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------LinkedIn Profile URL--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Reviewed By--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Managed By</mat-label>
+                <!--                <mat-select formControlName="reviewedBy" name="reviewedBy"  required>-->
+                <mat-select formControlName="managedBy" name="managedBy"  required>
+                  <mat-option *ngFor="let person of salesPerson; index as i;" [value]="person.salesPersonId">
+                    {{person.fullName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.managedBy.touched || submitted) && addNewLeadFormControl.managedBy.errors?.required">
+                  Managed by is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Reviewed By--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Lead Status--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Status</mat-label>
+                <mat-select [(value)]="leadStatus"  formControlName="leadStatus" required>
+                  <mat-option value="open">Open</mat-option>
+                  <mat-option value="on hold" >On Hold</mat-option>
+                  <mat-option value="scope sent">Scope Sent</mat-option>
+                  <mat-option value="proposal sent" >Proposal Sent</mat-option>
+                  <mat-option value="invoice sent" >Invoice Sent</mat-option>
+                  <mat-option value="won">Won</mat-option>
+                  <mat-option value="lost">Lost</mat-option>
+                </mat-select>
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.leadStatus?.touched || submitted) && addNewLeadFormControl.leadStatus?.errors?.required">
+                  Status is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Lead Status--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Client Name--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Client Name</mat-label>
+                <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="clientName" matInput name="clientName" required type="text" />
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.clientName.touched || submitted) && addNewLeadFormControl.clientName.errors?.required">
+                  Client Name is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Client Name--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Client Email--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Client Email Address</mat-label>
+                <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="email" matInput name="email" required type="text" />
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.email.touched || submitted) && addNewLeadFormControl.email.errors?.required">
+                  Client email address is required!
+                </mat-error>
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.email.touched || submitted) && addNewLeadFormControl.email.errors?.email">
+                  Please enter a valid Email Address.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Client Email--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Client Country--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Client Country</mat-label>
+                <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="clientCountry" matInput name="clientCountry" required type="text" />
+                <mat-error
+                        *ngIf="(addNewLeadFormControl.clientCountry.touched || submitted) && addNewLeadFormControl.clientCountry.errors?.required">
+                  Client country is required!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Client Country--------------------------------------------------- -->
+            <!-- ---------------------------------------------------Client Phone Number--------------------------------------------------- -->
+            <div class="form-field">
+              <mat-form-field appearance="outline" class="element-full-width">
+                <mat-label>Client Phone Number</mat-label>
+                <input (keydown)="space($event)" (keypress)="keyPress($event)" (keyup)="helper.spaceTrim($event)" formControlName="clientPhoneNumber" matInput maxlength="10" minlength="10"  name="clientPhoneNumber" type="text" />
+              </mat-form-field>
+            </div>
+            <!-- ---------------------------------------------------Client Phone Number--------------------------------------------------- -->
+            <!-----------------------------------------------------Additional Comments----------------------------------------------------->
+            <mat-form-field appearance="outline" class="element-full-width">
+              <mat-label>Additional Comments</mat-label>
+              <textarea (keydown)="space($event)" formControlName="additionalNotes" matInput  name="additionalNotes" placeholder="Enter Additional Comments..."></textarea>
+            </mat-form-field>
+            <!-----------------------------------------------------Additional Comments----------------------------------------------------->
+          </div>
+
+          <!--          1. Lead Count issue for super admin-->
+          <!--          2. Lead alraedy exist message should be display if the lead title and client name is same-->
+          <!--          3. Lead Source -> Other-->
+          <!--          4. Lead Status -> On Hold, Scope Sent, Proposal Sent, Won (Closed) and Lost (Scrapped)-->
+          <!--          5. Add /Edit  new lead -> LinkedIn profile URL, Client's phone number,  Additional comments-->
+          <!--          6. Remove the lead from the hot list if it's won or lost-->
+          <!--          7. Add all the status boxes on dashboard-->
+          <!--          8. Lead Notes-->
+          <!--          9. Imort leads-->
+
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-footer box-style-breadcrumb mt-3 p-3">
+       <button class="btn-style red-btn" type="submit" (click)="onSubmit($event)">Save</button>
+       <button (click)="goBack()" class="btn-style black-btn">Back</button>
+     </div>-->
+  </form>
+  <!--Card-->
+  <!--    </div>-->
+  <!--  </div>-->
+</section>

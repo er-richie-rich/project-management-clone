@@ -1,0 +1,285 @@
+<div class="main-side-nav">
+  <mat-toolbar class="dashboard-logo">
+    <!-- <h1>M<span class="hideon">ulti</span> <span class="font300">Q<span class="hideon">os</span></span></h1> -->
+    <h1 style="height: 100%;"><img alt="icon" src="assets/images/loginLogo.svg" style="max-height: 100%;"/></h1>
+  </mat-toolbar>
+  <ul (mouseenter)="mouseHover()" (mouseleave)="mouseOut()" class="side-nav">
+    <!--<li
+      *ngIf="roleName === 'HRMANAGERS'">
+      <a class="link-menu" routerLink="/hr-dashboard" routerLinkActive="active-link">
+        <span class="material-icons ">dashboard</span>
+        <span class="nav-caption">Dashboard</span>
+      </a>
+    </li>
+    <li
+      *ngIf="roleName === 'HRMANAGERS'">
+      <a class="link-menu" routerLink="/employee-management" routerLinkActive="active-link">
+        <span class="material-icons ">manage_accounts</span><span class="nav-caption">Employee Management</span>
+      </a>
+    </li>-->
+
+    <li *ngIf="roleName === 'HRMANAGERS' ">
+      <div mat-list-item>
+        <a class="link-menu" routerLink="/hr-dashboard" routerLinkActive="active-link">
+          <span class="material-icons ">dashboard</span><span class="nav-caption">Dashboard</span>
+        </a>
+      </div>
+    </li>
+    <li *ngIf="roleName === 'HRMANAGERS'">
+      <div mat-list-item>
+        <a class="link-menu" routerLink="/employee-management" routerLinkActive="active-link">
+          <span class="material-icons ">reduce_capacity</span><span class="nav-caption">Employee Management</span>
+        </a>
+      </div>
+    </li>
+
+    <li *ngIf="roleName === 'HRMANAGERS'">
+      <div mat-list-item>
+        <a class="link-menu" routerLink="/document-management" routerLinkActive="active-link">
+          <span class="material-icons ">description</span><span class="nav-caption">Document Management</span>
+        </a>
+      </div>
+    </li>
+
+        <li>
+          <div *ngIf="roleName === 'HRMANAGERS'" mat-list-item>
+            <a class="link-menu" routerLink="/announcement" routerLinkActive="active-link">
+              <span class="material-icons ">description</span><span class="nav-caption">Announcement</span>
+            </a>
+          </div>
+        </li>
+
+    <li
+      *ngIf="roleName === 'SUPERADMINS' ||  roleName === 'SALESMANAGERS' || roleName === 'BUSINESSDEVELOPMENTMANAGER' || roleName === 'BUSINESSDEVELOPMENTEXECUTIVE' || roleName === 'PROJECTMANAGERS' || roleName === 'NETWORKENGINEER' || roleName === 'TEAMLEADERS' || roleName === 'TEAMMEMBERS'">
+      <a class="link-menu" routerLink="/dashboard" routerLinkActive="active-link">
+        <span class="material-icons ">dashboard</span>
+        <span class="nav-caption">Dashboard</span>
+      </a>
+    </li>
+
+
+    <li *ngIf="roleName === 'SUPERADMINS'">
+      <a class="link-menu" routerLink="/user-management" routerLinkActive="active-link">
+        <span class="material-icons ">manage_accounts</span><span class="nav-caption">User Management</span>
+      </a>
+    </li>
+    <li
+      *ngIf="roleName === 'SUPERADMINS' ||  roleName === 'SALESMANAGERS' || roleName === 'BUSINESSDEVELOPMENTMANAGER' || roleName === 'BUSINESSDEVELOPMENTEXECUTIVE'">
+      <a class="link-menu" routerLink="/sales-management" routerLinkActive="active-link">
+        <span class="material-icons ">point_of_sale</span><span class="nav-caption">Lead Management</span>
+      </a>
+    </li>
+    <li *ngIf="roleName === 'SUPERADMINS'">
+      <a class="link-menu" routerLink="/inquiry" routerLinkActive="active-link">
+        <span class="material-icons ">app_registration</span><span class="nav-caption">Inquiry Management</span>
+      </a>
+    </li>
+    <li *ngIf="roleName === 'SUPERADMINS'">
+      <a class="link-menu" routerLink="/career" routerLinkActive="active-link">
+        <span class="material-icons ">work</span><span
+        class="nav-caption">Career Management</span>
+      </a>
+    </li>
+    <li *ngIf="roleName === 'SUPERADMINS' || roleName === 'PROJECTMANAGERS' ">
+      <a class="link-menu" routerLink="/project-management" routerLinkActive="active-link">
+        <span class="material-icons ">task</span><span
+        class="nav-caption">Project Management</span>
+      </a>
+    </li>
+        <li *ngIf="roleName !== 'HRMANAGERS'">
+          <div mat-list-item>
+            <a class="link-menu" routerLink="/important-document" routerLinkActive="active-link">
+              <span class="material-icons">description</span><span *ngIf="roleName === 'SUPERADMINS'" class="nav-caption">Document Management</span><span *ngIf="roleName !== 'SUPERADMINS'" class="nav-caption">Important Documents</span>
+            </a>
+          </div>
+        </li>
+
+        <!--Department management-->
+      <li *ngIf="roleName === 'SUPERADMINS'">
+          <a class="link-menu" routerLink="/department-management" routerLinkActive="active-link">
+              <span class="material-icons ">view_quilt</span><span class="nav-caption">Department Management</span>
+          </a>
+      </li>
+      <!--Inventory Management -->
+      <li *ngIf="roleName === 'SUPERADMINS' || roleName === 'NETWORKENGINEER' ">
+          <a class="link-menu" routerLink="/inventory-management" routerLinkActive="active-link">
+              <span class="material-icons ">inventory</span><span class="nav-caption">Inventory Management</span>
+          </a>
+      </li>
+      <!--Inventory Management -->
+      <li *ngIf="roleName !== 'SUPERADMINS'">
+          <a class="link-menu" routerLink="/ticket-management" routerLinkActive="active-link">
+              <span class="material-icons ">line_style</span><span class="nav-caption">Ticket Management</span>
+              <span *ngIf="unReadTicketCount > 0" class="sidenav-notify">
+                  {{unReadTicketCount}}
+              </span>
+          </a>
+      </li>
+
+
+    <!--Inventory-Report -Management-->
+    <!--<li *ngIf="roleName === 'NETWORKENGINEER' || roleName === 'SUPERADMINS' ">
+      <a class="link-menu"  routerLinkActive="active-link">
+        <span class="material-icons ">line_style</span>
+        <span (click)="showInventoryReportSubMenu()" class="nav-caption d-flex align-items-center" >Inventory Report Management <span class="material-icons  down-arrow1">arrow_drop_down</span></span>
+      </a>
+      <ul class="sub-menu2">
+        <li>
+          <a [routerLinkActiveOptions]="{exact:true}" class="link-menu" routerLink="/inventory-report-management" routerLinkActive="active-link"><span class="material-icons ">event_note</span>View All Reports</a>
+        </li>
+        <li>
+          <a class="link-menu" routerLink="/inventory-report-management/my-report" routerLinkActive="active-link"><span class="material-icons ">calendar_today</span>My Reports</a>
+        </li>
+      </ul>
+    </li>-->
+	
+	  
+
+	 <!-- <li *ngIf="roleName === 'SALESMANAGERS' || roleName === 'HRMANAGERS' || roleName === 'BUSINESSDEVELOPMENTMANAGER' || roleName === 'BUSINESSDEVELOPMENTEXECUTIVE' || roleName === 'PROJECTMANAGERS'">
+		  <a class="link-menu" routerLink="inventory-report-management/my-report" routerLinkActive="active-link">
+			  <span class="material-icons ">line_style</span><span class="nav-caption">Ticket Management</span>
+		  </a>
+	  </li>-->
+
+    <!--  Leave Management -->
+	  <li *ngIf="roleName === 'HRMANAGERS' || roleName === 'SUPERADMINS' ">
+		  <a (click)="showSubMenu()"  class="link-menu" routerLinkActive="active-link">
+<!--			  <span class="material-icons ">assignment_turned_in</span>-->
+			  <span class="material-icons ">edit_calendar</span>
+			  <span class="nav-caption d-flex align-items-center" >Leave Management <span class="material-icons  down-arrow">arrow_drop_down</span></span>
+		  </a>
+		  <ul class="sub-menu1">
+			  <li>
+				  <a [routerLinkActiveOptions]="{exact:true}" class="link-menu" routerLink="/leave-management" routerLinkActive="active-link"><span class="material-icons ">event_note</span>View All Leaves</a>
+			  </li>
+			  <li>
+				  <a class="link-menu" routerLink="/leave-management/my-leave" routerLinkActive="active-link"><span class="material-icons ">calendar_today</span>My Leaves</a>
+			  </li>
+		  </ul>
+	  </li>
+	  <li *ngIf="roleName === 'SALESMANAGERS' || roleName === 'BUSINESSDEVELOPMENTMANAGER' || roleName === 'BUSINESSDEVELOPMENTEXECUTIVE' || roleName === 'PROJECTMANAGERS' || roleName === 'NETWORKENGINEER' || roleName === 'TEAMLEADERS'|| roleName === 'TEAMMEMBERS'">
+		  <a class="link-menu" routerLink="leave-management/my-leave" routerLinkActive="active-link">
+			  <span class="material-icons ">assignment_turned_in</span><span class="nav-caption">Leave Management</span>
+		  </a>
+	  </li>
+    <li>
+		  <a class="link-menu" routerLink="/holidays-management" routerLinkActive="active-link">
+			  <span class="material-icons ">nature_people</span><span class="nav-caption">Holidays Management</span>
+		  </a>
+	  </li>
+  </ul>
+
+
+<!--    <ul (mouseenter)="mouseHover()" (mouseleave)="mouseOut()" class="side-nav">-->
+<!--      <li *ngIf="roleName === 'SUPERADMINS' ||  roleName === 'SALESMANAGERS'">-->
+<!--        <div mat-list-item>-->
+<!--          <a class="link-menu" routerLink="/dashboard" routerLinkActive="active-link">-->
+<!--            <span class="material-icons">dashboard</span><span class="nav-caption">Dashboard</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </li>-->
+  <!--    <li>-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/sales-management" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons ">point_of_sale</span><span class="nav-caption">Lead Management</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+      <!--<li *ngIf="roleName === 'HRMANAGERS' || roleName==='TEAMLEADERS' || roleName==='TEAMMEMBERS' ">
+        <div mat-list-item>
+          <a class="link-menu" routerLink="/hr-dashboard" routerLinkActive="active-link">
+            <span class="material-icons">dashboard</span><span class="nav-caption">Dashboard</span>
+          </a>
+        </div>
+      </li>-->
+  <!--    <li *ngIf="roleName === 'PROJECTMANAGERS' ">-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/pm-dashboard" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons">dashboard</span><span class="nav-caption">Dashboard</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+<!--      <li>-->
+<!--        <div *ngIf="roleName === 'HRMANAGERS'" mat-list-item>-->
+<!--          <a class="link-menu" routerLink="/employee-management" routerLinkActive="active-link">-->
+<!--            <span class="material-icons">reduce_capacity</span><span class="nav-caption">Employee Management</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </li>-->
+  <!--    <li *ngIf="roleName !== 'HRMANAGERS' && roleName !== 'TEAMMEMBERS' && roleName !== 'TEAMLEADERS'">-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/project-management" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons">library_books</span><span class="nav-caption">Project Management</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+  <!--    <li *ngIf="roleName === 'SUPERADMINS' ||  roleName === 'SALESMANAGERS'">-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/user-management" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons">manage_accounts</span><span class="nav-caption">User Management</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+  <!--    <li *ngIf="roleName !== 'SUPERADMINS' && roleName !== 'HRMANAGERS' && roleName !== 'SALESMANAGERS'">-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/important-document" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons">description</span><span class="nav-caption">Important-Document</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+  <!--    <li *ngIf="roleName !== 'HRMANAGERS' && roleName !=='TEAMLEADERS'">-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/leave-management/my-leave" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons">textsms</span><span class="nav-caption">My Leaves</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+      <!--<li *ngIf="roleName === 'HRMANAGERS'">
+        <div mat-list-item>
+          <a class="link-menu" routerLink="/document-management" routerLinkActive="active-link">
+            <span class="material-icons">description</span><span class="nav-caption">Document Management</span>
+          </a>
+        </div>
+      </li>-->
+  <!--    <li *ngIf="roleName === 'HRMANAGERS' || roleName ==='TEAMLEADERS' ">-->
+  <!--      <div mat-list-item routerLinkActive="active-link">-->
+  <!--        <mat-expansion-panel (closed)="panelOpenState = false" (opened)="panelOpenState = true">-->
+  <!--          <mat-expansion-panel-header class="link-menu">-->
+  <!--            <mat-panel-title><span class="material-icons">textsms</span> Leave Management</mat-panel-title>-->
+  <!--          </mat-expansion-panel-header>-->
+  <!--          <ul class="sub-menu">-->
+  <!--            <li>-->
+  <!--              <button mat-menu-item routerLink="/leave-management" routerLinkActive="active-link">View All Leaves-->
+  <!--              </button>-->
+  <!--            </li>-->
+  <!--            <li>-->
+  <!--              <button mat-menu-item routerLink="/leave-management/my-leave" routerLinkActive="active-link">My Leaves-->
+  <!--              </button>-->
+  <!--            </li>-->
+  <!--          </ul>-->
+  <!--        </mat-expansion-panel>-->
+  <!--      </div>-->
+  <!--    </li>-->
+  <!--    <li>-->
+  <!--      <div *ngIf="roleName === 'HRMANAGERS'" mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/announcement" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons">description</span><span class="nav-caption">Announcement</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+  <!--    <li *ngIf="roleName === 'SUPERADMINS'">-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/inquiry" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons ">app_registration</span><span class="nav-caption">Inquiry</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+  <!--    <li *ngIf="roleName === 'SUPERADMINS'">-->
+  <!--      <div mat-list-item>-->
+  <!--        <a class="link-menu" routerLink="/career" routerLinkActive="active-link">-->
+  <!--          <span class="material-icons ">work</span><span class="nav-caption">Career</span>-->
+  <!--        </a>-->
+  <!--      </div>-->
+  <!--    </li>-->
+  <!--  </ul>-->
+</div>

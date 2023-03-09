@@ -1,0 +1,59 @@
+<section class="dashboard-content">
+    <div class="box-style-breadcrumb p-4 actions">
+        <!--BreadCrumb-->
+        <ul class="breadcrumb">
+            <li><a (click)="goToholidays()" style="color: black; font-weight: 500">Holidays Management</a></li>
+            <li class="active" style="color: black; font-weight: 500">{{editMode}} holiday</li>
+        </ul>
+        <div>
+            <button class="btn-style red-btn" form="ngForm" type="submit">Save</button>
+            <button (click)="goToholidays()" class="btn-style black-btn" >Back</button>
+        </div>
+        <!--BreadCrumb-->
+    </div>
+    <!--Card-->
+    <form (ngSubmit)="AddHolidays()" [formGroup]="holidaysForm" class="w-100" id="ngForm" name="addHolidays"
+          novalidate>
+        <div class="box-style-breadcrumb mt-4 p-5">
+            <div class="form-main">
+                <h2>Holidays</h2>
+                <div class="form-row-wrapper">
+                    <div class="row">
+                        <div  class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Holiday Name</mat-label>
+                                    <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="holidayName" matInput maxlength="150" name="holidayName" required type="text" />
+                                    <mat-error *ngIf="holidaysForm.controls.holidayName.errors?.required">
+                                        Holiday Name  is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" >
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Holiday Date</mat-label>
+                                    <input #date (click)="date_of_birth.open()" (focus)="date_of_birth.open()" [matDatepicker]="date_of_birth"
+                                           autocomplete="off" formControlName="holidayDate" matInput
+                                           maxlength="150" name="holidaysDate" required>
+                                    <mat-datepicker-toggle [for]="date_of_birth" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #date_of_birth></mat-datepicker>
+                                    <mat-error
+                                            *ngIf=" holidaysForm.controls.holidayDate.errors?.required">
+                                        Holiday Date is required!
+                                    </mat-error>
+
+
+                                </mat-form-field>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--Card-->
+</section>

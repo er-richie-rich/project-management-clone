@@ -1,0 +1,15 @@
+<svg height="100" viewBox="0 0 100 100" width="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <clipPath id="clip-facebook-">
+      <rect height="100" width="100"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip-facebook-)" id="facebook-">
+    <g id="facebook" transform="translate(-667.262 -12841.785)">
+      <g data-name="Group 8414" id="Group_8414" transform="translate(669.822 12844.345)">
+        <path d="M693.23,12924.6v-29.558H680.924v-15.226h10.919v-11.354s.532-7.92,5.621-12.469,7.779-4.492,10.637-5.258,12.387,0,12.387,0v16.177H708.1v12.9h15.742l-5.935,15.226H708.1v29.558" data-name="Path 33502" fill="none" id="Path_33502" stroke="#010101" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" transform="translate(-652.228 -12830.887)"/>
+        <path d="M709.372,12938.513h-22.4s-7.859-1.349-12.412-5.937-5.8-12.417-5.8-12.417v-56.093s.657-8.568,5.8-13.752c3.225-3.252,8.215-5.17,12.116-6.334a10.378,10.378,0,0,1,2.863-.508c1.542-.161,3.306-.142,3.306-.142H733.2s10.33-.187,12.487.2a10.963,10.963,0,0,1,4.49,1.353,27.1,27.1,0,0,1,7.527,5.429c5.7,5.739,6.288,15.977,6.288,15.977v51.394s-1.121,9.685-6.288,14.892-14.38,5.938-14.38,5.938H725.042" data-name="Path 33504" fill="none" id="Path_33504" stroke="#010101" stroke-linecap="square" stroke-linejoin="round" stroke-width="5" transform="translate(-668.762 -12843.285)"/>
+      </g>
+    </g>
+  </g>
+</svg>

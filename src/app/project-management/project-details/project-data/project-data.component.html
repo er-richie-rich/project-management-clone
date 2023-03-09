@@ -1,0 +1,22 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4">
+    <div class="form-top d-flex justify-content-between align-items-center">
+      <!--BreadCrumb-->
+      <ul class="breadcrumb">
+	      <li><a routerLink="/project-management" style="color: black; font-weight: 500">Project Management</a></li>
+<!--	      <li class="active" style="color: black; font-weight: 500">{{projectCode}}-{{projectName}}</li>-->
+	      <li class="active" style="color: black; font-weight: 500">Project {{tabLabel}}</li>
+      </ul>
+      <!--BreadCrumb-->
+    </div>
+  </div>
+	<div class="box-style-breadcrumb p-4 mt-3">
+		<mat-tab-group (focusChange)="selectTabIndex($event)" [selectedIndex]="selected" >
+			<mat-tab label="Details" ><app-project-details></app-project-details></mat-tab>
+			<mat-tab label="Tasks" > <app-task-manage></app-task-manage></mat-tab>
+			<mat-tab label="Files"> <app-files-manage></app-files-manage></mat-tab>
+			<mat-tab label="Change Request"><app-change-request></app-change-request></mat-tab>
+			<mat-tab label="Log"><app-project-log></app-project-log></mat-tab>
+		</mat-tab-group>
+	</div>
+</section>

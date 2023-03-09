@@ -1,0 +1,105 @@
+<section class="dashboard-content">
+    <div class="box-style-breadcrumb p-4">
+        <div class="form-top d-flex justify-content-between align-items-center">
+            <ul class="breadcrumb">
+                <!--BreadCrumb-->
+                <ul class="breadcrumb">
+                    <li><a (click)="backToLeaveList()" style="color: black; font-weight: 500">Leave Management</a></li>
+                    <li class="active" style="color: black; font-weight: 500">Leave Details</li>
+                </ul>
+            </ul>
+            <div class="btn-wrapper btn-wrapper-width">
+                <button (click)="backToLeaveList()" class="btn-style black-btn" routerLink="/leave-management/my-leave">Back</button>
+            </div>
+        </div>
+    </div>
+    <div class="box-style-breadcrumb mt-4 p-5">
+        <!--Card-->
+        <div class="leadBox bg-gray mt-3">
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Leave Duration</span>
+                            <div class="text-weight mt-2 field">{{ leaveDetail?.leaveDuration ?? '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Leave Duration Detail</span>
+                            <div class="text-weight mt-2 field">{{ leaveDetail?.leaveDurationDetail ?? '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Leave Reason</span>
+                            <div class="text-weight mt-2 field">{{ leaveDetail?.leaveReason ?? "-" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Leave Status</span>
+                            <div class="text-weight mt-2 field">{{ leaveDetail?.leaveStatus ?? '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="leadBox bg-gray mt-3">
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">Leave Type</span>
+                            <div class="text-weight mt-2 field">{{ leaveDetail?.leaveType ?? '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">From Date</span>
+                            <div class="text-weight mt-2 field">{{(leaveDetail?.fromDate | date) ?? '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-transparent border-0">
+                <div class="card-body">
+                    <div class="leadOption">
+                        <div class="block">
+                            <span class="label">To Date</span>
+                            <div class="text-weight mt-2 field">{{(leaveDetail?.toDate | date) ?? '-' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="leaveDetail?.leaveStatus === 'Rejected'" class="leadBox bg-gray mt-3">
+           <div class="bg-transparent border-0">
+                <div class="block">
+                    <div class="rejectReason mt-3">
+                        <span class="label">Leave Reject Reason</span>
+                        <div class="text-weight field rejectReasonField">
+                            {{ (leaveDetail?.rejectReason)?leaveDetail?.rejectReason : '-' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

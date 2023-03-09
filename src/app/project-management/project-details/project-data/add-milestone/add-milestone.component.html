@@ -1,0 +1,82 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4 actions">
+    <!--BreadCrumb-->
+    <ul class="breadcrumb">
+      <li class="pointer-event"><a routerLink="/project-management" style="color: black; font-weight: 500">Project Management</a></li>
+      <li class="pointer-event" ><a routerLink="/project-management/project-details/project-data/{{projectId}}" style="color: black; font-weight: 500">Projects Details</a></li>
+      <li style="color: black; font-weight: 500">{{editMode}} Milestone</li>
+    </ul>
+    <div>
+      <button class="btn-style red-btn" form="ngForm" type="submit" >Save</button>
+      <button (click)="back()" class="btn-style black-btn" type="reset">Back</button>
+    </div>
+    <!--BreadCrumb-->
+  </div>
+<!--  <div class="mt-4" color="warn">-->
+<!--    <div class="box-style-breadcrumb mt-4 p-5">-->
+      <!--Card-->
+      <form (ngSubmit)="addEditMilestone()"[formGroup]="addMilestoneForm" class="w-100" id="ngForm" name="addMilestoneForm"
+            novalidate>
+        <div class="box-style-breadcrumb mt-4 p-5">
+          <div class="form-main">
+            <h2>{{editMode}} Milestone</h2>
+
+            <div class="form-row-wrapper">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Title </mat-label>
+                      <input (keydown)="space($event)" formControlName="milestoneTitle" matInput maxlength="150" name="milestoneTitle" required
+                             type="text" />
+                      <mat-error *ngIf="addMilestoneForm.controls.milestoneTitle.errors?.required">
+                        Title is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Expected Date</mat-label>
+<!--                      <input (click)="expectedDate_picker.open();" [matDatepicker]="expectedDate_picker"  [min]="todayDate" autocomplete="off" formControlName="expectedDate" matInput maxlength="150" name="expectedDate">-->
+                      <input (click)="expectedDate_picker.open();" [matDatepicker]="expectedDate_picker" autocomplete="off" formControlName="expectedDate" matInput maxlength="150" name="expectedDate" required>
+                      <mat-datepicker-toggle [for]="expectedDate_picker" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #expectedDate_picker></mat-datepicker>
+                      <mat-error *ngIf="addMilestoneForm.controls.expectedDate.errors?.required">
+                        Expected Date is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Status</mat-label>
+                      <mat-select formControlName="milestoneStatus" maxlength="150"  name="milestoneStatus" required>
+                        <mat-option *ngFor="let proTypes of projectStatus" [value]="proTypes.value">
+                          {{ proTypes.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="addMilestoneForm.controls.milestoneStatus.errors?.required">
+                        Status is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+	     <!-- <div class="form-footer box-style-breadcrumb mt-3 p-3">
+		      <button class="btn-style red-btn" type="submit" (click)="addEditMilestone()">Save</button>
+		      <button (click)="back()" class="btn-style black-btn" type="reset">Back</button>
+	      </div>-->
+      </form>
+      <!--Card-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+</section>

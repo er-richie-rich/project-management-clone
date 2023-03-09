@@ -1,0 +1,44 @@
+<form [formGroup]="addLeaveForm" class="popup-content text-center" novalidate>
+	<div class="popup-header">
+		Add Leaves <span (click)="onNoClick(false)" class="material-icons">close</span>
+	</div>
+	<div class="popup-body">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-field">
+					<mat-form-field appearance="outline" class="element-full-width">
+						<mat-label>LWP</mat-label>
+						<input (keydown)="space($event)" (keypress)=_keyPress($event) [maxLength]="3" [value]="LWPLeaveBalance" formControlName="LWPLeaveBalance" inputmode="numeric" matInput name="LWPLeaveBalance" type="text">
+						<mat-error *ngIf="addLeaveForm.controls.LWPLeaveBalance.errors?.required">
+							LWP is required!
+						</mat-error>
+						<mat-error *ngIf="addLeaveForm.controls.LWPLeaveBalance.errors?.maxlength">
+							Maximum LWP balance
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		
+			<div class="col-sm-6">
+				<div class="form-field">
+					<mat-form-field appearance="outline" class="element-full-width">
+						<mat-label>Casual</mat-label>
+						<input (keydown)="space($event)" (keypress)=_keyPress($event) [maxLength]="3" [value]="casualLeaveBalance" formControlName="casualLeaveBalance" inputmode="numeric" matInput name="casualLeaveBalance" type="text">
+						<mat-error *ngIf="addLeaveForm.controls.casualLeaveBalance.errors?.required">
+							Casual is required!
+						</mat-error>
+						<mat-error *ngIf="addLeaveForm.controls.casualLeaveBalance.errors?.maxlength">
+							Limit exid
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+   </div>
+	<div class="popup-footer">
+		<div class="btn-wrapper justify-content-between">
+			<button (click)="onNoClick(false)" class="btn-style sm-btn black-btn" mat-button>Cancel</button>
+			<button (click)="addLeave()" class="btn-style sm-btn red-btn" mat-button type="submit">Add</button>
+		</div>
+	</div>
+</form>

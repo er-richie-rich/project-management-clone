@@ -1,0 +1,39 @@
+.document-modal .modal-header {
+  background: #F3F3F3;
+  padding: 10px 20px;
+}
+.pdf-viewer {
+  height: 500px;
+  width: 100%;
+}
+.document-modal h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.document-modal button {
+  background: transparent;
+  border: none;
+}
+
+.hover-half-round-two button {
+  background: none;
+  position: absolute;
+  left: -10px;
+  top: -8px;
+  font-size: 25px;
+  color: #fff;
+
+  &:hover {
+    color: #F8FF59;
+  }
+}
+
+.hover-half-round-two button:nth-child(2) {
+  left: 22px;
+  top: 20px;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+  animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+}
+

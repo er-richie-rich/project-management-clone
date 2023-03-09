@@ -1,0 +1,77 @@
+<section class="dashboard-content">
+  <div class="account-wrapper">
+    <div class="account-list">
+      <div class="box-style">
+        <h3>My Accounts</h3>
+        <ul>
+          <li routerLink="/my-account/my-profile" routerLinkActive="active">Edit Profile</li>
+          <li routerLink="/my-account/change-password" routerLinkActive="active">Change Password</li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-content-box box-style">
+      <form #myform="ngForm" (ngSubmit)="myProfile()" [formGroup]="myProfileForm" class="w-100" name="addUserForm"
+        novalidate>
+        <div class="form-main">
+          <h2>Edit Profile</h2>
+          <div class="form-row-wrapper">
+            <div class="profile-upload">
+              <label for="emp-input-profile">
+                <img height="200" src="{{url}}">
+                <span class="material-icons">photo_camera</span>
+              </label>
+              <input (change)="onFileChanged($event)" [(ngModel)]="empProfileImage"
+                [ngModelOptions]="{standalone: true}" class="device-input-img" id="emp-input-profile"
+                name="profileImage" type="file" />
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-field">
+                  <mat-form-field appearance="outline" class="element-full-width">
+                    <mat-label>Name</mat-label>
+                    <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="fullName" matInput name="fullName" required type="text">
+                    <mat-error *ngIf="myProfileForm.controls.fullName.errors?.required">
+                      Name is required! .
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-field">
+                  <mat-form-field appearance="outline" class="element-full-width">
+                    <mat-label>Email id</mat-label>
+                    <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="email" id="email" matInput maxlength="50" name="email" required>
+                    <mat-error *ngIf="myProfileForm.controls.email.errors?.required">Email Address is required!
+                    </mat-error>
+                    <mat-error *ngIf="myProfileForm.controls.email.errors?.pattern">Please enter a valid Email Address.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-field">
+                  <mat-form-field appearance="outline" class="element-full-width">
+                    <mat-label>Mobile No.</mat-label>
+                    <input (keydown)="space($event)" (paste)="checkNumber($event)" formControlName="mobileNumber" matInput maxlength="10" minlength="10"
+                           name="mobileNumber"
+                           onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                           required type="text" />
+                    <mat-error *ngIf="myProfileForm.controls.mobileNumber.errors?.required">
+                      Phone Number is required!
+                    </mat-error>
+                    <mat-error *ngIf="myProfileForm.controls.mobileNumber.errors?.minlength">
+                      Enter valid phone number!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="btn-style black-btn" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,159 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0"
+      rel="stylesheet"/>
+<section class="dashboard-content">
+	<div class="table-content box-style m-0 p-0">
+		<div class="table-heading box-style-breadcrumb p-4">
+			<a><h3 style="font-weight: 500; cursor: default">Document Management</h3></a>
+			<div class="search-form-wrapper">
+				<!--Search-->
+				<div class="search-form">
+					<span class="material-icons">search</span>
+					<input #input #searchString (keydown)="space($event)" (keyup)="applyFilter($event)"
+					       placeholder="Search Document" type="text">
+					<span #clearString (click)="clearSearch($event)" *ngIf="isVisible"
+					      class="closeIcon material-icons">clear</span>
+				</div>
+				<!--Search-->
+				<!--Add Document Button-->
+				<button class="btn-style red-btn" routerLink="/document-management/add-edit-document/0"><span
+						class="material-icons">add</span>Add New Document
+				</button>
+			</div>
+		</div>
+		<div>
+			<table [dataSource]="dataSource" mat-table matSort style="width: 100%">
+				<!-- action Column -->
+				<ng-container matColumnDef="action2">
+					<th *matHeaderCellDef mat-header-cell style="width: 5%">
+						<div class=" th-header d-flex align-items-center text-left">
+							Action
+						</div>
+					</th>
+					<td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
+						<div class="hover-effect-menu">
+							<span class="material-icons short-arrow">more_horiz</span>
+							<div class="hover-round-effect">
+								<button
+										(click)="editDocument(element.documentId)"
+										class="material-icons mat-menu-item"
+										matTooltip="Edit"
+										matTooltipClass='tooltip-color'
+										tabindex="0">
+									drive_file_rename_outline
+								</button>
+								<button
+										(click)="deleteDocument(element.documentId)"
+										class="material-icons mat-menu-item"
+										matTooltip="Delete"
+										matTooltipClass='tooltip-color'
+										tabindex="0">
+									delete
+								</button>
+								<button
+										(click)="documentDownload(element.document,element.documentName)"
+										class="material-icons mat-menu-item"
+										matTooltip="Download"
+										matTooltipClass='tooltip-color'
+										tabindex="0">
+									file_download
+								</button>
+								<button
+										(click)="open(content,element.document)"
+										class="material-icons mat-menu-item"
+										matTooltip="Detail"
+										matTooltipClass='tooltip-color'
+										tabindex="0">
+									web
+								</button>
+							</div>
+						</div>
+						
+						<!-- for popup model -->
+						<ng-template #content let-modal>
+							<div class="modal-header document-modal">
+								<h4 class="modal-title" id="modal-basic-title">{{element.documentName}}</h4>
+								<div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
+								     type="button">
+									<img src="assets/images/cross-icon.svg">
+								</div>
+							</div>
+							<div class="modal-body">
+								<pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document"
+								            class="pdf-viewer"></pdf-viewer>
+							</div>
+							<div class="modal-footer">
+								<button (click)="modal.close({document:element.document,fileName:element.documentName})"
+								        class="btn-style black-btn" type="button">Close
+								</button>
+							</div>
+						</ng-template>
+					</td>
+				
+				</ng-container>
+				<!-- action Column -->
+				
+				<!-- documentName Column -->
+				<ng-container matColumnDef="name">
+					<th (click)="sortData('documentName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header
+					    style="width: 15%">
+						<div class="th-header d-flex align-items-center text-left">
+							Document Name <span
+								[ngClass]="{'down': sortBy === -1 && sortKey === 'documentName', 'up': sortBy === 1 && sortKey === 'documentName'}">
+                      </span>
+						</div>
+					</th>
+					<td *matCellDef="let element" class="text-capitalize" mat-cell>
+						{{element.documentName ? element.documentName : '-' }}
+					</td>
+				</ng-container>
+				<!-- documentName Column -->
+				<ng-container matColumnDef="fileName">
+					<th (click)="sortData('document', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class="th-header d-flex align-items-center text-left">
+							File Name <span
+								[ngClass]="{'down': sortBy === -1 && sortKey === 'document', 'up': sortBy === 1 && sortKey === 'document'}">
+                      </span>
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell> {{ test(element.document) }} </td>
+				</ng-container>
+				<!-- documentName Column -->
+				
+				<!-- isVisible Column -->
+				<ng-container matColumnDef="status">
+					<th (click)="sortData('isVisible', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+						<div class="th-header sd-flex align-items-center text-left">
+							Is Visible to Employee <span
+								[ngClass]="{'down': sortBy === -1 && sortKey === 'isVisible', 'up': sortBy === 1 && sortKey === 'isVisible'}">
+                      </span>
+						</div>
+					</th>
+					<td *matCellDef="let element" mat-cell>
+						{{ (element.isVisible === true ? 'Yes' : 'No') }}
+					</td>
+				</ng-container>
+	
+				
+				<tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
+				<tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+				<!-- Row shown when there is no matching data. -->
+				<tr *matNoDataRow class="mat-row">
+					<td class="mat-cell text-center" colspan="10">Data Not Available</td>
+				</tr>
+			</table>
+		</div>
+		<mat-paginator
+				(page)="pageChange($event)"
+				[hidePageSize]="false"
+				[length]="meta"
+				[pageIndex]="page"
+				[pageSizeOptions]="pageSizeOptions"
+				[pageSize]="perPage"
+				color="warn"
+				showFirstLastButtons
+		></mat-paginator>
+	</div>
+</section>
+

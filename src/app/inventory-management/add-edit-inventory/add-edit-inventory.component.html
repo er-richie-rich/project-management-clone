@@ -1,0 +1,225 @@
+<section class="dashboard-content">
+    <div class="box-style-breadcrumb p-4 actions">
+        <!--BreadCrumb-->
+        <ul class="breadcrumb">
+	        <li><a (click)="backToInventoryList()" style="color: black; font-weight: 500">Inventory Management</a></li>
+	        <li class="active" style="color: black; font-weight: 500">{{ editMode }} Inventory</li>
+            <!--<li class="pointer-event" routerLink="/inventory-management/">Inventory Management</li>
+            <li>{{ editMode }}</li>-->
+        </ul>
+        <div>
+            <button class="btn-style red-btn" form="ngForm" type="submit" >Save</button>
+            <button (click)="backToInventoryList()" class="btn-style black-btn">Back</button>
+        </div>
+        <!--BreadCrumb-->
+    </div>
+    <!--Card-->
+    <form (ngSubmit)="AddInventory()" [formGroup]="inventoryForm" class="w-100" id="ngForm" name="addInventoryForm" novalidate>
+        <div class="box-style-breadcrumb mt-4 p-5">
+            <div class="form-main">
+                <h2>Inventory</h2>
+                <div class="form-row-wrapper">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Employee Code</mat-label>
+	                                    <mat-select #topp (selectionChange)="getEmpNameAndDepartment(topp.value)" formControlName="userId" required>
+<!--	                                    <mat-select-trigger *ngFor="let empTypes of userList">-->
+<!--		                                    <div *ngIf="empTypes.userId === userId">-->
+<!--			                                    {{empTypes.empCode}}-->
+<!--		                                    </div>-->
+<!--	                                    </mat-select-trigger>-->
+                                        <mat-option *ngFor="let empTypes of userList" [value]="empTypes.userId">
+                                            {{empTypes.empCode}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="inventoryForm.controls.userId.errors?.required">
+                                        Employee code is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Employee Name</mat-label>
+                                    <input formControlName="employeeName" matInput maxlength="150" name="employeeName" required type="text"/>
+                                    <mat-error *ngIf="inventoryForm.controls.employeeName.errors?.required">
+                                        Employee Name is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Department</mat-label>
+                                    <input formControlName="department" matInput maxlength="150" name="department" required type="text"/>
+                                    <mat-error *ngIf="inventoryForm.controls.department.errors?.required">
+                                        Department is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>System</mat-label>
+                                    <mat-select formControlName="systemType" maxlength="150"  name="system" required>
+                                        <mat-option *ngFor="let system of SystemType" [value]="system.value">
+                                            {{system.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="inventoryForm.controls.systemType.errors?.required">
+                                        Please select systemType!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="inventoryForm.value.systemType === 'Desktop'" class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>System Type</mat-label>
+                                    <mat-select formControlName="pc" maxlength="150"  name="systemType" required>
+                                        <mat-option *ngFor="let pcValue of pc" [value]="pcValue.value">
+                                            {{pcValue.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="inventoryForm.controls.pc.errors?.required">
+                                        Desktop detail is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+<!--                        End Dropdown if SystemType === desktop-->
+                        <div class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>RAM Size</mat-label>
+                                    <input (keyup)="helper.spaceTrim($event)" (paste)="checkNumber($event)" formControlName="ram"
+                                           matInput maxlength="10"
+                                           name="ram"
+                                           onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57 ||  event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 " required type="text"/>
+                                    <mat-error *ngIf="inventoryForm.controls.ram.errors?.required">
+                                        RAM size is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" >
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Storage Type</mat-label>
+                                    <mat-select #disk (selectionChange)="getStorageSize(disk.value)" [(ngModel)]="storageDisk" formControlName="storageType" maxlength="150" name="Storage" required>
+	                                    <mat-select-trigger *ngFor="let storageVal of StorageDetails">
+		                                    <div *ngIf="storageVal.value === storageDisk">
+			                                    {{storageVal.value}}
+		                                    </div>
+	                                    </mat-select-trigger>
+                                        <mat-option *ngFor="let storageVal of StorageDetails" [value]="storageVal.value">
+                                            {{storageVal.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="inventoryForm.controls.storageType.errors?.required">
+                                        Storage type is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!--on select of Storage dropdown-->
+                        <div *ngIf="storageDisk === 'SSD' || storageDisk === 'Both'" class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Size of SSD</mat-label>
+                                    <input (keyup)="helper.spaceTrim($event)" (paste)="checkNumber($event)" formControlName="ssdSize"
+                                           matInput maxlength="10"
+                                           name="ssdSize"
+                                           onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57 ||  event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 " required type="text"/>
+                                    <mat-error *ngIf="inventoryForm.controls.ssdSize.errors?.required">
+                                        SSD size is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="storageDisk === 'HDD' || storageDisk === 'Both'" class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Size of HDD</mat-label>
+                                    <input (keyup)="helper.spaceTrim($event)" (paste)="checkNumber($event)" formControlName="hddSize"
+                                           matInput maxlength="10"
+                                           name="hddSize"
+                                           onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57 ||  event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 " required type="text"/>
+                                    <mat-error *ngIf="inventoryForm.controls.hddSize.errors?.required">
+                                        HDD size is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <!--End dropdown-->
+                        <div class="col-sm-3" >
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Keyboard-Mouse</mat-label>
+                                    <mat-select formControlName="keyboardAndMouse" maxlength="150"  name="systemType" required>
+                                        <!--(selectionChange)="getEmpNameAndDepartment()"-->
+                                        <mat-option *ngFor="let keyMouseVal of keyboardAndMouse" [value]="keyMouseVal.value">
+                                            {{keyMouseVal.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="inventoryForm.controls.keyboardAndMouse.errors?.required">
+                                        Keyboard and mouse details is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" >
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>LED/LCD</mat-label>
+                                    <mat-select formControlName="lcdAndLed" maxlength="150"  name="systemType" required>
+                                        <!--(selectionChange)="getEmpNameAndDepartment()"-->
+                                        <mat-option *ngFor="let ledlcd of lcdAndLed" [value]="ledlcd.value">
+                                            {{ledlcd.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="inventoryForm.controls.lcdAndLed.errors?.required">
+                                        Lcd/Led details is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" >
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Operating System</mat-label>
+                                    <mat-select formControlName="os" maxlength="150"  name="systemType" required >
+                                        <!--(selectionChange)="getEmpNameAndDepartment()"-->
+                                        <mat-option *ngFor="let osType of os" [value]="osType.value">
+                                            {{osType.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="inventoryForm.controls.os.errors?.required">
+                                        OS details is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" >
+                            <div class="form-field">
+                                <mat-checkbox (change)="check($event)" class="example-margin" formControlName="headphone">
+                                    HeadPhones
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="form-footer box-style-breadcrumb mt-3 p-3">
+            <button (click)="AddInventory()" class="btn-style red-btn" type="submit" >Save</button>
+            <button class="btn-style black-btn" routerLink="/inventory-management/">Back</button>
+        </div>-->
+    </form>
+    <!--Card-->
+</section>

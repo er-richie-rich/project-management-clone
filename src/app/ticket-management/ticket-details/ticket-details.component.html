@@ -1,0 +1,131 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+      rel="stylesheet"/>
+<section class="dashboard-content h-auto">
+    <div class="box-style-breadcrumb p-2">
+        <div class="form-top d-flex justify-content-between align-items-center">
+            <!--BreadCrumb-->
+            <ul class="breadcrumb">
+                <li><a routerLink="/ticket-management" style="color: black; font-weight: 500">Ticket Management</a></li>
+                <li class="active" style="color: black; font-weight: 500">Ticket Details</li>
+                <li class="active" style="color: black; font-weight: 500">{{ticketCode}}</li>
+            </ul>
+            <!--BreadCrumb-->
+            <div class="btn-wrapper btn-wrapper-width">
+                <button (click)="backToTicketList()" class="btn-style black-btn">Back</button>
+            </div>
+        </div>
+    </div>
+    <!--Tabs-->
+                <div class="box-style mt-2 p-3 ">
+                    <span class="label"><h2>Ticket Details</h2></span>
+                    <div class="row ">
+                        <div class="leadBlock mt-2 col-sm-6 rawheight" >
+                            <div class="card border-0  bg-gray">
+                                <div class="card-body" style="height: 110px">
+                                    <div class="leadOption">
+                                        <div class="block">
+                                            <span class="label">Ticket Code</span>
+                                            <div class="text-weight mt-2 field">{{ticketCode}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border-0  bg-gray">
+                                <div class="card-body" style="height: 110px">
+                                    <div class="leadOption">
+                                        <div class="block">
+                                            <span class="label">Urgency</span>
+                                            <div class="text-weight mt-2 field">{{urgency}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf=" userRole == 'NETWORKENGINEER' " class="card border-0 ">
+                                <div class="card-body" style="height: 110px">
+                                    <div class="leadOption">
+                                        <div class="block">
+                                            <span class="label">User Name</span>
+                                            <div class="text-weight mt-2 field">{{name}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf=" userRole == 'NETWORKENGINEER' " class="card border-0 ">
+                                <div class="card-body" style="height: 110px">
+                                    <div class="leadOption">
+                                        <div class="block">
+                                            <span class="label">Email</span>
+                                            <div class="text-weight mt-2 field">{{email}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div [ngClass]="{ 'bg-gray': userRole === 'NETWORKENGINEER'}" class="card border-0">
+                                <div class="card-body" style="height: 150px">
+                                    <div class="leadOption">
+                                        <div class="block">
+                                            <span class="label">Subject</span>
+                                            <div class="text-weight mt-2 field">{{subject}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div [ngClass]="{ 'bg-gray': userRole === 'NETWORKENGINEER'}" class="card border-0">
+                                <div class="card-body" style="height: 150px">
+                                    <div class="leadOption">
+                                        <div class="block">
+                                            <span class="label">Ticket Status</span>
+                                            <div class="text-weight mt-2 field">{{status}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div [ngClass]="{ 'bgWhite': userRole === 'NETWORKENGINEER'}"
+                                 class="card new-card border-0  w-100 bg-gray ">
+                                <div class="card-body">
+                                    <div class="leadOption" style="height: 150px">
+                                        <div class="block">
+                                            <span class="label">Message</span>
+                                            <div class="text-weight mt-2 field">{{message}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="label mt-4 p-2" ><h2>Attachment Image</h2></span>
+                            <div class="card new-card w-100 border-0" >
+                                <div class="card-body">
+                                    <div class="leadOption">
+                                        <div class="block">
+                                            <div *ngIf="attachImage" class="text-weight mt-1 field"><img (click)="openImage()" [src]="attachImage" height="150" width="150"></div>
+                                            <div *ngIf="!attachImage" style="height: 150px"><h3>No Attachment</h3></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Card-->
+                        <div class="col-sm-6 mt-2 rawheight" >
+                            <div class="chat-contents">
+                                <div class="w-100  p-1 chat-header text-center">Conversations</div>
+                                <div #scrollMe [scrollTop]="scrollTop" class="custom-chat mt-3">
+                                    <ng-container *ngFor="let message of messages">
+                                        <div [ngClass]="{ 'from': message?.receiverId === loggedUserId,'to': message?.senderId === loggedUserId }"
+                                             class="message">
+                                            {{ message.message }}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div  *ngIf="ticketStatus === 'Open'" >
+                            <input #msg (keyup.enter)="sendMessage(msg.value)"  [(ngModel)]="value" class="chat-input" type="text">
+                            <button (click)="sendMessage(msg.value)" class="send-button"  >&#10148;</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+</section>

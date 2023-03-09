@@ -1,0 +1,150 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4 actions">
+    <!--BreadCrumb-->
+    <ul class="breadcrumb">
+	    <li><a (click)="backToUserList()" style="color: black; font-weight: 500">User Management</a></li>
+	    <li class="active" style="color: black; font-weight: 500">{{editMode}} User</li>
+      <!--<li class="pointer-event" routerLink="/user-management">User Management</li>
+      <li>{{editMode}} User</li>-->
+    </ul>
+    <div>
+      <button class="btn-style red-btn" form="ngForm" type="submit" >Save</button>
+      <button (click)="backToUserList()" class="btn-style black-btn">Back</button>
+    </div>
+  </div>
+  
+<!--    <div class="">-->
+      <!--Card-->
+      <form (ngSubmit)="addUser()" [formGroup]="addUserForm" class="w-100" id="ngForm" name="addUserForm"
+            novalidate>
+<!--        <div class="form-content-box box-style-breadcrumb mt-4 p-5">-->
+        <div class="box-style-breadcrumb mt-4 p-5">
+          <div class="form-main">
+            <div class="page-name">
+              <h2>{{editMode}} User</h2>
+              <div class="requiredField"><span>*</span> Indicates a required field</div>
+            </div>
+            <div class="form-row-wrapper">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Employee Code</mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="empCode" matInput name="empCode" required type="text"/>
+                      <mat-error *ngIf="addUserForm.controls.empCode.errors?.required">
+                        Employee code is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Full Name</mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="fullName" matInput maxlength="150" name="fullName" required type="text"/>
+                      <mat-error *ngIf="addUserForm.controls.fullName.errors?.required">
+                        Full Name is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Email Id</mat-label>
+                      <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="email" matInput maxlength="50" name="email" required type="text"/>
+                      <mat-error *ngIf="addUserForm.controls.email.errors?.required">Email Address is required!</mat-error>
+                      <mat-error *ngIf="addUserForm.controls.email.errors?.pattern">Please enter a valid Email Address.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Mobile No</mat-label>
+                      <input (keyup)="helper.spaceTrim($event)" (paste)="checkNumber($event)" formControlName="mobileNumber" matInput maxlength="10"
+                             name="mobileNumber"
+                             onkeypress="return (event.charCode === 8 || event.charCode === 0 || event.charCode === 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                             required type="text"/>
+                      <mat-error *ngIf="addUserForm.controls.mobileNumber.errors?.required">
+                        Mobile No is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Role</mat-label>
+                      <mat-select #userRole (selectionChange)="getReportingManager(userRole.value)" formControlName="userRole" maxlength="150" name="userRole" required>
+                        <mat-option *ngFor="let proTypes of userRoleData" [value]="proTypes._id">
+                          {{proTypes.roleName}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="addUserForm.controls.userRole.errors?.required">
+                        User Role is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Select Reporting Manager</mat-label>
+                      <mat-select [(ngModel)]="selectedReportingManager" formControlName="reportingManager" required >
+                        <div class="input-wrapper-close">
+                            <input #manager  class="managerSearch" placeholder="Search" type="text">
+                        <button (click)="manager.value = ''"  *ngIf="manager.value" mat-button mat-icon-button matSuffix style="right: 0">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                        </div>
+                        <div *ngFor="let selectReportingManager of reportingManagerName | filter : manager.value ; index as i; first as isFirst">
+                            <mat-option value="{{selectReportingManager.userId}}">{{ selectReportingManager.fullName }}</mat-option>
+                        </div>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="addUserForm.controls.reportingManager.errors?.required">
+                        Reporting Manager is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                  <div class="col-sm-3">
+                      <div class="form-field">
+                          <mat-form-field appearance="outline" class="element-full-width">
+                              <mat-label>Department</mat-label>
+                              <mat-select formControlName="department" maxlength="150" required>
+                                  <mat-option *ngFor="let department of departmentList" [value]="department.departmentId">
+                                      {{department.departmentTitle}}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-error>
+                                  Department is required!
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                <div *ngIf="isAddShow" class="col-sm-3">
+                  <div class="form-field">
+                    <mat-form-field appearance="outline" class="element-full-width">
+                      <mat-label>Password</mat-label>
+                      <input (keydown)="spaceInPwd($event)" (keyup)="helper.spaceTrim($event)" (paste)="checkSpace($event)" formControlName="password" matInput maxlength="150" name="password" required type="password"/>
+                      <mat-error *ngIf="addUserForm.controls.password.errors?.required">
+                        Password is required!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+	   <!--   <div class="form-footer box-style-breadcrumb mt-3 p-3">
+		      <button class="btn-style red-btn" type="submit" (click)="addUser()">Save</button>
+		      <button (click)="goBack()" class="btn-style black-btn">Back</button>
+	      </div>-->
+      </form>
+      <!--Card-->
+<!--    </div>-->
+</section>

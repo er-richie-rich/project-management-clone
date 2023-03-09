@@ -1,0 +1,108 @@
+.Approved{
+ color: green;
+}
+.Pending{
+  color: orange;
+}
+.Rejected{
+  color: red;
+}
+.Cancelled{
+  color: gray;
+}
+.search-form-wrapper {
+  display: contents;
+  @media  screen and (max-width: 1800px) {
+    display: flex;
+    justify-content: end;
+  }
+
+}
+.table-content .table-heading .btn-style {
+  padding: 15px;
+}
+.search-form-wrapper {
+  display: contents;
+  @media  screen and (max-width: 1800px) {
+    display: flex;
+    justify-content: end;
+  }
+
+}
+.search-right{
+  @media  screen and (max-width: 1800px) {
+    margin-top: 0px;
+  }
+}
+.btn-style  {
+  margin-left: 10px;
+}
+.search-form-wrapper .search-form {
+  margin-right: 0px;
+
+}
+
+.search-top{
+  position: relative;
+}
+.mat-sort-header-content {
+  text-align: left !important;
+}
+
+mat-select-trigger {
+  text-transform: capitalize !important;
+}
+
+.menuIcon {
+  font-size: 38px;
+}
+
+.menuStyle {
+  padding: 5px 10px !important;
+}
+
+.topRightMenu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  span {
+    width: 30px;
+  }
+}
+
+$size: 65px;
+.hover-half-round-two button {
+  background: none;
+  position: absolute;
+  left: -10px;
+  top: -8px;
+  font-size: 25px;
+  color: #fff;
+
+  &:hover {
+    color: #F8FF59;
+  }
+
+  &:hover {
+    color: #F8FF59;
+  }
+}
+
+.hover-half-round-two button:nth-child(2) {
+  left: 22px;
+  top: 20px;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+  animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+}
+.div-wrapper {
+  display: contents;
+  @media  screen and (max-width: 1800px) {
+    display: flex;
+    justify-content: end;
+  }
+
+}
+.table-wrapper {
+  overflow: unset;
+}

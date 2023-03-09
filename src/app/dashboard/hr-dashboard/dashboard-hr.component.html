@@ -1,0 +1,202 @@
+<section class="dashboard-content">
+	<mat-tab-group>
+		<mat-tab label="Dashboard">
+			<h2 *ngIf="roleName==='HRMANAGERS'" class="mt-4">Today's Activity :</h2>
+			<div *ngIf="roleName==='HRMANAGERS'" class="row">
+				<div class="col-sm-3">
+					<a (click)="openTodayActivityPopup('Today\'s Leaves','Leaves')" class="info-box box-style"
+					   style="background-color: #999;background-image: url('assets/images/leave-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalLeavesToday}}</h2>
+							<h4>Total Leaves for Today</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/leave-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3">
+					<a (click)="openTodayActivityPopup('Today\'s Birthday','Birthday')" class="info-box box-style"
+					   style="background-color: #999;background-image: url('assets/images/birthday-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalBirthdayToday}}</h2>
+							<h4>Total Birthday Today</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/birthday-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3">
+					<a (click)="openTodayActivityPopup('Today\'s work-anniversary','Anniversary')" class="info-box box-style"
+					   style="background-color: #999;background-image: url('assets/images/work-anniversary-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalWorkAnniversaryToday}}</h2>
+							<h4>Today's Work Anniversary</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/work-anniversary-icon.svg"/>
+						</div>
+					</a>
+				</div>
+			</div>
+			<h2 *ngIf="roleName==='HRMANAGERS' " class="mt-4">Employee Management :</h2>
+			<h2 *ngIf="roleName==='TEAMLEADERS'" class="mt-4">Team Member :</h2>
+			<div *ngIf="roleName==='HRMANAGERS'|| roleName==='TEAMLEADERS' " class="row">
+				<div class="col-sm-3">
+					<a class="info-box box-style"
+					   routerLink="/employee-management" style="background-color: #999;background-image: url('assets/images/total-employees-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalEmployees}}</h2>
+							<h4>Total Employees</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/total-employees-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div *ngIf="roleName !=='TEAMLEADERS'" class="col-sm-3">
+					<a (click)="openTodayActivityPopup('Probation Period','probationPeriod')"
+					   class="info-box box-style" style="background-color: #999;background-image: url('assets/images/probation-period-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.ProbationPeriodCompletedToday}}</h2>
+							<h4>Probation Period <br>Completed for today</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/probation-period-icon.svg"/>
+						</div>
+					</a>
+				</div>
+			</div>
+			<h2 *ngIf="roleName==='HRMANAGERS'" class="mt-4">Leave Management (Current year) :</h2>
+			<h2 *ngIf="roleName==='TEAMMEMBERS' || roleName==='TEAMLEADERS'" class="mt-4">Team Members :</h2>
+			<div class="row">
+				<div class="col-sm-3">
+					<a (click)="openYearlyLeaveListPopup('Total Leaves','All')"
+					   class="info-box box-style" style="background-color: #999;background-image: url('assets/images/leave-new-icon-bg.png');" >
+						<div class="box-top">
+							<h2>{{dashboardData.TotalLeaves}}</h2>
+							<h4>Total Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/leave-new-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3">
+					<a (click)="openYearlyLeaveListPopup('Total Approved Leaves','Approved')"
+					   class="info-box box-style" style="background-color: #999;background-image: url('assets/images/approved-leave-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalApprovedLeaves}}</h2>
+							<h4>Total Approved Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/approved-leave-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3">
+					<a (click)="openYearlyLeaveListPopup('Total Rejected Leaves','Rejected')"
+					   class="info-box box-style" style="background-color: #999;background-image: url('assets/images/rejected-leaves-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalRejectsLeaves}}</h2>
+							<h4>Total Rejected Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/rejected-leaves-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<a (click)="openYearlyLeaveListPopup('Total Pending Leaves','Pending')"
+					   class="info-box box-style" style="background-color: #999;background-image: url('assets/images/pending-leaves-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalPendingLeaves}}</h2>
+							<h4>Total Pending Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/pending-leaves-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<a (click)="openYearlyLeaveListPopup('Total Pending Leaves','Pending')"
+					   class="info-box box-style" style="background-color: #999; 	 background-image: url('assets/images/cancelled-leave.jpg');">
+						<div class="box-top">
+							<h2>{{dashboardData.TotalCancelledLeaves}}</h2>
+							<h4>Total Cancelled Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/rejected-leaves-icon.svg"/>
+						</div>
+					</a>
+				</div>
+			</div>
+		</mat-tab>
+		<mat-tab label="My Dashboard">
+			<h2 *ngIf="roleName==='HRMANAGERS'" class="mt-4">My Leaves :</h2>
+					<div class="row">
+				<div class="col-sm-3">
+					<a class="info-box box-style"
+					   style="background-color: #999; cursor: default;background-image: url('assets/images/leave-new-icon-bg.png');" >
+						<div class="box-top">
+							<h2>{{dashboardData.MYTotalLeaves}}</h2>
+							<h4>Total Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/leave-new-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3">
+					<a class="info-box box-style"
+					    style="background-color: #999;cursor: default;background-image: url('assets/images/approved-leave-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.MYTotalApprovedLeaves}}</h2>
+							<h4>Total Approved Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/approved-leave-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-3">
+					<a class="info-box box-style"
+					   style="background-color: #999;cursor: default;background-image: url('assets/images/rejected-leaves-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.MYTotalRejectsLeaves}}</h2>
+							<h4>Total Rejected Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/rejected-leaves-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<a class="info-box box-style"
+					    style="background-color: #999;cursor: default;background-image: url('assets/images/pending-leaves-icon-bg.png');">
+						<div class="box-top">
+							<h2>{{dashboardData.MYTotalPendingLeaves}}</h2>
+							<h4>Total Pending Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/pending-leaves-icon.svg"/>
+						</div>
+					</a>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<a class="info-box box-style" style="background-color: #999;cursor: default; background-image: url('assets/images/cancelled-leave.jpg');">
+						<div class="box-top">
+							<h2>{{dashboardData.MYTotalCancelledLeaves}}</h2>
+							<h4>Total Cancelled Leaves</h4>
+						</div>
+						<div class="box-icon">
+							<img alt="icon" src="assets/images/rejected-leaves-icon.svg"/>
+						</div>
+					</a>
+				</div>
+			</div>
+		</mat-tab>
+	</mat-tab-group>
+
+</section>

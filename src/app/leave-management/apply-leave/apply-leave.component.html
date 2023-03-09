@@ -1,0 +1,129 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4 actions">
+    <!--BreadCrumb-->
+    <ul class="breadcrumb">
+      <ul class="breadcrumb">
+	      <li><a routerLink="/leave-management/my-leave" style="color: black; font-weight: 500">My Leaves</a></li>
+	      <li class="active" style="color: black; font-weight: 500">Apply Leave</li>
+        <!--<li class="pointer-event" routerLink="/leave-management/my-leave">My Leaves</li>
+        <li>Apply Leave</li>-->
+      </ul>
+    </ul>
+    <div>
+      <button class="btn-style red-btn" form="ngForm" type="submit">Request for Approval</button>
+      <button class="btn-style black-btn" routerLink="/leave-management/my-leave" type="reset">Cancel</button>
+    </div>
+    <!--BreadCrumb-->
+  </div>
+  <form  (ngSubmit)="onApplyLeave()" [formGroup]="applyLeaveForm" class="w-100 applyleaveForm" id="ngForm" name="applyLeaveForm"
+    novalidate>
+    <div class="box-style-breadcrumb mt-4 p-5">
+      <div class="form-main">
+        <h2>Apply Leave</h2>
+        <div class="form-row-wrapper">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-field">
+                <mat-form-field appearance="outline" class="element-full-width">
+                  <mat-label>Select Leave Type </mat-label>
+                  <mat-select #type (selectionChange)="leaveTypeChanged(type.value)" formControlName="leaveType" maxlength="150" name="leaveType" required>
+                    <mat-option *ngFor="let leaveTypes of leaveType" [value]="leaveTypes.value">
+                      {{ leaveTypes.value}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="applyLeaveForm.controls.leaveType.errors?.required ">
+                    Leave Type is required!
+                  </mat-error>
+	              <p *ngIf="leaveTypeSelected && selectedLeaveType === 'LWP'" class="card-error"> Available LWP Balance is:{{LWPLeaveBalance??0}}</p>
+	              <p *ngIf="leaveTypeSelected && selectedLeaveType === 'Casual'" class="card-error">Available Casual Balance is:{{casualLeaveBalance??0}}</p>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-field">
+                <mat-form-field appearance="outline" class="element-full-width">
+                  <mat-label>Select Duration </mat-label>
+                  <mat-select [disabled]="disableField" formControlName="leaveDuration" name="leaveDuration" required >
+                    <mat-option *ngFor="let durationTypes of selectDuration" [value]="durationTypes.value">
+                      {{durationTypes.valueName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="applyLeaveForm.controls.leaveDuration.errors?.required">
+                    Duration is required!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="applyLeaveForm.value.leaveDuration === 'Half Day'" class="col-sm-4">
+              <div class="form-field">
+                <mat-form-field appearance="outline" class="element-full-width">
+                  <mat-label>Select Duration Details </mat-label>
+                  <mat-select [disabled]="disableField" formControlName="leaveDurationDetail" maxlength="150" name="leaveDurationDetail" required>
+                    <mat-option *ngFor="let durationTypes of selectDurationDetails" [value]="durationTypes.value">
+                      {{durationTypes.valueName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="applyLeaveForm.controls.leaveDurationDetail.errors?.required">
+                    Duration detail is required!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-12"></div>
+            <div class="col-sm-4">
+              <div class="form-field">
+                <mat-form-field appearance="outline" class="element-full-width">
+                  <mat-label>From Date</mat-label>
+                  <input  (click)="release_picker.open()" (dateChange)="getFromDate($event)" [disabled]="disableField" [matDatepickerFilter]="datesFilter" [matDatepicker]="release_picker" [min]="minDate"  autocomplete="off"   formControlName="fromDate"
+                    matInput maxlength="150" name="fromDate">
+                  <mat-datepicker-toggle [for]="release_picker" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #release_picker></mat-datepicker>
+                  <mat-error *ngIf="applyLeaveForm.controls.fromDate.errors?.required">
+                    From Date is required!
+                  </mat-error>
+                  <mat-error *ngIf="applyLeaveForm.controls.fromDate.errors?.invalidDate">
+                    Weekends Date is not allowed!
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-field">
+                <mat-form-field appearance="outline" class="element-full-width">
+                  <mat-label>To Date</mat-label>
+                  <input  (dateChange)="getToDate($event)" (focus)="release_picker2.open()" [disabled]="disableField" [matDatepickerFilter]="datesFilter" [matDatepicker]="release_picker2" [max]="this.maxToDate" [min]="applyLeaveForm.controls.fromDate.value" autocomplete="off" formControlName="toDate"
+                    matInput maxlength="150" name="toDate">
+                  <mat-datepicker-toggle [for]="release_picker2" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #release_picker2></mat-datepicker>
+                  <mat-error *ngIf="applyLeaveForm.controls.toDate.errors?.required">
+                    To Date is required!
+                  </mat-error>
+                  <mat-error *ngIf="applyLeaveForm.controls.toDate.errors?.min">
+                    Select valid date!
+                  </mat-error>
+
+                </mat-form-field>
+              </div>
+            </div>
+          <div class="col-sm-8">
+              <div class="form-field">
+                <mat-form-field appearance="outline" class="element-full-width">
+                  <mat-label>Leave Reason</mat-label>
+                  <textarea (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="leaveReason" matInput maxlength="300" name="leaveReason" required type="text"></textarea>
+                  <mat-error *ngIf="applyLeaveForm.controls.leaveReason.errors?.required">
+                    Leave Reason is required!
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div class="form-footer box-style-breadcrumb mt-3 p-3">
+      <button (click)="onApplyLeave()" class="btn-style red-btn" type="submit">Request for Approval</button>
+      <button class="btn-style black-btn" routerLink="/leave-management/my-leave" type="reset">Cancel</button>
+    </div>-->
+  </form>
+</section>

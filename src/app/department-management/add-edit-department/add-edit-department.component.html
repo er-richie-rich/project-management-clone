@@ -1,0 +1,52 @@
+<section class="dashboard-content">
+    <div class="box-style-breadcrumb p-4 actions">
+        <!--BreadCrumb-->
+        <ul class="breadcrumb">
+	        <li><a (click)="goToDepartmentList()" style="color: black; font-weight: 500">Department Management</a></li>
+	        <li class="active" style="color: black; font-weight: 500">{{editMode}} Department</li>
+            <!--<li class="pointer-event" routerLink="/department-management">Department Management</li>
+            <li>{{editMode}}</li>-->
+        </ul>
+        <div>
+            <button class="btn-style red-btn" form="ngForm" type="submit">Save</button>
+            <button (click)="goToDepartmentList()" class="btn-style black-btn" >Back</button>
+        </div>
+        <!--BreadCrumb-->
+    </div>
+    <!--Card-->
+    <form (ngSubmit)="AddDepartment()" [formGroup]="departmentForm" class="w-100" id="ngForm" name="addUserForm"
+          novalidate>
+        <div class="box-style-breadcrumb mt-4 p-5">
+            <div class="form-main">
+                <h2>Department</h2>
+                <div class="form-row-wrapper">
+                    <div class="row">
+                        <div  class="col-sm-3">
+                            <div class="form-field">
+                                <mat-form-field appearance="outline" class="element-full-width">
+                                    <mat-label>Title</mat-label>
+                                    <input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="departmentTitle" matInput maxlength="150" name="departmentTitle" required type="text" />
+                                    <mat-error *ngIf="departmentForm.controls.departmentTitle.errors?.required">
+                                        Title is required!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="margin-top: 15px">
+                            <div class="form-field">
+                                <mat-checkbox class="example-margin" formControlName="accessModule">
+                                    Access Module
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="form-footer box-style-breadcrumb mt-3 p-3">
+            <button (click)="AddDepartment()" class="btn-style red-btn" type="submit">Save</button>
+            <button class="btn-style black-btn" routerLink="/department-management/">Back</button>
+        </div>-->
+    </form>
+    <!--Card-->
+</section>

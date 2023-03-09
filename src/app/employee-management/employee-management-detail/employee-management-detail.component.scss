@@ -1,0 +1,21 @@
+.form-content-box {
+  .form-top {
+    padding: 0px;
+  }
+  .form-main {
+    padding: 0px;
+  }
+}
+
+.field-info {
+  padding: 15px 0px;
+}
+
+.form-bg-wrapper {
+  margin-left: calc(var(--bs-gutter-x) * -.5);
+  margin-right: calc(var(--bs-gutter-x) * -.5);
+}
+
+hr:not([size]) {
+  background-color: #96979d;
+}

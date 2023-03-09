@@ -1,0 +1,53 @@
+.btn-group-wrapper {
+  display: flex;
+
+  .btn-left, .btn-right {
+    width: 35px;
+  }
+}
+
+.mat-sort-header-content {
+  text-align: left !important;
+}
+
+mat-select-trigger {
+  text-transform: capitalize !important;
+}
+
+.menuIcon {
+  font-size: 38px;
+}
+
+.menuStyle {
+  padding: 5px 10px !important;
+}
+
+.topRightMenu {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  span {
+    width: 30px;
+  }
+}
+$size: 65px;
+.hover-half-round-two button {
+  background: none;
+  position: absolute;
+  left: -10px;
+  top: -8px;
+  font-size: 25px;
+  color: #fff;
+
+  &:hover {
+    color: #F8FF59;
+  }
+}
+
+.hover-half-round-two button:nth-child(2) {
+  left: 22px;
+  top: 20px;
+  -webkit-animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+  animation: fade-in-fwd 1s cubic-bezier(.39, .575, .565, 1.000) both;
+}
