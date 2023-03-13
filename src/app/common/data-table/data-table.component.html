@@ -1,0 +1,39 @@
+<table [dataSource]="data" mat-table>
+    <tr *matHeaderRowDef="columns; " mat-header-row></tr>
+    <tr *matRowDef="let row; columns: columns;" mat-row></tr>
+    <ng-container *ngFor="let column of columns ; let i = index " >
+        <ng-container [matColumnDef]="column">
+            <th *matHeaderCellDef mat-header-cell>
+                {{headers[i]}}</th>
+
+            <ng-container *ngIf="column == 'action'">
+                <td *matCellDef="let element" mat-cell>
+                    <div class="hover-effect-menu {{icons}}-icons" >
+                        <div class="short-arrow">
+                            <span class="material-icons">more_horiz</span>
+                        </div>
+                        <div class="hover-round-effect">
+                            <button (click)="viewDetail(element)" *ngIf="viewOn" mat-menu-item matTooltip="{{'TABLE.ViewDetails' }}">
+                                <span class="material-icons">remove_red_eye </span>
+                            </button>
+                            <button (click)="editEvent(element)" *ngIf="editOn" mat-menu-item matTooltip="{{'Edit' }}">
+                                <span class="material-icons">edit</span>
+                            </button>
+                            <button (click)="deleteEvent(element)" *ngIf="deleteOn" mat-menu-item matTooltip="{{'Delete' }}">
+                                <span class="material-icons">delete</span>
+                            </button>
+                            <button (click)="deleteEvent(element)" *ngIf="logOn" mat-menu-item matTooltip="{{'Delete' }}">
+                                <span class="material-icons">delete</span>
+                            </button>
+                            <button (click)="deleteEvent(element)" *ngIf="cancelOn" mat-menu-item matTooltip="{{'Delete' }}">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                    </div>
+            </ng-container>
+            <ng-container *ngIf="column != 'action'">
+                <td *matCellDef="let row" mat-cell>{{row[column]}}</td>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</table>

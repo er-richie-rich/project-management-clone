@@ -1,7 +1,7 @@
 <div class="main-side-nav">
   <mat-toolbar class="dashboard-logo">
     <!-- <h1>M<span class="hideon">ulti</span> <span class="font300">Q<span class="hideon">os</span></span></h1> -->
-    <h1 style="height: 100%;"><img alt="icon" src="assets/images/loginLogo.svg" style="max-height: 100%;"/></h1>
+    <h1 style="height: 100%;"><img alt="icon" src="../../../assets/images/loginLogo.svg" style="max-height: 100%;"/></h1>
   </mat-toolbar>
   <ul (mouseenter)="mouseHover()" (mouseleave)="mouseOut()" class="side-nav">
     <!--<li
@@ -88,7 +88,7 @@
     </li>
         <li *ngIf="roleName !== 'HRMANAGERS'">
           <div mat-list-item>
-            <a class="link-menu" routerLink="/important-document" routerLinkActive="active-link">
+            <a class="link-menu" routerLink="/document-management" routerLinkActive="active-link">
               <span class="material-icons">description</span><span *ngIf="roleName === 'SUPERADMINS'" class="nav-caption">Document Management</span><span *ngIf="roleName !== 'SUPERADMINS'" class="nav-caption">Important Documents</span>
             </a>
           </div>

@@ -1,0 +1,270 @@
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0"
+      rel="stylesheet"/>
+<section class="dashboard-content">
+    <div class="table-content box-style m-0 p-0">
+        <div class="table-heading box-style-breadcrumb p-4">
+            <a><h3 style="font-weight: 500">Ticket Management</h3></a>
+            <div class="search-form-wrapper">
+
+                <!--Search-->
+                <div class="search-form">
+                    <span class="material-icons">search</span>
+                    <input #searchString (keydown)="space($event)" (keyup)="applyFilter($event)" placeholder="Search"
+                           type="text">
+                    <span #clearString (click)="clearSearch($event)" *ngIf="isVisible"
+                          class="closeIcon material-icons">clear</span>
+                </div>
+                <!--Search-->
+                <!--Add ticket Button-->
+                <div *ngIf="!isNetworkEngineer">
+                <a class="btn-style red-btn" routerLink="/ticket-management/add-edit-ticket/0">
+                    <span class="material-icons">add</span>Add Ticket
+                </a></div>
+                <!--Add ticket Button-->
+            </div>
+        </div>
+        <div>
+            <table [dataSource]="dataSource" mat-table matSort style="width: 100% ;">
+                <!--Action Column-->
+                <ng-container matColumnDef="action2" >
+                    <th *matHeaderCellDef mat-header-cell style="width: 5%">Action</th>
+                    <td *matCellDef="let element;index as i;"  mat-cell style="width: 5%;padding-left: 20px !important; ">
+                        <div class="hover-effect-menu" id="hoverMenu">
+                            <span *ngIf="element.unReadCount > 0" class="sidenav-notify-main">{{element.unReadCount}}</span>
+                            <span  class="material-icons short-arrow">more_horiz</span>
+                            <div *ngIf="!isNetworkEngineer" class="hover-round-effect">
+                                <button
+                                        (click)="editTicket(element.ticketId, element.ticketStatus)"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Edit"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    drive_file_rename_outline
+                                </button>
+                                <button (click)="deleteTicket(element.ticketId)"
+                                        [disabled]="element.ticketStatus != 'Cancelled'"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Delete"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    delete
+                                </button>
+
+                                <button (click)="cancelTicket(element.ticketId)" *ngIf="!isNetworkEngineer"
+                                        [disabled]="element.ticketStatus === 'Closed'"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Cancel"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    cancel
+                                </button>
+                                <button
+                                        (click)="viewTicket(element.ticketId)"
+                                        class="material-icons mat-menu-item"
+                                        matTooltip="Detail"
+                                        matTooltipClass='tooltip-color'
+                                        tabindex="0">
+                                    web
+                                </button>
+                                <span *ngIf="element.unReadCount > 0" class="sidenav-not-network-notify" style="display: none">{{element.unReadCount}}</span>
+                            </div>
+                            <div *ngIf="isNetworkEngineer" class="hover-half-round-two">
+                                <div class="quarter-circle">
+                                    <button
+                                            (click)="markAsResolved(element.ticketId)"
+                                            class="material-icons mat-menu-item"
+                                            matTooltip="Mark As Resolved"
+                                            matTooltipClass='tooltip-color'
+                                            tabindex="0">
+                                        assignment_turned_in
+                                    </button>
+
+                                    <button
+                                            (click)="viewTicket(element.ticketId)"
+                                            class="material-icons mat-menu-item"
+                                            matTooltip="Detail"
+                                            matTooltipClass='tooltip-color'
+                                            tabindex="0">
+                                        web
+                                    </button>
+                                    <span *ngIf="element.unReadCount > 0" class="sidenav-notify">{{element.unReadCount}}</span>
+
+
+                                    <ng-template #content let-modal style="max-width: 800px;">
+                                        <div class="modal-header document-modal">
+                                            <h4 class="modal-title" id="modal-basic-title">{{element.documentName}}</h4>
+                                            <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="close" type="button">
+                                                <img  src="../../../assets/images/cross-icon.svg">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body pdf-viewer-container">
+                                            <pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document" class="pdf-viewer"></pdf-viewer>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button (click)="modal.close({document:element.document,fileName:element.documentName})" class="btn-style black-btn" type="button">Close</button>
+                                        </div>
+
+
+                                    </ng-template>
+                                    <div class="quarter-circle-nested"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="hover-effect-menu">
+                            <span class="material-icons short-arrow">more_horiz</span>
+                            <div class="hover-half-round-three">
+                                <div class="quarter-circle">
+                                    <button
+
+                                            class="material-icons mat-menu-item"
+                                            matTooltip="Edit"
+                                            matTooltipClass='tooltip-color'
+                                            tabindex="0">
+                                        drive_file_rename_outline
+                                    </button>
+                                    <button
+                                            (click)="markAsResolved(element.ticketCode)"
+                                            class="material-icons mat-menu-item"
+                                            matTooltip="Mark As Resolved"
+                                            matTooltipClass='tooltip-color'
+                                            tabindex="0">
+                                        Mark As Resolve
+                                    </button>
+                                    <button
+
+                                            class="material-icons mat-menu-item"
+                                            matTooltip="Delete"
+                                            matTooltipClass='tooltip-color'
+                                            tabindex="0">
+                                        delete
+                                    </button>
+                                    <button
+
+                                            class="material-icons mat-menu-item"
+                                            matTooltip="Detail"
+                                            matTooltipClass='tooltip-color'
+                                            tabindex="0">web
+                                    </button>
+                                    <div class="quarter-circle-nested"></div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ticketCode">
+                    <th (click)="sortData('ticketCode', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header
+                        style="width: 15%">
+                        <div class="d-flex align-items-center text-left">
+                            Ticket Id <span
+                                [ngClass]="{'down': sortBy === -1 && sortKey === 'ticketCode', 'up': sortBy === 1 && sortKey === 'ticketCode'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" class="text-capitalize" mat-cell>
+                        {{element.ticketCode}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="userName">
+                    <th (click)="sortData('userData.fullName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header
+                        style="width: 15%">
+                        <div class="d-flex align-items-center text-left">
+                           Employee Name <span
+                                [ngClass]="{'down': sortBy === -1 && sortKey === 'userData.fullName', 'up': sortBy === 1 && sortKey === 'userData.fullName'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" class="text-capitalize" mat-cell>
+                        {{element.userName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th (click)="sortData('userData.email', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header
+                        style="width: 15%">
+                        <div class="d-flex align-items-center text-left">
+                            Email <span
+                                [ngClass]="{'down': sortBy === -1 && sortKey === 'userData.email', 'up': sortBy === 1 && sortKey === 'userData.email'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" class="text-capitalize" mat-cell>
+                        {{element.email}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="urgency">
+                    <th (click)="sortData('urgency', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Urgency <span
+                                [ngClass]="{'down': sortBy === -1 && sortKey === 'urgency', 'up': sortBy === 1 && sortKey === 'urgency'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.urgency}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="subject" >
+                    <th (click)="sortData('subject', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Subject <span
+                                [ngClass]="{'down': sortBy === -1 && sortKey === 'subject', 'up': sortBy === 1 && sortKey === 'subject'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element" class="text-capitalize" mat-cell style="width: 350px">  {{element.subject}} </td>
+                </ng-container>
+
+
+<!--                &lt;!&ndash; message Column &ndash;&gt;-->
+<!--                <ng-container matColumnDef="message">-->
+<!--                    <th (click)="sortData('message', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--                        <div class="d-flex align-items-center text-left">-->
+<!--                            Message <span-->
+<!--                                [ngClass]="{'down': sortBy === -1 && sortKey === 'message', 'up': sortBy === 1 && sortKey === 'message'}">-->
+<!--                      </span>-->
+<!--                        </div>-->
+<!--                    </th>-->
+<!--                    <td *matCellDef="let element" class="text-capitalize cutom-line" mat-cell> {{element.message}} </td>-->
+<!--                </ng-container>-->
+<!--                &lt;!&ndash; message Column &ndash;&gt;-->
+
+
+
+                <ng-container matColumnDef="status">
+                    <th (click)="sortData('status', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
+                        <div class="d-flex align-items-center text-left">
+                            Status <span
+                                [ngClass]="{'down': sortBy === -1 && sortKey === 'status', 'up': sortBy === 1 && sortKey === 'status'}">
+                      </span>
+                        </div>
+                    </th>
+                    <td *matCellDef="let element"  class="text-capitalize" mat-cell>
+                        <span [ngClass]="{'close': element.ticketStatus === 'Closed' , 'open' : element.ticketStatus === 'Open' ,'cancelled' :  element.ticketStatus === 'Cancelled' }" class="tiketStatus">{{ element.ticketStatus }}</span>
+                    </td>
+                </ng-container>
+
+                <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
+                <!--        <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
+                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                <!-- Row shown when there is no matching data. -->
+                <tr *matNoDataRow class="mat-row">
+                    <td class="mat-cell text-center" colspan="10">Data Not Available</td>
+                </tr>
+            </table>
+        </div>
+        <mat-paginator
+                (page)="pageChange($event)"
+                [hidePageSize]="false"
+                [length]="meta"
+                [pageIndex]="page"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageSize]="perPage"
+                color="warn"
+                showFirstLastButtons
+        ></mat-paginator>
+    </div>
+</section>

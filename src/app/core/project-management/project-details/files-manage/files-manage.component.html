@@ -1,0 +1,170 @@
+<section class="dashboard-content">
+  <div class="box-style-breadcrumb p-4 mt-3">
+  <div class="table-content box-style">
+    <div class="resource-color-table">
+      <div class="">
+        <div class="table-heading">
+          <h3 style="font-weight: 700">Files</h3>
+          <div class="search-form-wrapper">
+            <button class="btn-style red-btn" routerLink="/project-management/project-details/add-file/{{projectId}}/0">
+              <span class="material-icons">upload</span>Upload File
+            </button>
+          </div>
+        </div>
+        <table [dataSource]="filesSource" mat-table style="width: 100%">
+          <mat-tab-group>
+            <!--Action Column-->
+            <!--<ng-container matColumnDef="action2">
+              <th *matHeaderCellDef mat-header-cell style="width: 5%">Action</th>
+              <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
+                <div class="hover-effect-menu three-icon">
+                  <span class="material-icons short-arrow">more_horiz</span>
+                  <div class="hover-half-round-three">
+                    <div class="quarter-circle">
+                      <button (click)="editFile(element._id)"
+                              class="material-icons mat-menu-item"
+                              matTooltip="Edit"
+                              matTooltipClass='tooltip-color'
+                              tabindex="0">
+                        drive_file_rename_outline
+                      </button>
+                      <button
+                              (click)="deleteFile(element._id, i, $event)"
+                              class="material-icons mat-menu-item"
+                              matTooltip="Delete"
+                              matTooltipClass='tooltip-color'
+                              tabindex="0">
+                        delete
+                      </button>
+                      <button
+                              (click)="documentDownload(element.fileLink,element.fileName)"
+                              class="material-icons mat-menu-item"
+                              matTooltip="Download"
+                              matTooltipClass='tooltip-color'
+                              tabindex="0">file_download
+                      </button>
+                      <div class="quarter-circle-nested"></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </ng-container>-->
+	          <ng-container matColumnDef="action2">
+		          <th *matHeaderCellDef mat-header-cell style="width: 5%">
+					  <div class="d-flex align-items-center text-left">
+						  Action
+				  </div>
+				  </th>
+		          <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
+			          <div class="hover-effect-menu">
+				          <span class="material-icons short-arrow">more_horiz</span>
+				          <div class="hover-round-effect">
+					          <button
+							          (click)="editFile(element._id)"
+							          class="material-icons mat-menu-item"
+							          matTooltip="Edit"
+							          matTooltipClass='tooltip-color'
+							          tabindex="0">
+						          drive_file_rename_outline
+					          </button>
+					          <button
+							          (click)="deleteFile(element._id, i, $event)"
+							          class="material-icons mat-menu-item"
+							          matTooltip="Delete"
+							          matTooltipClass='tooltip-color'
+							          tabindex="0">
+						          delete
+					          </button>
+					          <button
+							          (click)="documentDownload(element.fileLink,element.fileName)"
+							          class="material-icons mat-menu-item"
+							          matTooltip="Download"
+							          matTooltipClass='tooltip-color'
+							          tabindex="0">
+						          file_download
+					          </button>
+					          <button
+							          (click)="open(content,element.fileLink)"
+							          class="material-icons mat-menu-item"
+							          matTooltip="Detail"
+							          matTooltipClass='tooltip-color'
+							          tabindex="0">
+						          web
+					          </button>
+				          </div>
+			          </div>
+			          <ng-template #content let-modal>
+				          <div class="modal-header document-modal">
+					          <h4 class="modal-title" id="modal-basic-title">{{prFileName}}</h4>
+					          <div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
+					               type="button">
+						          <img src="../../../../../assets/images/cross-icon.svg">
+					          </div>
+				          </div>
+				          <div class="modal-body" >
+							  <pdf-viewer  *ngIf="extension ==='.pdf'"	[autoresize]="true" [original-size]="false" [src]="element.fileLink"
+											 class="pdf-viewer"></pdf-viewer>
+							  <img *ngIf="extension ==='.png'" [src]="element.fileLink">
+				          </div>
+				          <div class="modal-footer">
+					          <button (click)="modal.close({document:element.document, fileName:element.documentName})"
+					                  class="btn-style black-btn" type="button">Close
+					          </button>
+				          </div>
+			          </ng-template>
+		          </td>
+	          </ng-container>
+            <!--Action Column-->
+
+            <ng-container matColumnDef="fileName">
+              <th *matHeaderCellDef mat-header-cell>
+				  <div class="d-flex align-items-center text-left">
+					  File Name
+				  </div>
+			  </th>
+              <td *matCellDef="let element" mat-cell style="white-space: nowrap">
+                {{ element.fileName}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="fileSize">
+              <th *matHeaderCellDef mat-header-cell>
+				  <div class="d-flex align-items-center text-left">
+					  Size
+				  </div>
+			  </th>
+              <td *matCellDef="let element" mat-cell style="white-space: nowrap">
+                {{ element.fileSize}} KB
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="createdAt">
+              <th *matHeaderCellDef mat-header-cell>
+				  <div class="d-flex align-items-center text-left">
+					  Upload Date
+				  </div>
+			  </th>
+              <td *matCellDef="let element" mat-cell style="white-space: nowrap">
+                {{ element.createdAt | date : "dd/MM/YYYY" : 'UTC'}}
+              </td>
+            </ng-container>
+          </mat-tab-group>
+          <tr *matHeaderRowDef="filesColumns" mat-header-row></tr>
+          <tr *matRowDef="let element; columns: filesColumns" mat-row></tr>
+			<tr *matNoDataRow class="mat-row">
+				<td class="mat-cell text-center" colspan="10">Data Not Available</td>
+			</tr>
+        </table>
+		  <mat-paginator
+				  (page)="pageChange($event)"
+				  [hidePageSize]="false"
+				  [length]="meta"
+				  [pageIndex]="page"
+				  [pageSizeOptions]="pageSizeOptions"
+				  [pageSize]="perPage"
+				  color="warn"
+				  showFirstLastButtons
+		  ></mat-paginator>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>

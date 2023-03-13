@@ -1,0 +1,626 @@
+<div>
+    <mat-tab-group>
+        <mat-tab label="Dashboard">
+            <div class="accordion accordion-flush">
+                <div class="accordion-item">
+                    <h2 class="accordion-header mt-4">
+                        <h2 style="font-weight: 500; color: #fe5c58;">Today's Activity</h2>
+                    </h2>
+                    <div aria-labelledby="flush-headingOne" class="accordion-collapse">
+                        <div class="row">
+                            <div *ngIf="roleName === 'SUPERADMINS' || roleName === 'TEAMLEADERS'" class="col-sm-3">
+                                <a (click)="openTodayActivityPopup('Today\'s Leaves','Leaves')"
+                                   class="info-box box-style"
+                                   style="background-color: #999;background-image: url('../../../../assets/images/leave-icon-bg.png');">
+                                    <div class="box-top">
+                                        <h2>{{TotalLeavesToday}}</h2>
+                                        <h4>Total Leaves for Today</h4>
+                                    </div>
+                                    <div class="box-icon">
+                                        <img alt="icon" src="../../../../assets/images/leave-icon.svg"/>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a (click)="openTodayActivityPopup('Today\'s Birthday','Birthday')"
+                                   class="info-box box-style"
+                                   style="background-color: #999;background-image: url('../../../../assets/images/birthday-icon-bg.png');">
+                                    <div class="box-top">
+                                        <h2>{{TotalBirthdayToday}}</h2>
+                                        <h4>Total Birthday Today</h4>
+                                    </div>
+                                    <div class="box-icon">
+                                        <img alt="icon" src="../../../../assets/images/birthday-icon.svg"/>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a (click)="openTodayActivityPopup('Today\'s work-anniversary','Anniversary')"
+                                   class="info-box box-style"
+                                   style="background-color: #999;background-image: url('../../../../assets/images/work-anniversary-icon-bg.png');">
+                                    <div class="box-top">
+                                        <h2>{{TotalWorkAnniversaryToday}}</h2>
+                                        <h4>Today's Work Anniversary</h4>
+                                    </div>
+                                    <div class="box-icon">
+                                        <img alt="icon" src="../../../../assets/images/work-anniversary-icon.svg"/>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="roleName === 'SUPERADMINS' " class="accordion-item">
+                    <h2 class="accordion-header">
+                        <!--      <h2 class="accordion-header" (click)="openUserManagement()">-->
+                        <h2 style="font-weight: 500; color: #fe5c58;">User Management </h2>
+                    </h2>
+                    <div *ngIf="userManagementState" aria-labelledby="flush-headingOne" class="accordion-collapse">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfTotalUser()"
+                                                    [color]="'#006494'"
+                                                    [count]="totalUsers"
+                                                    [icon]="'total-users.svg'"
+                                                    [message]="'Total Users'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfTotalSuperAdmin()"
+                                                    [color]="'#469D89'"
+                                                    [count]="superAdmin"
+                                                    [icon]="'super-admin.svg'"
+                                                    [message]="'Super Admin'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfBDE()"
+                                                    [color]="'#006494'"
+                                                    [count]="bde"
+                                                    [icon]="'BDE.svg'"
+                                                    [message]="'BDE'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfBDM()"
+                                                    [color]="'#469D89'"
+                                                    [count]="bdm"
+                                                    [icon]="'super-admin.svg'"
+                                                    [message]="'BDM'">
+                                </app-dashboard-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfSalesManagers()"
+                                                    [color]="'#469D89'"
+                                                    [count]="salesManagers"
+                                                    [icon]="'BDE.svg'"
+                                                    [message]="'Sales Managers'">
+                                </app-dashboard-card>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfHRManagers()"
+                                                    [color]="'#006494'"
+                                                    [count]="totalHrManagers"
+                                                    [icon]="'BDE.svg'"
+                                                    [message]="'HR Managers'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfProjectManagers()"
+                                                    [color]="'#469D89'"
+                                                    [count]="totalProjectManagers"
+                                                    [icon]="'BDE.svg'"
+                                                    [message]="'Project Managers'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfTotalTeamLeaders()"
+                                                    [color]="'#006494'"
+                                                    [count]="totalTeamLeaders"
+                                                    [icon]="'total-users.svg'"
+                                                    [message]="'Team Leaders'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfTotalTeamMembers()"
+                                                    [color]="'#006494'"
+                                                    [count]="totalTeamMembers"
+                                                    [icon]="'BDE.svg'"
+                                                    [message]="'Team Members'">
+                                </app-dashboard-card>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="accordion-header">
+                        <!--      <h2 class="accordion-header" (click)="openUserManagement()">-->
+                        <h2 style="font-weight: 500; color: #fe5c58;">Inventory Management </h2>
+                    </h2>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <app-dashboard-card [color]="'#469D89'"
+                                                [count]="totalReport"
+                                                [icon]="'proposal-sent.svg'"
+                                                [message]="'Total Reports'">
+                            </app-dashboard-card>
+                        </div>
+                        <div class="col-sm-3">
+                            <app-dashboard-card [color]="'#006494'"
+                                                [count]="openReport"
+                                                [icon]="'in-progress-project.svg'"
+                                                [message]="'Open Report'">
+                            </app-dashboard-card>
+                        </div>
+                        <div class="col-sm-3">
+                            <app-dashboard-card [color]="'#469D89'"
+                                                [count]="closedReport"
+                                                [icon]="'Path%20102521.svg'"
+                                                [message]="'Closed Report'">
+                            </app-dashboard-card>
+                        </div>
+                    </div>
+                </div>
+                <!--User Management-->
+                <!--Lead Management-->
+                <div *ngIf="roleName === 'SUPERADMINS' || roleName === 'BUSINESSDEVELOPMENTEXECUTIVE' || roleName === 'BUSINESSDEVELOPMENTMANAGER' || roleName === 'SALESMANAGERS'"
+                     class="accordion-item">
+                    <h2 class="accordion-header">
+                        <!--      <h2 class="accordion-header" (click)="openSalesManagement()">-->
+                        <h2 style="font-weight: 500; color: #fe5c58;">Lead Management </h2>
+                    </h2>
+                    <div
+                            aria-labelledby="flush-headingOne" class="accordion-collapse">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="totalLead($event)"
+                                                    [color]="'#5A58FE'"
+                                                    [count]="totalLeads > 0 ? totalLeads : 0"
+                                                    [icon]="'all-leads.svg'"
+                                                    [message]="'Total Leads'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="openLead($event)"
+                                                    [color]="'#AE58FE'"
+                                                    [count]="open_leads > 0 ? open_leads : 0"
+                                                    [icon]="'project-completed.svg'"
+                                                    [message]="'Open Leads'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="onHold($event)"
+                                                    [color]="'#920301'"
+                                                    [count]="on_hold > 0 ? on_hold : 0"
+                                                    [icon]="'project-hold.svg'"
+                                                    [message]="'On Hold'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="scopeSent($event)"
+                                                    [color]="'#FF598F'"
+                                                    [count]="scope_sent > 0 ? scope_sent : 0"
+                                                    [icon]="'scope-sent.svg'"
+                                                    [message]="'Scope Sent'">
+                                </app-dashboard-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="proposalSent($event)"
+                                                    [color]="'#FF9559'"
+                                                    [count]="proposal_sent > 0 ? proposal_sent : 0"
+                                                    [icon]="'proposal-sent.svg'"
+                                                    [message]="'Proposal Sent'">
+                                </app-dashboard-card>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="invoiceSent($event)"
+                                                    [color]="'#FF9559'"
+                                                    [count]="invoice_sent > 0 ? invoice_sent : 0"
+                                                    [icon]="'proposal-sent.svg'"
+                                                    [message]="'Invoice Sent'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="closeLead($event)"
+                                                    [color]="'#00A65A'"
+                                                    [count]="totalWonLeads > 0 ? totalWonLeads : 0"
+                                                    [icon]="'won-leads.svg'"
+                                                    [message]="'Won Leads'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="scrappedLeads($event)"
+                                                    [color]="'#FE5C58'"
+                                                    [count]="lost_lead > 0 ? lost_lead : 0"
+                                                    [icon]="'lost-leads.svg'"
+                                                    [message]="'Lost Leadss'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="hotLead($event)"
+                                                    [color]="'#E159FF'"
+                                                    [count]="hot_lead > 0 ? hot_lead : 0"
+                                                    [icon]="'hot-leads.svg'"
+                                                    [message]="'Hot Leads'">
+                                </app-dashboard-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Lead Management-->
+                <!--Project Management-->
+                <div *ngIf="roleName === 'SUPERADMINS' || roleName === 'PROJECTMANAGERS'" class="accordion-item">
+                    <h2 class="accordion-header">
+                        <!--      <h2 class="accordion-header" (click)="openProjectManagement()">-->
+                        <h2 style="font-weight: 500;color: #fe5c58;">Project Management </h2>
+                    </h2>
+                    <!--      <div *ngIf="roleName === 'PROJECTMANAGERS' ? !projectManagementState : projectManagementState "-->
+                    <div aria-labelledby="flush-headingOne" class="accordion-collapse">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfProjects()"
+                                                    [color]="'#00A6FB'"
+                                                    [count]="totalProjects > 0 ? totalProjects : 0"
+                                                    [icon]="'total-project.svg'"
+                                                    [message]="'Total Projects'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfInProgessProjects()"
+                                                    [color]="'#0582CA'"
+                                                    [count]="inProgressProjects > 0 ? inProgressProjects : 0"
+                                                    [icon]="'in-progress-project.svg'"
+                                                    [message]="'In Progress Project'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfOnHoldProjects()"
+                                                    [color]="'#006494'"
+                                                    [count]="onHoldProjects > 0 ? onHoldProjects : 0"
+                                                    [icon]="'on-hold-projects.svg'"
+                                                    [message]="'On Hold Projects'">
+                                </app-dashboard-card>
+                            </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfCompletedProjects()"
+                                                    [color]="'#003554'"
+                                                    [count]="completedProjects > 0 ? completedProjects : 0"
+                                                    [icon]="'completed-projects.svg'"
+                                                    [message]="'Completed Project'">
+                                </app-dashboard-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="roleName === 'TEAMMEMBERS' || roleName ==='PROJECTMANAGERS' || roleName ==='BUSINESSDEVELOPMENTEXECUTIVE' || roleName ==='BUSINESSDEVELOPMENTMANAGER' || roleName ==='SALESMANAGERS' || roleName ==='NETWORKENGINEER'">
+                <h2 class="mt-4" style="color: #fe5c58; font-weight: 500">My Leaves :</h2>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <app-dashboard-card [backgroundImage]="'leave-new-icon-bg.png'"
+                                            [color]="'#999'"
+                                            [count]="salesReport?.MYTotalLeaves"
+                                            [icon]="'leave-new-icon.svg'"
+                                            [message]="'Total Leaves'">
+                        </app-dashboard-card>
+                    </div>
+                    <div class="col-sm-3">
+                        <app-dashboard-card [backgroundImage]="'approved-leave-icon-bg.png'"
+                                            [color]="'#999'"
+                                            [count]="salesReport?.MYTotalApprovedLeaves"
+                                            [icon]="'approved-leave-icon.svg'"
+                                            [message]="'Total Approved Leaves'">
+                        </app-dashboard-card>
+                    </div>
+                    <div class="col-sm-3">
+                        <app-dashboard-card [backgroundImage]="'rejected-leaves-icon-bg.png'"
+                                            [color]="'#999'"
+                                            [count]="salesReport?.MYTotalRejectsLeaves"
+                                            [icon]="'rejected-leaves-icon.svg'"
+                                            [message]="'Total Rejected Leaves'">
+                        </app-dashboard-card>
+                    </div>
+                    <div class="col-sm-3">
+                        <app-dashboard-card [backgroundImage]="'pending-leaves-icon-bg.png'"
+                                            [color]="'#999'"
+                                            [count]="salesReport?.MYTotalPendingLeaves"
+                                            [icon]="'pending-leaves-icon.svg'"
+                                            [message]="'Total Pending Leaves'">
+                        </app-dashboard-card>
+                    </div>
+                    <div class="col-sm-3">
+                        <app-dashboard-card [backgroundImage]="'cancelled-leave.jpg'"
+                                            [color]="'#999'"
+                                            [count]="salesReport?.MYTotalCancelledLeaves"
+                                            [icon]="'rejected-leaves-icon.svg'"
+                                            [message]="'Total Cancelled Leaves'">
+                        </app-dashboard-card>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab *ngIf="roleName === 'SUPERADMINS' || roleName==='TEAMLEADERS'  " label="My Dashboard"><h2 class="mt-4"
+                                                                                                           style="color: #fe5c58; font-weight: 500">
+            My Leaves :</h2>
+            <div class="row" style="cursor: default">
+                <div class="col-sm-3">
+                    <app-dashboard-card [backgroundImage]="'leave-new-icon-bg.png'"
+                                        [color]="'#999'"
+                                        [count]="salesReport?.MYTotalLeaves"
+                                        [icon]="'leave-new-icon.svg'"
+                                        [message]="'Total Leaves'">
+                    </app-dashboard-card>
+                </div>
+                <div class="col-sm-3">
+                    <app-dashboard-card [backgroundImage]="'approved-leave-icon-bg.png'"
+                                        [color]="'#999'"
+                                        [count]="salesReport?.MYTotalApprovedLeaves"
+                                        [icon]="'approved-leave-icon.svg'"
+                                        [message]="'Total Approved Leaves'">
+                    </app-dashboard-card>
+                </div>
+                <div class="col-sm-3">
+                    <app-dashboard-card [backgroundImage]="'rejected-leaves-icon-bg.png'"
+                                        [color]="'#999'"
+                                        [count]="salesReport?.MYTotalRejectsLeaves"
+                                        [icon]="'rejected-leaves-icon.svg'"
+                                        [message]="'Total Rejected Leaves'">
+                    </app-dashboard-card>
+                </div>
+                <div class="col-sm-3">
+                    <app-dashboard-card [backgroundImage]="'pending-leaves-icon-bg.png'"
+                                        [color]="'#999'"
+                                        [count]="salesReport?.MYTotalPendingLeaves"
+                                        [icon]="'pending-leaves-icon.svg'"
+                                        [message]="'Total Pending Leaves'">
+                    </app-dashboard-card>
+                </div>
+                <div class="col-sm-3">
+                    <app-dashboard-card [backgroundImage]="'cancelled-leave.jpg'"
+                                        [color]="'#999'"
+                                        [count]="salesReport?.MYTotalCancelledLeaves"
+                                        [icon]="'rejected-leaves-icon.svg'"
+                                        [message]="'Total Cancelled Leaves'">
+                    </app-dashboard-card>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+    <!--Project Management-->
+    <!--  <h2 style="font-weight: 500">User Management</h2>-->
+    <!--  <div class="row">-->
+    <!--    <div class="col-sm-3">-->
+    <!--      <a class="info-box box-style" style="background: #006494;" (click)="noOfTotalUser()">-->
+    <!--        <div class="box-top">-->
+    <!--          <h2>{{totalUsers > 0 ? totalUsers : 0}}</h2>-->
+    <!--          <h4>Total Users</h4>-->
+    <!--        </div>-->
+    <!--        <div class="box-icon">-->
+    <!--          <img alt="icon" src="assets/images/total-users.svg"/>-->
+    <!--        </div>-->
+    <!--      </a>-->
+    <!--    </div>-->
+    <!--    <div class="col-sm-3">-->
+    <!--      <div class="info-box box-style" style="background: #469D89;" (click)="noOfTotalSuperAdmin()">-->
+    <!--        <div class="box-top">-->
+    <!--          <h2>{{superAdmin > 0 ? superAdmin : 0}}</h2>-->
+    <!--          <h4>Super Admin</h4>-->
+    <!--        </div>-->
+    <!--        <div class="box-icon">-->
+    <!--          <img alt="icon" src="assets/images/super-admin.svg"/>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    <div class="col-sm-3">-->
+    <!--      <a class="info-box box-style" style="background: #006494" (click)="noOfBDE()">-->
+    <!--        <div class="box-top">-->
+    <!--          <h2>{{bde > 0 ? bde : 0}}</h2>-->
+    <!--          <h4>BDE</h4>-->
+    <!--        </div>-->
+    <!--        <div class="box-icon">-->
+    <!--          <img alt="icon" src="assets/images/BDE.svg"/>-->
+    <!--        </div>-->
+    <!--      </a>-->
+    <!--    </div>-->
+    <!--    <div class="col-sm-3">-->
+    <!--      <a class="info-box box-style" style="background:#469D89 " (click)="noOfBDM()">-->
+    <!--        <div class="box-top">-->
+    <!--          <h2>{{bdm > 0 ? bdm : 0}}</h2>-->
+    <!--          <h4>BDM</h4> &lt;!&ndash; Scrapped to Lost &ndash;&gt;-->
+    <!--        </div>-->
+    <!--        <div class="box-icon">-->
+    <!--          <img alt="icon" src="assets/images/BDE.svg"/>-->
+    <!--        </div>-->
+    <!--      </a>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <div class="row">-->
+    <!--    <div class="col-sm-3">-->
+    <!--      <a class="info-box box-style" style="background: #469D89" (click)="noOfSalesManagers()">-->
+    <!--        <div class="box-top">-->
+    <!--          <h2>{{salesManagers > 0 ? salesManagers : 0}}</h2>-->
+    <!--          <h4>Sales Managers</h4>-->
+    <!--        </div>-->
+    <!--        <div class="box-icon">-->
+    <!--          <img alt="icon" src="assets/images/BDE.svg"/>-->
+    <!--        </div>-->
+    <!--      </a>-->
+    <!--    </div>-->
+
+    <!--    <div class="col-sm-3">-->
+    <!--      <a class="info-box box-style" style="background: #006494" (click)="noOfHRManagers()">-->
+    <!--        <div class="box-top">-->
+    <!--          <h2>{{totalHrManagers > 0 ? totalHrManagers : 0}}</h2>-->
+    <!--          <h4>HR Managers</h4>-->
+    <!--        </div>-->
+    <!--        <div class="box-icon">-->
+    <!--          <img alt="icon" src="assets/images/BDE.svg"/>-->
+    <!--        </div>-->
+    <!--      </a>-->
+    <!--    </div>-->
+
+    <!--    <div class="col-sm-3">-->
+    <!--      <a class="info-box box-style" style="background: #469D89" (click)="noOfProjectManagers()">-->
+    <!--        <div class="box-top">-->
+    <!--          <h2>{{totalProjectManagers > 0 ? totalProjectManagers : 0}}</h2>-->
+    <!--          <h4>Project Managers</h4>-->
+    <!--        </div>-->
+    <!--        <div class="box-icon">-->
+    <!--          <img alt="icon" src="assets/images/BDE.svg"/>-->
+    <!--        </div>-->
+    <!--      </a>-->
+    <!--    </div>-->
+    <!--  </div>-->
+</div>
+<!----------------User Management---------------->
+<!----------------Sales Management---------------->
+<!--<h2 style="font-weight: 500">Sales Management</h2>-->
+<!--<div class="row">-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #5A58FE" (click)="totalLead($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{totalLeads > 0 ? totalLeads : 0}}</h2>-->
+<!--        <h4>Total Leads</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/all-leads.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #AE58FE"-->
+<!--       (click)="openLead($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{open_leads > 0 ? open_leads : 0}}</h2>-->
+<!--        <h4>Open Leads</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/project-completed.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #920301" (click)="onHold($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{on_hold > 0 ? on_hold : 0}}</h2>-->
+<!--        <h4>On Hold</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/project-hold.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #FF598F" (click)="scopeSent($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{scope_sent > 0 ? scope_sent : 0}}</h2>-->
+<!--        <h4>Scope Sent</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/scope-sent.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #FF9559" (click)="proposalSent($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{proposal_sent > 0 ? proposal_sent : 0}}</h2>-->
+<!--        <h4>Proposal Sent</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/proposal-sent.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <div class="info-box box-style" style="background: #00A65A;cursor: pointer" (click)="closeLead($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{totalWonLeads > 0 ? totalWonLeads : 0}}</h2>-->
+<!--        <h4>Won Leads</h4> &lt;!&ndash; closed to won &ndash;&gt;-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/won-leads.svg"/>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #FE5C58" (click)="scrappedLeads($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{lost_lead > 0 ? lost_lead : 0}}</h2>-->
+<!--        <h4>Lost Leads</h4> &lt;!&ndash; Scrapped to Lost &ndash;&gt;-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/lost-leads.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #E159FF" (click)="hotLead($event)">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{hot_lead > 0 ? hot_lead : 0}}</h2>-->
+<!--        <h4>Hot Leads</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/hot-leads.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--</div>-->
+<!----------------Sales Management---------------->
+<!----------------Project Management---------------->
+<!--<h2 style="font-weight: 500">Project Management</h2>-->
+<!--<div class="row">-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #00A6FB">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{totalProjects > 0 ? totalProjects : 0}}</h2>-->
+<!--        <h4>Total Projects</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/total-project.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #0582CA"-->
+<!--    >-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{inProgressProjects > 0 ? inProgressProjects : 0}}</h2>-->
+<!--        <h4>In Progress Project</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/in-progress-project.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #006494">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{completedProjects > 0 ? completedProjects : 0}}</h2>-->
+<!--        <h4>Completed Projects</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/completed-projects.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="col-sm-3">-->
+<!--    <a class="info-box box-style" style="background: #003554">-->
+<!--      <div class="box-top">-->
+<!--        <h2>{{onHoldProjects > 0 ? onHoldProjects : 0}}</h2>-->
+<!--        <h4>On Hold Projects</h4>-->
+<!--      </div>-->
+<!--      <div class="box-icon">-->
+<!--        <img alt="icon" src="assets/images/on-hold-projects.svg"/>-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--</div>-->

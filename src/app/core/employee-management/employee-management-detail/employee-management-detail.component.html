@@ -1,0 +1,453 @@
+<section class="dashboard-content">
+    <div class="box-style-breadcrumb p-4">
+        <div class="form-top d-flex justify-content-between align-items-center">
+            <ul class="breadcrumb">
+                <!--BreadCrumb-->
+                <ul class="breadcrumb">
+	                <li><a (click)="backToEmployeeList()" style="color: black; font-weight: 500">Employee Management</a></li>
+	                <li class="active" style="color: black; font-weight: 500">{{ userData.fullName }}</li>
+                    <!--<li class="pointer-event" routerLink="/employee-management">Employee Management</li>
+                    <li>{{ userData.fullName }}</li>-->
+                </ul>
+                <!--BreadCrumb-->
+            </ul>
+            <div class="btn-wrapper btn-wrapper-width">
+                <button class="btn-style red-btn" routerLink="/employee-management/add-edit-employee/{{userId}}">
+                    Edit
+                </button>
+                <button (click)="confirmDelete()" class="btn-style red-btn">Delete</button>
+	            <button (click)="backToEmployeeList()" class="btn-style black-btn">Back</button>
+            </div>
+        </div>
+    </div>
+    <!--Tabs-->
+    <mat-tab-group class="mt-4" color="warn" dynamicHeight>
+        <div>
+            <mat-tab label="User Detail">
+                <div class="box-style-breadcrumb mt-4 p-5">
+                    <div class="col-sm-12">
+                        <div class="field-info">
+                            <div class="user-image">
+                                <p>
+                                    <img src="{{(userData.profileImage)?userData.profileImage:url}}"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Card-->
+                    <div class="leadBox bg-gray mt-3">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Employee Code</span>
+                                        <div class="text-weight mt-2 field">{{(userData.empCode)?userData.empCode:"-"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Full Name</span>
+                                        <div class="text-weight mt-2 field">{{ (userData.fullName)?userData.fullName:"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Email</span>
+                                        <div class="text-weight mt-2 field">
+                                            <a href="emailto:{{(userData.email)?userData.email:'-'}}">{{userData.email?userData.email:"-"}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Mobile Number</span>
+                                        <div class="text-weight mt-2 field">{{(userData.mobileNumber)?userData.mobileNumber:"-"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="leadBox mt-2">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Designation</span>
+                                        <div class="text-weight mt-2 field">{{(userData.designation)?userData.designation:"-"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Date Of Birth</span>
+                                        <div class="text-weight mt-2 field">{{(userData.dateOfBirth)? (userData.dateOfBirth| date) : "-"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Date Of Join</span>
+                                        <div class="text-weight mt-2 field">{{(userData.dateOfJoining)?(userData.dateOfJoining | date):"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">PAN No</span>
+                                        <div class="text-weight mt-2 field">{{(userData.panCardNumber)?userData.panCardNumber:"-"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="leadBox bg-gray mt-2">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Status</span>
+                                        <div class="text-weight mt-2 field">{{userData.status === 1 ? "Active" : "InActive"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Reporting Manager</span>
+                                        <div class="text-weight mt-2 field">{{userData.reportingManagerName?userData.reportingManagerName:"-"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Additional Notes</span>
+                                        <div class="text-weight mt-2 field">
+                                            {{ (userData.additionalNotes)?userData.additionalNotes:"-" }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div *ngIf="userData.idProofFiles" class="block">
+                                        <button  (click)="openTemplate(content)" class="btn-style red-btn">View ID Proof</button>
+                                        <ng-template #content let-modal>
+                                            <div class="modal-header document-modal">
+                                                <h4 class="modal-title" id="modal-basic-title">ID Proof</h4>
+                                                <div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
+                                                     type="button">
+                                                    <img src="../../../../assets/images/cross-icon.svg">
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <ngx-doc-viewer
+                                                        [url]="userData.idProofFiles"
+                                                        style="width:100%;height:80vh;"
+                                                        viewer="url">
+                                                </ngx-doc-viewer>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button (click)="modal.close()"
+                                                        class="btn-style black-btn" type="button">Close
+                                                </button>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+	                                <div *ngIf="!userData.idProofFiles" class="block">
+		                                <span class="label">ID Proof</span>
+		                                <div class="text-weight mt-2 field">
+			                                <span>-</span>
+		                                </div>
+	                                </div>
+	                                <!--<span class="label">ID Proof</span>
+                                        <div class="text-weight mt-2 field">
+                                            <p>
+                                                <img src="{{userData.idProofFiles}}"/>
+                                            </p>
+                                        </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leadBox mt-2">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Total Leave Balance</span>
+                                        <div class="text-weight mt-2 field">{{userData.totalLeaveBalance?userData.totalLeaveBalance:"-"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Total Taken Leave</span>
+                                        <div class="text-weight mt-2 field">
+                                            {{ (userData.totalTakenLeave)?userData.totalTakenLeave:"-" }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Card-->
+                </div>
+            </mat-tab>
+            <mat-tab label="Additional Details">
+                <div class="box-style-breadcrumb mt-4 p-5">
+	                <div class="col-sm-12">
+		                <div class="field-info">
+			                <div class="user-image">
+				                <p>
+					                <img src="{{(userData.profileImage)?userData.profileImage:url}}"/>
+				                </p>
+			                </div>
+		                </div>
+	                </div>
+                    <!--Card-->
+                    <div class="leadBox bg-gray mt-3">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Marital Status</span>
+                                        <div *ngIf="userData.maritalStatus === true" class="text-weight mt-2 field">Married</div>
+                                        <div *ngIf="userData.maritalStatus === false" class="text-weight mt-2 field">UnMarried</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Father Name</span>
+                                        <div class="text-weight mt-2 field">{{ (userData.fatherName)?userData.fatherName:"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Spouse Name</span>
+                                        <div class="text-weight mt-2 field">{{ (userData.spouseName)?userData.spouseName:"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Gender</span>
+                                        <div class="text-weight mt-2 field">{{ (userData.gender)?userData.gender:"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leadBox mt-2">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Personal Email</span>
+                                        <div class="text-weight mt-2 field">
+                                            <a href="emailto:abc@gmail.com">{{ (userData.personalEmail)?userData.personalEmail:"-" }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Mobile Number</span>
+                                        <div class="text-weight mt-2 field">{{ (userData.fatherOrSpouseContactNumber)?userData.fatherOrSpouseContactNumber:"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Current Address</span>
+                                        <div class="text-weight mt-2 field">{{ (userData.currentAddress)?userData.currentAddress:"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div class="leadOption">
+                                    <div class="block">
+                                        <span class="label">Permanent Address</span>
+                                        <div class="text-weight mt-2 field">{{ (userData.permanentAddress)?userData.permanentAddress:"-" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leadBox bg-gray mt-2">
+                    <div class="card bg-transparent border-0">
+                        <div class="card-body">
+                            <div class="leadOption">
+                                <div class="block">
+                                    <span class="label">Aadhar Number</span>
+                                    <div class="text-weight mt-2 field">{{ (userData.aadhaarNumber)?userData.aadhaarNumber:"-" }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!--Card-->
+                </div>
+            </mat-tab>
+        </div>
+    </mat-tab-group>
+    <!--Tabs-->
+    <!--<form class="w-100">
+      <div class="form-content-box box-style" style="background-color: transparent; box-shadow: none;">
+          <div class="form-main">
+              <div class="form-row-wrapper">
+                  <div class="row form-bg-wrapper">
+                    <div class="col-sm-12">
+                      <div class="field-info">
+                          <h4>Profile</h4>
+                          <div class="user-image">
+                            <p>
+                              <img src="{{(userData.profileImage)?userData.profileImage:url}}"/>
+                            </p>
+                          </div>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="col-sm-3">
+                        <div class="field-info">
+                            <h4>Full Name</h4>
+                            <p>{{userData.fullName}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field-info">
+                            <h4>Email ID</h4>
+                            <p>{{userData.email}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field-info">
+                            <h4>Password</h4>
+                            <p style="letter-spacing: 3px;">**********</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" >
+                      <div class="field-info" >
+                          <h4>Designation</h4>
+                          <p>{{userData.fullName}}</p>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="col-sm-3">
+                      <div class="field-info">
+                          <h4>Date Of Birth</h4>
+                          <p>{{userData.dateOfBirth |date}}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="field-info">
+                          <h4>Date Of Join</h4>
+                          <p>{{userData.dateOfJoining | date }}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-3" >
+                      <div class="field-info" >
+                          <h4>PAN No</h4>
+                          <p>{{userData.panCardNumber}}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-3" >
+                      <div class="field-info" >
+                          <h4>Status</h4>
+                          <p>{{userData.status ===1?"Active" :"InActive"}}</p>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="col-sm-3" >
+                      <div class="field-info" >
+                          <h4>Reporting Manager</h4>
+                          <p>{{userData.reportingManagerName}}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-3" >
+                      <div class="field-info" >
+                          <h4>User Role</h4>
+                          <p>{{userData.roleName}}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6" >
+                      <div class="field-info" >
+                          <h4>Additional Notes</h4>
+                          <p>{{userData.additionalNotes}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="m-0">
+                  <div class="row form-bg-wrapper">
+                    <div class="col-sm-6" >
+                      <div class="field-info" >
+                        <h4>ID Proof</h4>
+                        <p>
+                          <img src="{{userData.idProofFiles}}"/>
+                        </p>
+                    </div>
+                  </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </form>-->
+</section>

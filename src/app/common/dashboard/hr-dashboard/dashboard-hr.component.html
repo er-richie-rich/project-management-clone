@@ -1,0 +1,141 @@
+<section class="dashboard-content">
+	<mat-tab-group>
+		<mat-tab label="Dashboard">
+			<h2 *ngIf="roleName==='HRMANAGERS'" class="mt-4">Today's Activity :</h2>
+			<div *ngIf="roleName==='HRMANAGERS'" class="row">
+				<div class="col-sm-3">
+					<app-dashboard-card (popup)="openTodayActivityPopup('Today\'s Leaves','Leaves')"
+										[backgroundImage]="'leave-icon-bg.png'"
+										[count]="dashboardData.TotalLeavesToday"
+										[icon]="'leave-icon.svg'"
+										[message]="'Total Leaves for Today'">
+
+					</app-dashboard-card>
+				</div>
+				<div class="col-sm-3">
+					<app-dashboard-card (popup)="openTodayActivityPopup('Today\'s Birthday','Birthday')"
+										[backgroundImage]="'birthday-icon-bg.png'"
+										[count]="dashboardData.TotalBirthdayToday"
+										[icon]="'birthday-icon.svg'"
+										[message]="'Total Birthday Today'">
+
+					</app-dashboard-card>
+				</div>
+				<div class="col-sm-3">
+					<app-dashboard-card (popup)="openTodayActivityPopup('Today\'s work-anniversary','Anniversary')"
+										[backgroundImage]="'work-anniversary-icon-bg.png'"
+										[count]="dashboardData.TotalWorkAnniversaryToday"
+										[icon]="'work-anniversary-icon.svg'"
+										[message]="'Today\'s Work Anniversary'">
+
+					</app-dashboard-card>
+				</div>
+			</div>
+			<h2 *ngIf="roleName==='HRMANAGERS' " class="mt-4">Employee Management :</h2>
+			<h2 *ngIf="roleName==='TEAMLEADERS'" class="mt-4">Team Member :</h2>
+			<div *ngIf="roleName==='HRMANAGERS'|| roleName==='TEAMLEADERS' " class="row">
+				<div class="col-sm-3">
+					<app-dashboard-card [backgroundImage]="'total-employees-icon-bg.png'"
+										[count]="dashboardData.TotalEmployees"
+										[icon]="'total-employees-icon.svg'"
+										[message]="'Total Employees'">
+					</app-dashboard-card>
+				</div>
+				<div class="col-sm-3">
+					<app-dashboard-card (popup)="openTodayActivityPopup('Probation Period','probationPeriod')"
+										[backgroundImage]="'total-employees-icon-bg.png'"
+										[count]="dashboardData.ProbationPeriodCompletedToday"
+										[icon]="'probation-period-icon.svg'"
+										[message]="'Probation Completed Today'">
+					</app-dashboard-card>
+				</div>
+			</div>
+			<h2 *ngIf="roleName==='HRMANAGERS'" class="mt-4">Leave Management (Current year) :</h2>
+			<h2 *ngIf="roleName==='TEAMMEMBERS' || roleName==='TEAMLEADERS'" class="mt-4">Team Members :</h2>
+			<div class="row">
+				<div class="col-sm-3">
+					<app-dashboard-card (popup)="openYearlyLeaveListPopup('Total Leaves','All')"
+										[backgroundImage]="'leave-new-icon-bg.png'"
+										[count]="dashboardData.TotalLeaves"
+										[icon]="'leave-new-icon.svg'"
+										[message]="'Total Leaves'"></app-dashboard-card>
+				</div>
+				<div class="col-sm-3">
+					<app-dashboard-card (popup)="openYearlyLeaveListPopup('Total Approved Leaves','Approved')"
+										[backgroundImage]="'approved-leave-icon-bg.png'"
+										[count]="dashboardData.TotalApprovedLeaves"
+										[icon]="'approved-leave-icon.svg'"
+										[message]="'Total Approved Leaves'">
+					</app-dashboard-card>
+				</div>
+				<div class="col-sm-3">
+					<app-dashboard-card (popup)="openYearlyLeaveListPopup('Total Rejected Leaves','Rejected')"
+										[backgroundImage]="'rejected-leaves-icon-bg.png'"
+										[count]="dashboardData.TotalRejectsLeaves"
+										[icon]="'rejected-leaves-icon.svg'"
+										[message]="'Total Rejected Leaves'">
+					</app-dashboard-card>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<app-dashboard-card (popup)="openYearlyLeaveListPopup('Total Pending Leaves','Pending')"
+										[backgroundImage]="'pending-leaves-icon-bg.png'"
+										[count]="dashboardData.TotalPendingLeaves"
+										[icon]="'pending-leaves-icon.svg'"
+										[message]="'Total Pending Leaves'">
+					</app-dashboard-card>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<app-dashboard-card (popup)="openYearlyLeaveListPopup('Total Cancelled Leaves','Cancelled')"
+										[backgroundImage]="'cancelled-leave.jpg'"
+										[count]="dashboardData.TotalCancelledLeaves"
+										[icon]="'rejected-leaves-icon.svg'"
+										[message]="'Total Cancelled Leaves'">
+					</app-dashboard-card>
+				</div>
+			</div>
+		</mat-tab>
+		<mat-tab label="My Dashboard">
+			<h2 *ngIf="roleName==='HRMANAGERS'" class="mt-4">My Leaves :</h2>
+					<div class="row" >
+				<div class="col-sm-3">
+					<app-dashboard-card [backgroundImage]="'leave-new-icon-bg.png'"
+										[count]="dashboardData.MYTotalLeaves"
+										[icon]="'leave-new-icon.svg'"
+										[message]="'Total Leaves'">
+					</app-dashboard-card>
+				</div>
+				<div class="col-sm-3">
+					<app-dashboard-card [backgroundImage]="'approved-leave-icon-bg.png'"
+										[count]="dashboardData.MYTotalApprovedLeaves"
+										[icon]="'approved-leave-icon.svg'"
+										[message]="'Total Approved Leaves'"
+										>
+					</app-dashboard-card>
+				</div>
+				<div class="col-sm-3">
+					<app-dashboard-card [backgroundImage]="'rejected-leaves-icon-bg.png'"
+										[count]="dashboardData.MYTotalRejectsLeaves"
+										[icon]="'rejected-leaves-icon.svg'"
+										[message]="'Total Rejected Leaves'"
+										>
+					</app-dashboard-card>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<app-dashboard-card [backgroundImage]="'pending-leaves-icon-bg.png'"
+										[count]="dashboardData.MYTotalPendingLeaves"
+										[icon]="'pending-leaves-icon.svg'"
+										[message]="'Total Pending Leaves'">
+					</app-dashboard-card>
+				</div>
+				<div *ngIf="roleName === 'HRMANAGERS'" class="col-sm-3">
+					<app-dashboard-card [backgroundImage]="'cancelled-leave.jpg'"
+										[count]="dashboardData.MYTotalCancelledLeaves"
+										[icon]="'rejected-leaves-icon.svg'"
+										[message]="'Total Cancelled Leaves'">
+					</app-dashboard-card>
+				</div>
+			</div>
+		</mat-tab>
+	</mat-tab-group>
+
+</section>

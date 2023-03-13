@@ -1,0 +1,316 @@
+table {
+  width: 100%;
+}
+
+
+.hover-effect-menu {
+  position: relative;
+  height: 30px;
+  width: 30px;
+
+  .short-arrow {
+    background-color: #fe5c58;
+    color: #ffffff;
+    border-radius: 100%;
+    padding: 3px;
+    display: block;
+    position: relative;
+    z-index: 2;
+
+    .material-icons {
+      display: block
+    }
+
+    .badge-notify {
+      left: 20px;
+      top: -5px;
+    }
+
+    .red-dot {
+      top: -2px;
+      right: -3px;
+    }
+  }
+
+  .hover-round-effect {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    transform: translateY(-50%);
+
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 100%;
+      width: 100%;
+      border-radius: 0px 150px 150px 0;
+      background-color: #fe5c58;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0px;
+      transform: translateY(-50%);
+      height: 60px;
+      width: 40px;
+      border-radius: 0px 100px 100px 0;
+      background-color: #ffffff;
+    }
+
+    button.mat-menu-item {
+      min-height: initial;
+      padding: 3px;
+      line-height: initial;
+      position: absolute;
+      top: 85px;
+      left: 0;
+      height: initial;
+      width: initial;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      color: #ffffff;
+      border-radius: 100%;
+      overflow: visible;
+      border :none;
+
+      &:hover {
+        color: #ffcc00;
+      }
+
+      .material-icons {
+        font-size: 28px;
+      }
+    }
+
+    button.mat-menu-item img {
+      display: block;
+    }
+
+    .mat-ripple.mat-menu-ripple {
+      display: none;
+    }
+  }
+
+  &:hover {
+    z-index: 99;
+
+    .hover-round-effect {
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+      width: 90px;
+      height: 140px;
+    }
+
+    &.five-icons:hover {
+      button.mat-menu-item:nth-child(1) {
+        top: 7px !important;
+        left: 4px !important;
+
+        border: none;
+      }
+
+      button.mat-menu-item:nth-child(2) {
+        border: none;
+        top: 22px !important;
+        left: 36px !important;
+
+      }
+
+      button.mat-menu-item:nth-child(3) {
+        border: none;
+        top: 56px !important;
+        left: 48px !important;
+
+      }
+
+      button.mat-menu-item:nth-child(4) {
+        border: none;
+        top: 94px !important;
+        left: 35px !important;
+      }
+
+      button.mat-menu-item:nth-child(5) {
+        border: none;
+        top: 106px !important;
+        left: 4px !important;
+
+      }
+    }
+  }
+
+
+  &.four-icons:hover {
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 100%;
+      width: 100%;
+      border-radius: 0px 150px 150px 0;
+      background-color: #fe5c58;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0px;
+      transform: translateY(-50%);
+      height: 60px;
+      width: 40px;
+      border-radius: 0px 100px 100px 0;
+      background-color: #ffffff;
+    }
+
+    button.mat-menu-item:nth-child(1) {
+      border: none;
+      left: 8px!important ;
+      top: 8px !important;
+    }
+
+    button.mat-menu-item:nth-child(2) {
+      border: none;
+      top: 31px;
+      left: 43px;
+    }
+
+    button.mat-menu-item:nth-child(3) {
+      border: none;
+      left: 41px !important;
+      top: 83px !important;
+    }
+
+    button.mat-menu-item:nth-child(4) {
+      border: none;
+      left: 8px !important;
+      top: 105px !important;
+    }
+  }
+
+  &.three-icons:hover {
+    .hover-round-effect {
+      border: none;
+      width: 85px;
+      height: 160px ;
+      overflow: hidden;
+      border-radius: 0px 100px 100px 0px;
+
+      &:before {
+        transform: translateY(-50%);
+        left: 0px;
+        width: 0;
+        height: 0;
+        transform: rotate(45deg);
+        border-top: 31px solid transparent;
+        border-right: 246px solid #fe5c58;
+        border-bottom: 71px solid transparent;
+        background-color: #fe5c58;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        top: 60px;
+        left: 8px;
+        transform: translateY(-50%);
+        height: 40px;
+        width: 40px;
+        border-radius: 0px 32px 0 0;
+        transform: rotate(45deg);
+        background-color: #ffffff;
+      }
+
+      button.mat-menu-item {
+        border: none;
+        top: 46px;
+      }
+    }
+    button.mat-menu-item:nth-child(1) {
+      border: none;
+      left: 39px !important;
+      top: 34px !important;
+    }
+
+    button.mat-menu-item:nth-child(2) {
+      border: none;
+      top: 63px !important;
+      left: 46px !important;
+    }
+
+    button.mat-menu-item:nth-child(3) {
+      border: none;
+      left: 39px !important;;
+      top: 96px !important;
+    }
+  }
+
+  &.two-icons {
+    .hover-round-effect {
+      border: none;
+      width: 85px;
+      height: 140px;
+      overflow: hidden;
+      border-radius: 0px 70px 70px 0px;
+
+      &:before {
+        transform: translateY(-50%);
+        left: 0px;
+        width: 0;
+        height: 0;
+        transform: rotate(45deg);
+        border-top: 14px solid transparent;
+        border-right: 208px solid #fe5c58;
+        border-bottom: 71px solid transparent;
+        background-color: #fe5c58;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        top: 49px;
+        left: 9px;
+        transform: translateY(-50%);
+        height: 40px;
+        width: 40px;
+        border-radius: 0px 32px 0 0;
+        transform: rotate(45deg);
+        background-color: #ffffff;
+      }
+
+      button.mat-menu-item {
+        border: none;
+        top: 46px;
+      }
+    }
+
+    &:hover {
+      z-index:99;
+
+      button.mat-menu-item:nth-child(1) {
+        border: none;
+        top: 35px !important;
+        left: 44px !important;
+      }
+
+      button.mat-menu-item:nth-child(2) {
+        border: none;
+        top: 74px !important;
+        left: 44px !important;
+      }
+    }
+  }
+}
