@@ -17,12 +17,14 @@ export class DataTableComponent implements OnInit {
   @Input() editOn: boolean = false;
   @Input() deleteOn: boolean = false;
   @Input() logOn: boolean = false;
+  @Input() changeOn: boolean = false;
 
   @Output() view = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
-  @Output() active = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() change = new EventEmitter<any>();
+
 
   @Input() id: any;
 
@@ -30,6 +32,7 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.columns)
   }
 
   viewDetail(element:any) {
@@ -42,6 +45,12 @@ export class DataTableComponent implements OnInit {
 
   deleteEvent(element:any) {
     this.delete.emit(element)
+  }
+  cancelEvent(element:any) {
+    this.delete.emit(element)
+  }
+  changeEvent(event:any ,element:any) {
+    this.change.emit({event,element})
   }
 
 }

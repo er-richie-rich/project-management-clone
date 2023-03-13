@@ -3,6 +3,7 @@
     <tr *matRowDef="let row; columns: columns;" mat-row></tr>
     <ng-container *ngFor="let column of columns ; let i = index " >
         <ng-container [matColumnDef]="column">
+
             <th *matHeaderCellDef mat-header-cell>
                 {{headers[i]}}</th>
 
@@ -13,7 +14,7 @@
                             <span class="material-icons">more_horiz</span>
                         </div>
                         <div class="hover-round-effect">
-                            <button (click)="viewDetail(element)" *ngIf="viewOn" mat-menu-item matTooltip="{{'TABLE.ViewDetails' }}">
+                            <button (click)="viewDetail(element)" *ngIf="viewOn" mat-menu-item matTooltip="{{'View Details' }}">
                                 <span class="material-icons">remove_red_eye </span>
                             </button>
                             <button (click)="editEvent(element)" *ngIf="editOn" mat-menu-item matTooltip="{{'Edit' }}">
@@ -31,9 +32,13 @@
                         </div>
                     </div>
             </ng-container>
-            <ng-container *ngIf="column != 'action'">
-                <td *matCellDef="let row" mat-cell>{{row[column]}}</td>
+            <ng-container *ngIf="column == 'status'">
+                <td *matCellDef="let element" mat-cell> <mat-slide-toggle   (change)="changeEvent($event,element)" [checked]="element.status==1"></mat-slide-toggle></td>
             </ng-container>
+            <ng-container *ngIf="column != 'action' || column != 'status'  " >
+                <td *matCellDef="let element" mat-cell>{{element[column]}}</td>
+            </ng-container>
+
         </ng-container>
     </ng-container>
 </table>

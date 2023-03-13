@@ -58,7 +58,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   sortBy: any;
   sortKey: any;
   search: any;
-
+  headers: string[] = ['','Action','Employee Code','Full Name','Email','Mobile Number','User Role','Status'];
+  columns: string[] = ['selectall', 'action', 'empCode', 'fullName', 'email', 'mobileNumber', 'userRole','status'];
 
   dataSource: any = new MatTableDataSource([]);
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -571,4 +572,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       event.preventDefault();
     }
   }
+  test(e:any){
+    console.log(e)
+      }
 }
