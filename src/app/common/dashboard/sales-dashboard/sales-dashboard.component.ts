@@ -48,6 +48,7 @@ export class SalesDashboardComponent implements OnInit, OnDestroy {
 	TotalLeavesToday:number =0;
 	TotalWorkAnniversaryToday:number =0;
 	TotalBirthdayToday:number =0;
+	totalNetworkEngineer:number =0;
 
 	constructor(
 		private apiService: PMApiServicesService,
@@ -118,6 +119,7 @@ export class SalesDashboardComponent implements OnInit, OnDestroy {
 					this.totalReport =  this.salesReport.totalReport;
 					this.totalTeamLeaders =  this.salesReport.TeamLeaders;
 					this.totalTeamMembers =  this.salesReport.TeamMembers;
+					this.totalNetworkEngineer =  this.salesReport.networkEngineer;
 					this.TotalLeavesToday =  this.salesReport.TotalLeavesToday;
 					this.TotalWorkAnniversaryToday =  this.salesReport.TotalWorkAnniversaryToday;
 					this.TotalBirthdayToday =  this.salesReport.TotalBirthdayToday;
@@ -259,6 +261,11 @@ export class SalesDashboardComponent implements OnInit, OnDestroy {
 			queryParams: {'user': 'Team Member'}
 		}).then()
 	}
+		noOfTotalNetworkEngineer = () => {
+			this.router.navigate([`/user-management/`], {
+				queryParams: {'user': 'Network Engineer'}
+			}).then()
+		}
 
 	noOfProjects = () => {
 		this.router.navigate([`/project-management/`], {

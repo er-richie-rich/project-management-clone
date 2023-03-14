@@ -14,7 +14,7 @@
         </div>
         <div>
             <app-data-table (delete)="deleteHoliday($event.holidayId)" (edit)="editHolidays($event.holidayId)"
-                            [columns]="columns" [data]="holidaysList" [deleteOn]="true"
+                            [columns]="columns" [data]="holidaysList" [dateFields]="dateFields" [deleteOn]="true"
                             [editOn]="true" [headers]="headers" [icons]="'two'">
             </app-data-table>
 <!--            <table [dataSource]="dataSource" mat-table matSort matSortDisableClear-->

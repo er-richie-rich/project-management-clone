@@ -40,6 +40,7 @@ export class HolidaysManagementComponent implements OnInit {
   // holidaysColumns: string[] = ['action2','holidayName','holidayDate','holidayDay'];
   columns: string[] = ['action2','holidayName','holidayDate','holidayDay'];
   headers: string[] = ['Action','Name','Date','Day'];
+  dateFields:string[]=['holidayDate','holidayDay']
   selection = new SelectionModel<holidays>(true, []);
   userRole:any
   user:any

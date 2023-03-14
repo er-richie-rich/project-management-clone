@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {MatSort} from "@angular/material/sort";
 
 
 @Component({
@@ -8,6 +9,8 @@ import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class DataTableComponent implements OnInit {
   // table data
+  sortBy=1;
+  sortKey='startDate';
   @Input() columns :any;
   @Input() headers :any;
   @Input() data:any;
@@ -59,6 +62,7 @@ export class DataTableComponent implements OnInit {
   deleteEvent(element:any) {
     this.delete.emit(element)
   }
+
   cancelEvent(element:any) {
     this.delete.emit(element)
   }

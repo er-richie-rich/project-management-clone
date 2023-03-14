@@ -12,7 +12,8 @@
                 </th>
             </ng-container>
             <th *matHeaderCellDef mat-header-cell>
-                {{headers[i]}}</th>
+                {{headers[i]}}
+            </th>
             <ng-container *ngIf="column == 'action'">
                 <td *matCellDef="let element" mat-cell>
                     <div class="hover-effect-menu {{icons}}-icons">
@@ -20,20 +21,25 @@
                             <span class="material-icons">more_horiz</span>
                         </div>
                         <div class="hover-round-effect">
-                            <button (click)="viewDetail(element)" *ngIf="viewOn" mat-menu-item matTooltip="{{'View Details' }}">
+                            <button (click)="viewDetail(element)" *ngIf="viewOn" mat-menu-item
+                                    matTooltip="{{'View Details' }}">
                                 <span class="material-icons">remove_red_eye </span>
                             </button>
-                            <button (click)="editEvent(element)" *ngIf="editOn" mat-menu-item matTooltip="{{'Edit Details' }}">
+                            <button (click)="editEvent(element)" *ngIf="editOn" mat-menu-item
+                                    matTooltip="{{'Edit Details' }}">
                                 <span class="material-icons">drive_file_rename_outline</span>
                             </button>
-                            <button (click)="deleteEvent(element)" *ngIf="deleteOn" mat-menu-item matTooltip="{{'Delete Details' }}">
+                            <button (click)="deleteEvent(element)" *ngIf="deleteOn" mat-menu-item
+                                    matTooltip="{{'Delete Details' }}">
                                 <span class="material-icons">delete</span>
                             </button>
-                            <button (click)="changePasswordEvent(element)" *ngIf="changePasswordOn" mat-menu-item matTooltip="{{'Change Password' }}">
+                            <button (click)="changePasswordEvent(element)" *ngIf="changePasswordOn" mat-menu-item
+                                    matTooltip="{{'Change Password' }}">
                                 <span class="material-icons">https</span>
                             </button>
-                            <button (click)="deleteEvent(element)" *ngIf="cancelOn" mat-menu-item matTooltip="{{'Delete' }}">
-                                <span class="material-icons">delete</span>
+                            <button (click)="cancelEvent(element)" *ngIf="cancelOn" mat-menu-item
+                                    matTooltip="{{'Cancel'}}">
+                                <span class="material-icons">cancel</span>
                             </button>
                         </div>
                     </div>
@@ -42,29 +48,35 @@
                 <td *matCellDef="let element" mat-cell>
                     <mat-checkbox (change)="$event ? selection.toggle(element) : null"
                                   (click)="$event.stopPropagation()"
-                                  [checked]="selection.isSelected(element)"></mat-checkbox>
+                                  [checked]="selection.isSelected(element)">
+                    </mat-checkbox>
                 </td>
             </ng-container>
 
             <ng-container *ngIf="column == 'status' || column == 'isHotLead' ">
-                <td *matCellDef="let element"  mat-cell>
-                    <mat-slide-toggle  (change)="changeEvent($event,element)" *ngIf="column == 'status'" [checked]="element.status==1" class="button-switch"></mat-slide-toggle>
-                    <mat-slide-toggle  (change)="changeEvent($event,element)" *ngIf="column == 'isHotLead'" [checked]="element.isHotLead" class="button-switch"></mat-slide-toggle>
+                <td *matCellDef="let element" mat-cell>
+                    <mat-slide-toggle (change)="changeEvent($event,element)" *ngIf="column == 'status'"
+                                      [checked]="element.status==1" class="button-switch">
+                    </mat-slide-toggle>
+                    <div *ngIf="column == 'isHotLead'">
+                        <mat-slide-toggle (change)="changeEvent($event,element)"
+                                          *ngIf="element.leadStatus !== 'lost' && element.leadStatus !== 'won' "
+                                          [checked]="element.isHotLead" class="button-switch">
+                        </mat-slide-toggle>
+                    </div>
+                    <div *ngIf="element.leadStatus == 'won' || element.leadStatus == 'lost'">-</div>
                 </td>
             </ng-container>
 
             <ng-container *ngIf="dateFields && dateFields.includes(column)">
-                <td *matCellDef="let element" mat-cell>{{element[column] | date:"dd/MM/YYYY"}}</td>
+                <td *matCellDef="let element" mat-cell>
+                    <div>{{element[column] | date:"dd/MM/YYYY"}}</div>
+                    <div *ngIf="column == 'holidayDay'">{{element.holidayDate | date: 'EEEE'}}</div>
+                </td>
             </ng-container>
-
             <ng-container>
-                <td *matCellDef="let element" mat-cell>{{element[column]}}</td>
+                <td *matCellDef="let element" mat-cell>{{(element[column])?element[column] : '-'}}</td>
             </ng-container>
-<!--            <ng-container *ngIf="column == 'holidayDay'">-->
-<!--                <td *matCellDef="let element" mat-cell>-->
-<!--                    {{element.holidayDate | date: 'EEEE'}}-->
-<!--                </td>-->
-<!--            </ng-container>-->
         </ng-container>
     </ng-container>
 </table>

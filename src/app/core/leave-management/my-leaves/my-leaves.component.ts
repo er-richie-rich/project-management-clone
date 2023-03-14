@@ -39,6 +39,7 @@ export class MyLeavesComponent implements OnInit {
     leaveType: any = [
         {value: 'LWP'},
         {value: 'Casual'},
+        {value: 'Sick'},
     ];
     employeeName: any = [];
     leaveColumns: string[] = ['action2','leaveType', 'leaveDuration','leaveDurationDetail', 'fromDate', 'toDate', 'totalTakenLeave','availableBalance', 'leaveStatus'];
