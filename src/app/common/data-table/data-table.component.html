@@ -40,15 +40,13 @@
                                     matTooltip="{{'Download' }}">
                                 <span class="material-icons">download</span>
                             </button>
-                            <button (click)="openEvent(content,element)" *ngIf="openOn" mat-menu-item
-                                    matTooltip="{{'open' }}">
-                                <span class="material-icons">web</span>
                             <button (click)="cancelEvent(element)" *ngIf="cancelOn" mat-menu-item
                                     matTooltip="{{'Cancel'}}">
                                 <span class="material-icons">cancel</span>
                             </button>
                         </div>
                     </div>
+                </td>
             </ng-container>
             <ng-container *ngIf="column == 'selectAll'">
                 <td *matCellDef="let element" mat-cell>
@@ -80,27 +78,9 @@
             </ng-container>
             <ng-container>
                 <td *matCellDef="let element" mat-cell>{{(element[column])?element[column] : '-'}}</td>
-                <ng-template #content let-modal >
-                    <div class="modal-header document-modal">
-                        <h4 class="modal-title" id="modal-basic-title">{{element.documentName}}</h4>
-                        <div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
-                             type="button">
-                            <img src="../../../assets/images/cross-icon.svg">
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document"
-                                    class="pdf-viewer"></pdf-viewer>
-                    </div>
-                    <div class="modal-footer">
-                        <button (click)="modal.close({document:element.document,fileName:element.documentName})"
-                                class="btn-style black-btn" type="button">Close
-                        </button>
-                    </div>
-                </ng-template>
-                <td *matCellDef="let element" mat-cell>
+                <!--<td *matCellDef="let element" mat-cell>
                    <div>{{(element[column])?element[column] : '-'}}</div>
-                </td>
+                </td>-->
             </ng-container>
         </ng-container>
     </ng-container>

@@ -51,7 +51,7 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.columns)
-    console.log(this.headers.includes('date'))
+    // console.log(this.headers.includes('date'))
   }
 
   viewDetail(element:any) {
@@ -86,7 +86,5 @@ export class DataTableComponent implements OnInit {
   isAllSelectedEvent(){
   this.isAllSelected.emit()
   }
-
-
 
 }
