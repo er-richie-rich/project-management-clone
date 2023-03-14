@@ -3,199 +3,204 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0"
       rel="stylesheet"/>
 <section class="dashboard-content">
-  <div class="table-content box-style m-0 p-0">
-    <div class="table-heading userTable box-style-breadcrumb p-4">
-     <a><h3 style="font-weight: 500;cursor: default">User Management</h3></a>
-      <div class="search-form-wrapper">
-        <div>
-          <!--Lead Status-->
-          <mat-form-field appearance="outline">
-            <mat-select #topp (selectionChange)="filterByUserRole(topp.value)" [(ngModel)]="selectedValue" [formControl]="toppings" ngModel>
-              <mat-option *ngFor="let topping of toppingList" [value]="topping.value">
-                <span style="text-transform: capitalize!important">{{topping.name}}</span>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!--Lead Status-->
-        </div>  
-        <div class="search-form">
-          <span class="material-icons">search</span>
-          <input #searchString  (keydown)="space($event)" (keyup)="applyFilter($event)" placeholder="Search" type="text">
-          <span #clearString (click)="clearSearch($event)" *ngIf="isVisible" class="closeIcon material-icons"
-          >clear</span>
-        </div>
-        <button class="btn-style red-btn" routerLink="/user-management/add-edit-user/0">
-          <span class="material-icons">add</span>Add User
-        </button>
-        <!--Add Lead Button-->
-        <button [matMenuTriggerFor]="menu" class="btn-style red-btn menuStyle ms-2">
-          <span class="material-icons menuIcon">more_horiz</span>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button (click)="deleteAllUsers()" class="d-flex align-items-center topRightMenu" mat-menu-item>
-            <span class="material-icons">delete</span>
-            Delete Users
-          </button>
-          <button (click)="importUserData()" class="d-flex align-items-center topRightMenu" mat-menu-item>
-            <span class="material-icons">cloud_download</span>
-            Import Users
-          </button>
-<!--          <button mat-menu-item class="d-flex align-items-center topRightMenu" (click)="downloadSampleFile()">-->
-<!--            <span class="material-symbols-outlined">file_download</span>-->
-<!--            Download Sample File-->
-<!--          </button>-->
-          <button (click)="exportAllUsers()" class="d-flex align-items-center topRightMenu" mat-menu-item>
-            <span class="material-icons">exit_to_app</span>
-            Export Users
-          </button>
-        </mat-menu>
-        <!--Add Lead Button-->
-      </div>
-    </div>
-    <div>
-<!--      <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear-->
-<!--             style="width: 100%">-->
-<!--        &lt;!&ndash;Select All Checkbox&ndash;&gt;-->
-<!--        <ng-container matColumnDef="selectall">-->
-<!--          <th *matHeaderCellDef mat-header-cell style="width: 2%">-->
-<!--            <mat-checkbox (change)="$event ? masterToggle($event) : null"-->
-<!--                          [checked]="selection.hasValue() && isAllSelected()"-->
-<!--                          [indeterminate]="selection.hasValue() && !isAllSelected()">-->
-<!--            </mat-checkbox>-->
-<!--          </th>-->
-<!--          <td *matCellDef="let element;index as i;" mat-cell>-->
-<!--            <mat-checkbox (change)="$event ? selection.toggle(element) : null" (click)="$event.stopPropagation()"-->
-<!--                          [checked]="selection.isSelected(element)">-->
-<!--            </mat-checkbox>-->
-<!--          </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash;Select All Checkbox&ndash;&gt;-->
-<!--        <ng-container matColumnDef="action2">-->
-<!--          <th *matHeaderCellDef class="th-header" mat-header-cell style="width: 5%">Action</th>-->
-<!--          <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">-->
-<!--            <div class="hover-effect-menu">-->
-<!--              <span class="material-icons short-arrow">more_horiz</span>-->
-<!--              <div class="hover-round-effect">-->
-<!--                <button-->
-<!--                  (click)="editUser(element.userId)"-->
-<!--                  class="material-icons mat-menu-item"-->
-<!--                  matTooltip="Edit"-->
-<!--                  matTooltipClass='tooltip-color'-->
-<!--                  tabindex="0">-->
-<!--                  drive_file_rename_outline-->
-<!--                </button>-->
-<!--                <button-->
-<!--                  (click)="deleteUser(element.userId)"-->
-<!--                  class="material-icons mat-menu-item"-->
-<!--                  matTooltip="Delete"-->
-<!--                  matTooltipClass='tooltip-color'-->
-<!--                  tabindex="0">-->
-<!--                  delete-->
-<!--                </button>-->
-<!--                <button-->
-<!--                  (click)="changePassword(element.userId)"-->
-<!--                  class="material-icons mat-menu-item"-->
-<!--                  matTooltip="Change Password"-->
-<!--                  matTooltipClass='tooltip-color'-->
-<!--                  tabindex="0">-->
-<!--                  https-->
-<!--                </button>-->
-<!--&lt;!&ndash;                localStorage.setItem('page', JSON.stringify(this.paginator.pageIndex))&ndash;&gt;-->
-<!--                <button (click)="userDetail(element.userId)"-->
-<!--                  class="material-icons mat-menu-item"-->
-<!--                  matTooltip="Detail"-->
-<!--                  matTooltipClass='tooltip-color'-->
-<!--                  tabindex="0">-->
-<!--                  web-->
-<!--                </button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash; Lead Title Column &ndash;&gt;-->
-<!--        <ng-container matColumnDef="empCode">-->
-<!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
-<!--            <div class=" th-header d-flex align-items-center text-left">-->
-<!--              Employee Code-->
-<!--            </div>-->
-<!--          </th>-->
-<!--          <td *matCellDef="let element" class="text-capitalize" mat-cell>-->
-<!--            {{element.empCode}}-->
-<!--          </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash; Client Name Column &ndash;&gt;-->
-<!--        <ng-container matColumnDef="fullName">-->
-<!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
-<!--            <div class="th-header d-flex align-items-center text-left">-->
-<!--              Full Name-->
-<!--            </div>-->
-<!--          </th>-->
-<!--          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.fullName}} </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash; Email Column &ndash;&gt;-->
-<!--        <ng-container matColumnDef="email">-->
-<!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
-<!--            <div class="th-header d-flex align-items-center text-left">-->
-<!--              Email-->
-<!--            </div>-->
-<!--          </th>-->
-<!--          <td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{element.email}} </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash; Lead Generation Date Column &ndash;&gt;-->
-<!--        <ng-container matColumnDef="mobileNumber">-->
-<!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
-<!--            <div class="th-header d-flex align-items-center text-left">-->
-<!--              Mobile No-->
-<!--            </div>-->
-<!--          </th>-->
-<!--          <td *matCellDef="let element" mat-cell> {{element.mobileNumber}} </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash; Lead Type Column &ndash;&gt;-->
-<!--        <ng-container matColumnDef="userRole">-->
-<!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
-<!--            <div class="th-header d-flex align-items-center text-left">-->
-<!--              User Role-->
-<!--            </div>-->
-<!--          </th>-->
-<!--          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.userRole}} </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash; Lead Generation By Column &ndash;&gt;-->
-<!--        <ng-container matColumnDef="status">-->
-<!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
-<!--            <div class="th-header d-flex align-items-center text-left">-->
-<!--              Status-->
-<!--            </div>-->
-<!--          </th>-->
-<!--          <td *matCellDef="let element" class="text-capitalize" mat-cell>-->
-<!--            &lt;!&ndash;            {{element.status}}&ndash;&gt;-->
-<!--            <mat-slide-toggle (change)="updateActiveStatus(element.userId, element.status, $event)"-->
-<!--                              [checked]="element.status === 1"-->
-<!--                              class="button-switch"></mat-slide-toggle>-->
-<!--          </td>-->
-<!--        </ng-container>-->
-<!--        &lt;!&ndash; Action Column &ndash;&gt;-->
-<!--        <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>-->
-<!--        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
-<!--        &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
-<!--        <tr *matNoDataRow class="mat-row">-->
-<!--          <td class="mat-cell text-center" colspan="10">Data Not Available</td>-->
-<!--        </tr>-->
-<!--      </table>-->
-
-
-              <app-data-table (change)="updateActiveStatus($event)" (changePassword)="changePassword($event.userId)" (delete)="deleteUser($event.userId)"
-                              (edit)="editUser($event.userId)"  (isAllSelected)="isAllSelected()" (masterToggle)="masterToggle($event)" (view)="userDetail($event.userId)" [changeOn]="true"
-                              [changePasswordOn]="true" [columns]="columns" [data]="listUser" [deleteOn]="true" [editOn]="true" [headers]="headers" [isAllSelectedCheck]="isAllSelected()"
-                              [icons]="'four'"  [selection]="selection" [viewOn]="true"></app-data-table>
+    <div class="table-content box-style m-0 p-0">
+        <div class="table-heading userTable box-style-breadcrumb p-4">
+            <a><h3 style="font-weight: 500;cursor: default">User Management</h3></a>
+            <div class="search-form-wrapper">
+                <div>
+                    <!--Lead Status-->
+                    <mat-form-field appearance="outline">
+                        <mat-select #topp (selectionChange)="filterByUserRole(topp.value)" [(ngModel)]="selectedValue"
+                                    [formControl]="toppings" ngModel>
+                            <mat-option *ngFor="let topping of toppingList" [value]="topping.value">
+                                <span style="text-transform: capitalize!important">{{topping.name}}</span>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!--Lead Status-->
+                </div>
+                <div class="search-form">
+                    <span class="material-icons">search</span>
+                    <input #searchString (keydown)="space($event)" (keyup)="applyFilter($event)" placeholder="Search"
+                           type="text">
+                    <span #clearString (click)="clearSearch($event)" *ngIf="isVisible" class="closeIcon material-icons"
+                    >clear</span>
+                </div>
+                <button class="btn-style red-btn" routerLink="/user-management/add-edit-user/0">
+                    <span class="material-icons">add</span>Add User
+                </button>
+                <!--Add Lead Button-->
+                <button [matMenuTriggerFor]="menu" class="btn-style red-btn menuStyle ms-2">
+                    <span class="material-icons menuIcon">more_horiz</span>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button (click)="deleteAllUsers()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+                        <span class="material-icons">delete</span>
+                        Delete Users
+                    </button>
+                    <button (click)="importUserData()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+                        <span class="material-icons">cloud_download</span>
+                        Import Users
+                    </button>
+                    <!--          <button mat-menu-item class="d-flex align-items-center topRightMenu" (click)="downloadSampleFile()">-->
+                    <!--            <span class="material-symbols-outlined">file_download</span>-->
+                    <!--            Download Sample File-->
+                    <!--          </button>-->
+                    <button (click)="exportAllUsers()" class="d-flex align-items-center topRightMenu" mat-menu-item>
+                        <span class="material-icons">exit_to_app</span>
+                        Export Users
+                    </button>
+                </mat-menu>
+                <!--Add Lead Button-->
             </div>
-    <mat-paginator
-            (page)="pageChange($event)"
-            [length]="meta"
-            [pageSizeOptions]="pageSizeOptions"
-            [pageSize]="perPage"
-            aria-label="Select page of periodic elements"
-            showFirstLastButtons="true">
-    </mat-paginator>
+        </div>
+        <div>
+            <!--      <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear-->
+            <!--             style="width: 100%">-->
+            <!--        &lt;!&ndash;Select All Checkbox&ndash;&gt;-->
+            <!--        <ng-container matColumnDef="selectall">-->
+            <!--          <th *matHeaderCellDef mat-header-cell style="width: 2%">-->
+            <!--            <mat-checkbox (change)="$event ? masterToggle($event) : null"-->
+            <!--                          [checked]="selection.hasValue() && isAllSelected()"-->
+            <!--                          [indeterminate]="selection.hasValue() && !isAllSelected()">-->
+            <!--            </mat-checkbox>-->
+            <!--          </th>-->
+            <!--          <td *matCellDef="let element;index as i;" mat-cell>-->
+            <!--            <mat-checkbox (change)="$event ? selection.toggle(element) : null" (click)="$event.stopPropagation()"-->
+            <!--                          [checked]="selection.isSelected(element)">-->
+            <!--            </mat-checkbox>-->
+            <!--          </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash;Select All Checkbox&ndash;&gt;-->
+            <!--        <ng-container matColumnDef="action2">-->
+            <!--          <th *matHeaderCellDef class="th-header" mat-header-cell style="width: 5%">Action</th>-->
+            <!--          <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">-->
+            <!--            <div class="hover-effect-menu">-->
+            <!--              <span class="material-icons short-arrow">more_horiz</span>-->
+            <!--              <div class="hover-round-effect">-->
+            <!--                <button-->
+            <!--                  (click)="editUser(element.userId)"-->
+            <!--                  class="material-icons mat-menu-item"-->
+            <!--                  matTooltip="Edit"-->
+            <!--                  matTooltipClass='tooltip-color'-->
+            <!--                  tabindex="0">-->
+            <!--                  drive_file_rename_outline-->
+            <!--                </button>-->
+            <!--                <button-->
+            <!--                  (click)="deleteUser(element.userId)"-->
+            <!--                  class="material-icons mat-menu-item"-->
+            <!--                  matTooltip="Delete"-->
+            <!--                  matTooltipClass='tooltip-color'-->
+            <!--                  tabindex="0">-->
+            <!--                  delete-->
+            <!--                </button>-->
+            <!--                <button-->
+            <!--                  (click)="changePassword(element.userId)"-->
+            <!--                  class="material-icons mat-menu-item"-->
+            <!--                  matTooltip="Change Password"-->
+            <!--                  matTooltipClass='tooltip-color'-->
+            <!--                  tabindex="0">-->
+            <!--                  https-->
+            <!--                </button>-->
+            <!--&lt;!&ndash;                localStorage.setItem('page', JSON.stringify(this.paginator.pageIndex))&ndash;&gt;-->
+            <!--                <button (click)="userDetail(element.userId)"-->
+            <!--                  class="material-icons mat-menu-item"-->
+            <!--                  matTooltip="Detail"-->
+            <!--                  matTooltipClass='tooltip-color'-->
+            <!--                  tabindex="0">-->
+            <!--                  web-->
+            <!--                </button>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--          </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash; Lead Title Column &ndash;&gt;-->
+            <!--        <ng-container matColumnDef="empCode">-->
+            <!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
+            <!--            <div class=" th-header d-flex align-items-center text-left">-->
+            <!--              Employee Code-->
+            <!--            </div>-->
+            <!--          </th>-->
+            <!--          <td *matCellDef="let element" class="text-capitalize" mat-cell>-->
+            <!--            {{element.empCode}}-->
+            <!--          </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash; Client Name Column &ndash;&gt;-->
+            <!--        <ng-container matColumnDef="fullName">-->
+            <!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
+            <!--            <div class="th-header d-flex align-items-center text-left">-->
+            <!--              Full Name-->
+            <!--            </div>-->
+            <!--          </th>-->
+            <!--          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.fullName}} </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash; Email Column &ndash;&gt;-->
+            <!--        <ng-container matColumnDef="email">-->
+            <!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
+            <!--            <div class="th-header d-flex align-items-center text-left">-->
+            <!--              Email-->
+            <!--            </div>-->
+            <!--          </th>-->
+            <!--          <td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{element.email}} </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash; Lead Generation Date Column &ndash;&gt;-->
+            <!--        <ng-container matColumnDef="mobileNumber">-->
+            <!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
+            <!--            <div class="th-header d-flex align-items-center text-left">-->
+            <!--              Mobile No-->
+            <!--            </div>-->
+            <!--          </th>-->
+            <!--          <td *matCellDef="let element" mat-cell> {{element.mobileNumber}} </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash; Lead Type Column &ndash;&gt;-->
+            <!--        <ng-container matColumnDef="userRole">-->
+            <!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
+            <!--            <div class="th-header d-flex align-items-center text-left">-->
+            <!--              User Role-->
+            <!--            </div>-->
+            <!--          </th>-->
+            <!--          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.userRole}} </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash; Lead Generation By Column &ndash;&gt;-->
+            <!--        <ng-container matColumnDef="status">-->
+            <!--          <th *matHeaderCellDef mat-header-cell mat-sort-header>-->
+            <!--            <div class="th-header d-flex align-items-center text-left">-->
+            <!--              Status-->
+            <!--            </div>-->
+            <!--          </th>-->
+            <!--          <td *matCellDef="let element" class="text-capitalize" mat-cell>-->
+            <!--            &lt;!&ndash;            {{element.status}}&ndash;&gt;-->
+            <!--            <mat-slide-toggle (change)="updateActiveStatus(element.userId, element.status, $event)"-->
+            <!--                              [checked]="element.status === 1"-->
+            <!--                              class="button-switch"></mat-slide-toggle>-->
+            <!--          </td>-->
+            <!--        </ng-container>-->
+            <!--        &lt;!&ndash; Action Column &ndash;&gt;-->
+            <!--        <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>-->
+            <!--        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
+            <!--        &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+            <!--        <tr *matNoDataRow class="mat-row">-->
+            <!--          <td class="mat-cell text-center" colspan="10">Data Not Available</td>-->
+            <!--        </tr>-->
+            <!--      </table>-->
 
-  </div>
+
+            <app-data-table (change)="updateActiveStatus($event)" (changePassword)="changePassword($event.userId)"
+                            (delete)="deleteUser($event.userId)"
+                            (edit)="editUser($event.userId)" (isAllSelected)="isAllSelected()"
+                            (masterToggle)="masterToggle($event)" (view)="userDetail($event.userId)" [changeOn]="true"
+                            [changePasswordOn]="true" [columns]="columns" [data]="listUser" [deleteOn]="true"
+                            [editOn]="true" [headers]="headers" [icons]="'four'"
+                            [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [viewOn]="true"></app-data-table>
+        </div>
+        <mat-paginator
+                (page)="pageChange($event)"
+                [length]="meta"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageSize]="perPage"
+                aria-label="Select page of periodic elements"
+                showFirstLastButtons="true">
+        </mat-paginator>
+
+    </div>
 </section>

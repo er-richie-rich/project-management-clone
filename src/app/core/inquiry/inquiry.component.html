@@ -39,9 +39,9 @@
       </div>
     </div>
     <div>
-      <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear
+      <!--<table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear
              style="width: 100%">
-        <!--Select All Checkbox-->
+        &lt;!&ndash;Select All Checkbox&ndash;&gt;
         <ng-container matColumnDef="selectall">
           <th *matHeaderCellDef mat-header-cell style="width: 2%">
             <mat-checkbox (change)="$event ? masterToggle($event) : null"
@@ -56,13 +56,13 @@
             </mat-checkbox>
           </td>
         </ng-container>
-        <!--Select All Checkbox-->
-        <!--Action Column-->
+        &lt;!&ndash;Select All Checkbox&ndash;&gt;
+        &lt;!&ndash;Action Column&ndash;&gt;
         <ng-container matColumnDef="action2">
           <th *matHeaderCellDef class="th-header" mat-header-cell>Action</th>
           <td *matCellDef="let element;index as i;" mat-cell>
             <div class="hover-effect-menu">
-              <!--              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>-->
+              &lt;!&ndash;              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>&ndash;&gt;
               <span class="material-icons short-arrow">more_horiz</span>
               <div class="hover-half-round-two">
                 <div class="quarter-circle">
@@ -85,8 +85,8 @@
             </div>
           </td>
         </ng-container>
-        <!--Action Column-->
-        <!-- Service Type Column -->
+        &lt;!&ndash;Action Column&ndash;&gt;
+        &lt;!&ndash; Service Type Column &ndash;&gt;
         <ng-container matColumnDef="service_type">
           <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
             <div class=" th-header d-flex align-items-center text-left">
@@ -95,7 +95,7 @@
           </th>
           <td *matCellDef="let element;index as i;" mat-cell>{{element.service_type}} </td>
         </ng-container>
-        <!-- Full Name Column -->
+        &lt;!&ndash; Full Name Column &ndash;&gt;
         <ng-container matColumnDef="full_name">
           <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
             <div class=" th-header d-flex align-items-center text-left">
@@ -104,7 +104,7 @@
           </th>
           <td *matCellDef="let element" mat-cell> {{element.full_name}} </td>
         </ng-container>
-        <!-- Email Column -->
+        &lt;!&ndash; Email Column &ndash;&gt;
         <ng-container matColumnDef="email">
           <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
             <div class=" th-header d-flex align-items-center text-left">
@@ -114,7 +114,7 @@
           <td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{element.email}} </td>
 
         </ng-container>
-        <!-- Lead Generation Date Column -->
+        &lt;!&ndash; Lead Generation Date Column &ndash;&gt;
         <ng-container matColumnDef="contact_no">
           <th *matHeaderCellDef class="th-header" mat-header-cell mat-sort-header>
             <div class=" th-header d-flex align-items-center text-left">
@@ -123,27 +123,23 @@
           </th>
           <td *matCellDef="let element" mat-cell> {{element.contact_no}} </td>
         </ng-container>
-        <!-- Lead Generation By Column -->
+        &lt;!&ndash; Lead Generation By Column &ndash;&gt;
         <ng-container matColumnDef="additionalInfo">
           <th *matHeaderCellDef class="th-header" mat-header-cell>Additional Info</th>
           <td *matCellDef="let element" mat-cell> {{element.additional_info}} </td>
         </ng-container>
         <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
         <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-        <!-- Row shown when there is no matching data. -->
+        &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;
         <tr *matNoDataRow class="mat-row">
           <td class="mat-cell text-center" colspan="6">Data Not Available</td>
         </tr>
-      </table>
+      </table>-->
+      <app-data-table (delete)="deleteItem($event.id)"
+                      (isAllSelected)="isAllSelected()" (masterToggle)="masterToggle($event)"  (view)="inquiryDetail($event.id)" [columns]="columns" [data]="inquiryList"  [deleteOn]="true" [headers]="headers"
+                      [icons]="'two'" [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [viewOn]="true"></app-data-table>
     </div>
-<!--    <mat-paginator-->
-<!--      showFirstLastButtons-->
-<!--      [length]="meta?.total"-->
-<!--      [pageSize]="perPage"-->
-<!--      [pageIndex]="currentPage"-->
-<!--      [pageSizeOptions]="pageSizeOptions"-->
-<!--      [hidePageSize]="false"-->
-<!--      (page)="pageChange($event)"></mat-paginator>-->
+
     <mat-paginator
             (page)="pageChange($event)"
             [length]="meta"

@@ -30,7 +30,10 @@ export class DataTableComponent implements OnInit {
   @Input() deleteOn: boolean = false;
   @Input() logOn: boolean = false;
   @Input() changeOn: boolean = false;
+  @Input() downloadOn: boolean = false;
+  @Input() openOn: boolean = false;
   @Input() changePasswordOn: boolean = false;
+
 
   @Output() view = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
@@ -38,6 +41,8 @@ export class DataTableComponent implements OnInit {
   @Output() delete = new EventEmitter<any>();
   @Output() change = new EventEmitter<any>();
   @Output() changePassword = new EventEmitter<any>();
+  @Output() download = new EventEmitter<any>();
+  @Output() open = new EventEmitter<any>();
 
 
   @Input() id: any;
@@ -70,10 +75,16 @@ export class DataTableComponent implements OnInit {
   changePasswordEvent(element:any) {
     this.changePassword.emit(element)
   }
+  downloadEvent(element:any) {
+    this.download.emit(element)
+  }
+  openEvent(content:any,element:any) {
+    this.open.emit({content,element})
+  }
   masterToggleEvent(element:any) {
     this.masterToggle.emit(element)
     }
- isAllSelectedEvent(){
+  isAllSelectedEvent(){
   this.isAllSelected.emit()
   }
 

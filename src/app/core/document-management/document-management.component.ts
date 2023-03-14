@@ -64,7 +64,9 @@ export class DocumentManagementComponent implements OnInit, AfterViewInit, OnDes
   isVisible: boolean = false
   meta: any;
   selectedDocumentId: any;
-  displayedColumns: string[] = ['action2','name', 'fileName', 'status',];
+  headers: string[] = ['Action','name', 'fileName'];
+  columns: string[] = ['action','documentName', 'document'];
+  // displayedColumns: string[] = ['action2','name', 'fileName', 'status',];
   selection = new SelectionModel<documents>(true, []);
 
   constructor(
@@ -101,9 +103,11 @@ export class DocumentManagementComponent implements OnInit, AfterViewInit, OnDes
   }
 
   // Open modal
-  open(content: any, document: any) {
-    if (document && content) {
-      this.modle.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
+  open(event:any) {
+    // window.open(event.element.document,"_self")
+    console.log(event)
+    if (event.element.documentName && event.content ) {
+      this.modle.open(event.content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
         // this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -256,9 +260,9 @@ export class DocumentManagementComponent implements OnInit, AfterViewInit, OnDes
   }
 
   // download document
-  documentDownload(document: any, fileName: any) {
-    const pdfLink = document;
-    const filename = fileName;
+  documentDownload(document: any) {
+    const pdfLink = document.document;
+    const filename = document.fileName;
     saveAs(pdfLink, filename);
     swal.fire(
       '',
