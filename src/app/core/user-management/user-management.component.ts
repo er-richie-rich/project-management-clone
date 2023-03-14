@@ -215,7 +215,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       })
     }
   }
-
+  
   exportAllUsers = () => {
     this.helper.toggleLoaderVisibility(true)
     this.apiService.exportAllUsers({userId: this.selectedUserId}).subscribe(
@@ -356,7 +356,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
                 this.selection.clear();
                 this.getUserData({});
               });
-
+              
             } else {
               swal.fire(
                 '',
@@ -432,7 +432,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   updateActiveStatus(event:any) {
-    console.log(event)
+
     const data = {
       userId: event.element.userId,
       status: event.element.status == 1 ? 2 : 1

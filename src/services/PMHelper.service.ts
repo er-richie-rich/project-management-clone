@@ -13,8 +13,10 @@ export class noWhitespaceValidation {
         return isValid ? null : {required: true};
     }
 }
+
 export class PMHelperService {
-  public static authUser: any = {};
+
+    public static authUser: any = {};
   public static loginUserData: any = {};
   public static loginUserID: any = "0";
   public static loginUserMetaData:any;
