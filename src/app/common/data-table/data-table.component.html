@@ -12,8 +12,7 @@
                 </th>
             </ng-container>
             <th *matHeaderCellDef mat-header-cell>
-                {{headers[i]}}
-            </th>
+                {{headers[i]}}</th>
             <ng-container *ngIf="column == 'action'">
                 <td *matCellDef="let element" mat-cell>
                     <div class="hover-effect-menu {{icons}}-icons">
@@ -37,6 +36,13 @@
                                     matTooltip="{{'Change Password' }}">
                                 <span class="material-icons">https</span>
                             </button>
+                            <button (click)="downloadEvent(element)" *ngIf="downloadOn" mat-menu-item
+                                    matTooltip="{{'Download' }}">
+                                <span class="material-icons">download</span>
+                            </button>
+                            <button (click)="openEvent(content,element)" *ngIf="openOn" mat-menu-item
+                                    matTooltip="{{'open' }}">
+                                <span class="material-icons">web</span>
                             <button (click)="cancelEvent(element)" *ngIf="cancelOn" mat-menu-item
                                     matTooltip="{{'Cancel'}}">
                                 <span class="material-icons">cancel</span>
@@ -54,17 +60,15 @@
             </ng-container>
 
             <ng-container *ngIf="column == 'status' || column == 'isHotLead' ">
-                <td *matCellDef="let element" mat-cell>
-                    <mat-slide-toggle (change)="changeEvent($event,element)" *ngIf="column == 'status'"
-                                      [checked]="element.status==1" class="button-switch">
-                    </mat-slide-toggle>
+                <td *matCellDef="let element"  mat-cell>
+                    <mat-slide-toggle  (change)="changeEvent($event,element)" *ngIf="column == 'status'" [checked]="element.status==1" class="button-switch"></mat-slide-toggle>
+
                     <div *ngIf="column == 'isHotLead'">
-                        <mat-slide-toggle (change)="changeEvent($event,element)"
-                                          *ngIf="element.leadStatus !== 'lost' && element.leadStatus !== 'won' "
-                                          [checked]="element.isHotLead" class="button-switch">
-                        </mat-slide-toggle>
+                        <div *ngIf="element.leadStatus !== 'won' && element.leadStatus !== 'lost'">
+                    <mat-slide-toggle  (change)="changeEvent($event,element)"[checked]="element.isHotLead" class="button-switch"></mat-slide-toggle>
+                        </div>
+                        <div  *ngIf="element.leadStatus == 'won' || element.leadStatus == 'lost'"> <span>-</span> </div>
                     </div>
-                    <div *ngIf="element.leadStatus == 'won' || element.leadStatus == 'lost'">-</div>
                 </td>
             </ng-container>
 
@@ -76,6 +80,27 @@
             </ng-container>
             <ng-container>
                 <td *matCellDef="let element" mat-cell>{{(element[column])?element[column] : '-'}}</td>
+                <ng-template #content let-modal >
+                    <div class="modal-header document-modal">
+                        <h4 class="modal-title" id="modal-basic-title">{{element.documentName}}</h4>
+                        <div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
+                             type="button">
+                            <img src="../../../assets/images/cross-icon.svg">
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document"
+                                    class="pdf-viewer"></pdf-viewer>
+                    </div>
+                    <div class="modal-footer">
+                        <button (click)="modal.close({document:element.document,fileName:element.documentName})"
+                                class="btn-style black-btn" type="button">Close
+                        </button>
+                    </div>
+                </ng-template>
+                <td *matCellDef="let element" mat-cell>
+                   <div>{{(element[column])?element[column] : '-'}}</div>
+                </td>
             </ng-container>
         </ng-container>
     </ng-container>

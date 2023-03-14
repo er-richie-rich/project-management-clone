@@ -67,7 +67,9 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 	fileName: any;
 	numSelected: any;
 	numRows: any;
-	displayedColumns: string[] = ['selectall', 'action2', 'service_type', 'full_name', 'email', 'contact_no'];
+	headers: string[] = ['','Action','Service Type','Full Name','Email','Contact Number'];
+	columns: string[] = ['selectAll', 'action','service_type', 'full_name', 'email', 'contact_no'];
+	// displayedColumns: string[] = ['selectall', 'action2', 'service_type', 'full_name', 'email', 'contact_no'];
 	selection = new SelectionModel<inquiry>(true, []);
 	
 	constructor(

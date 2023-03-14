@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MatSort} from "@angular/material/sort";
+import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -9,8 +8,6 @@ import {MatSort} from "@angular/material/sort";
 })
 export class DataTableComponent implements OnInit {
   // table data
-  sortBy=1;
-  sortKey='startDate';
   @Input() columns :any;
   @Input() headers :any;
   @Input() data:any;
@@ -33,6 +30,8 @@ export class DataTableComponent implements OnInit {
   @Input() deleteOn: boolean = false;
   @Input() logOn: boolean = false;
   @Input() changeOn: boolean = false;
+  @Input() downloadOn: boolean = false;
+  @Input() openOn: boolean = false;
   @Input() changePasswordOn: boolean = false;
 
   @Output() view = new EventEmitter<any>();
@@ -41,6 +40,8 @@ export class DataTableComponent implements OnInit {
   @Output() delete = new EventEmitter<any>();
   @Output() change = new EventEmitter<any>();
   @Output() changePassword = new EventEmitter<any>();
+  @Output() download = new EventEmitter<any>();
+  @Output() open = new EventEmitter<any>();
 
 
   @Input() id: any;
@@ -49,6 +50,8 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // console.log(this.columns)
+    console.log(this.headers.includes('date'))
   }
 
   viewDetail(element:any) {
@@ -62,7 +65,6 @@ export class DataTableComponent implements OnInit {
   deleteEvent(element:any) {
     this.delete.emit(element)
   }
-
   cancelEvent(element:any) {
     this.delete.emit(element)
   }
@@ -72,15 +74,18 @@ export class DataTableComponent implements OnInit {
   changePasswordEvent(element:any) {
     this.changePassword.emit(element)
   }
-
+  downloadEvent(element:any) {
+    this.download.emit(element)
+  }
+  openEvent(content:any,element:any) {
+    this.open.emit({content,element})
+  }
   masterToggleEvent(element:any) {
     this.masterToggle.emit(element)
+    }
+  isAllSelectedEvent(){
+  this.isAllSelected.emit()
   }
-
-  isAllSelectedEvent():any{
-    this.isAllSelected.emit()
-  }
-
 
 
 
