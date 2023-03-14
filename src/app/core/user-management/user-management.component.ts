@@ -59,7 +59,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   sortKey: any;
   search: any;
   headers: string[] = ['','Action','Employee Code','Full Name','Email','Mobile Number','User Role','Status'];
-  columns: string[] = ['selectall', 'action', 'empCode', 'fullName', 'email', 'mobileNumber', 'userRole','status'];
+  columns: string[] = ['selectAll', 'action', 'empCode', 'fullName', 'email', 'mobileNumber', 'userRole','status'];
 
   dataSource: any = new MatTableDataSource([]);
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -140,9 +140,10 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected = () => {
+  isAllSelected():any {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
+    console.log(numSelected,numRows)
     this.selectedUserId = this.dataSource.data.filter((e: users) => this.selection.isSelected(e)).map((e: { userId: any; }) => e.userId);
     return numSelected === numRows;
   }
@@ -155,6 +156,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       : this.dataSource.data.forEach((row: users) => this.selection.select(row));
   }*/
   masterToggle = ($event: any) => {
+    console.log($event)
     if($event.checked){
       this.dataSource.data.forEach((row: users) => this.selection.select(row));
     } else {
@@ -431,10 +433,11 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.getUserData({});
   }
 
-  updateActiveStatus(userId: any, status: any, $event: MatSlideToggleChange) {
+  updateActiveStatus(event:any) {
+    console.log(event)
     const data = {
-      userId: userId,
-      status: status == 1 ? 2 : 1
+      userId: event.element.userId,
+      status: event.element.status == 1 ? 2 : 1
     }
     const dialogRef = this.dialog.open(PopupUpdateStatusComponent, {
       width: "500px",
@@ -453,10 +456,10 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
                 title: metaMassgae,
                 timer: 1500
               });
-              $event.checked = true;
+              event.event.checked = true;
               this.getUserData({})
             } else {
-              $event.checked = false;
+              event.event.checked = false;
               swal.fire(
                 'Error!',
                 data.meta.message,

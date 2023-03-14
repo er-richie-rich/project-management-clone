@@ -183,18 +183,11 @@
 <!--      </table>-->
 
 
-              <app-data-table (change)="($event)" [changeOn]="true" [columns]="columns" [data]="listUser" [deleteOn]="true" [editOn]="true" [headers]="headers" [icons]="'three'" [viewOn]="true" ></app-data-table>
+              <app-data-table (change)="updateActiveStatus($event)" (changePassword)="changePassword($event.userId)" (delete)="deleteUser($event.userId)"
+                              (edit)="editUser($event.userId)"  (isAllSelected)="isAllSelected()" (masterToggle)="masterToggle($event)" (view)="userDetail($event.userId)" [changeOn]="true"
+                              [changePasswordOn]="true" [columns]="columns" [data]="listUser" [deleteOn]="true" [editOn]="true" [headers]="headers"
+                              [icons]="'four'"  [selection]="selection" [viewOn]="true"></app-data-table>
             </div>
-        <!--    <mat-paginator
-              showFirstLastButtons
-              [length]="meta"
-              [pageSize]="perPage"
-              [pageIndex]="currentPage"
-              [pageSizeOptions]="pageSizeOptions"
-              [hidePageSize]="false"
-              (page)="pageChange($event)"
-            ></mat-paginator>-->
-
     <mat-paginator
             (page)="pageChange($event)"
             [length]="meta"

@@ -1,15 +1,25 @@
 import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
+  // table data
   @Input() columns :any;
   @Input() headers :any;
   @Input() data:any;
 
+
+  //checkbox selection
+  @Input() selection :any;
+  @Output() masterToggle = new EventEmitter<any>();
+  @Output() isAllSelected = new EventEmitter<any>();
+
+
+  //table actions
   @Input() element: any;
   @Input() icons: string | undefined;
   @Input() viewOn: boolean = false;
@@ -18,12 +28,14 @@ export class DataTableComponent implements OnInit {
   @Input() deleteOn: boolean = false;
   @Input() logOn: boolean = false;
   @Input() changeOn: boolean = false;
+  @Input() changePasswordOn: boolean = false;
 
   @Output() view = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
   @Output() change = new EventEmitter<any>();
+  @Output() changePassword = new EventEmitter<any>();
 
 
   @Input() id: any;
@@ -52,5 +64,20 @@ export class DataTableComponent implements OnInit {
   changeEvent(event:any ,element:any) {
     this.change.emit({event,element})
   }
+  changePasswordEvent(element:any) {
+    this.changePassword.emit(element)
+  }
+
+  masterToggleEvent(element:any) {
+    this.masterToggle.emit(element)
+    console.log(element)
+  }
+
+  isAllSelectedEvent():any{
+    this.isAllSelected.emit()
+  }
+
+
+
 
 }
