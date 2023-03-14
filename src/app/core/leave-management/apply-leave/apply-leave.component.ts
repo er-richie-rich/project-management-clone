@@ -193,7 +193,8 @@ export class ApplyLeaveComponent implements OnInit {
 		if (this.applyLeaveForm.valid){
 			var start = moment(this.toDate, "YYYY-MM-DD");
 			var end = moment(this.fromDate, "YYYY-MM-DD");
-			this.totalLeaveDaysApplied = moment.duration(start.diff(end)).asDays() + 1;
+			var daysDifferance = moment.duration(start.diff(end)).asDays() + 1
+			this.totalLeaveDaysApplied = this.applyLeaveForm.value.leaveDuration === 'Half Day' ? daysDifferance/2 : daysDifferance;
 			if ((this.applyLeaveForm.value.leaveType === 'LWP' && this.totalLeaveDaysApplied > this.LWPLeaveBalance) || (this.applyLeaveForm.value.leaveType === 'Casual' && this.totalLeaveDaysApplied > this.casualLeaveBalance)) {
 				swal.fire(
 					'Oops!',

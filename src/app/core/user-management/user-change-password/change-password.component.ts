@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PMApiServicesService} from 'src/services/PMApiServices.service';
 import {PMHelperService} from 'src/services/PMHelper.service';
 import swal from 'sweetalert2';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-change-password',
@@ -17,7 +18,8 @@ export class UserChangePasswordComponent implements OnInit {
     private apiService: PMApiServicesService,
     private router: Router,
     public route: ActivatedRoute,
-    public helper: PMHelperService
+    public helper: PMHelperService,
+    private location:Location
   ) {
     this.createForm()
   }
@@ -82,6 +84,15 @@ export class UserChangePasswordComponent implements OnInit {
         return confirmPassword.setErrors(null);
       }
     }
+  }
+
+  setIsClicked(){
+    localStorage.setItem('isClicked',JSON.stringify(true))
+  }
+
+  backToUserList(){
+    this.setIsClicked()
+    this.location.back()
   }
 
   

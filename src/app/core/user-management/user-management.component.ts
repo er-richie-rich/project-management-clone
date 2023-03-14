@@ -90,7 +90,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   url: any;
   user_type: any;
   filename: any;
-  displayedColumns: string[] = ['selectall', 'action2', 'empCode', 'fullName', 'email', 'mobileNumber', 'userRole', 'status'];
+  // displayedColumns: string[] = ['selectall', 'action2', 'empCode', 'fullName', 'email', 'mobileNumber', 'userRole', 'status'];
   selection = new SelectionModel<users>(true, []);
 
   constructor(
@@ -140,10 +140,9 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected():any {
+  isAllSelected = () => {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    console.log(numSelected,numRows)
     this.selectedUserId = this.dataSource.data.filter((e: users) => this.selection.isSelected(e)).map((e: { userId: any; }) => e.userId);
     return numSelected === numRows;
   }
@@ -156,7 +155,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       : this.dataSource.data.forEach((row: users) => this.selection.select(row));
   }*/
   masterToggle = ($event: any) => {
-    console.log($event)
     if($event.checked){
       this.dataSource.data.forEach((row: users) => this.selection.select(row));
     } else {
@@ -211,14 +209,13 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
           )
         } else {
           this.selection.clear();
+          this.selectedUserId = null
           this.getUserData({})
-          /*this.selection.clear();
-          window.location.reload();*/
         }
       })
     }
   }
-  
+
   exportAllUsers = () => {
     this.helper.toggleLoaderVisibility(true)
     this.apiService.exportAllUsers({userId: this.selectedUserId}).subscribe(
@@ -334,6 +331,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
 
   // Chnage Password
   changePassword(id: any) {
+    this.setLocalStorage()
     this.router.navigate(['user-management/user-change-password/' + id]);
   }
 
@@ -358,7 +356,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
                 this.selection.clear();
                 this.getUserData({});
               });
-              
+
             } else {
               swal.fire(
                 '',

@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {SelectionModel} from "@angular/cdk/collections";
+import {inquiry} from "../../core/inquiry/inquiry.component";
 
 
 @Component({
@@ -12,12 +14,11 @@ export class DataTableComponent implements OnInit {
   @Input() headers :any;
   @Input() data:any;
 
-
   //checkbox selection
   @Input() selection :any;
+  @Input()  isAllSelectedCheck:any;
   @Output() masterToggle = new EventEmitter<any>();
   @Output() isAllSelected = new EventEmitter<any>();
-
 
   //table actions
   @Input() element: any;
@@ -44,7 +45,6 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.columns)
   }
 
   viewDetail(element:any) {
@@ -70,14 +70,10 @@ export class DataTableComponent implements OnInit {
 
   masterToggleEvent(element:any) {
     this.masterToggle.emit(element)
-    console.log(element)
   }
 
   isAllSelectedEvent():any{
     this.isAllSelected.emit()
   }
-
-
-
 
 }

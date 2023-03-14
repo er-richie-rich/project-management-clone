@@ -13,77 +13,81 @@
             </div>
         </div>
         <div>
-            <table [dataSource]="dataSource" mat-table matSort matSortDisableClear
-                   style="width: 100%">
-                <!--Action Column-->
-                <ng-container matColumnDef="action2">
-                    <th *matHeaderCellDef mat-header-cell style="width: 5%">
-                        <div class=" th-header d-flex align-items-center text-left">
-                            Action
-                        </div>
-                    </th>
-                    <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
+            <app-data-table (delete)="deleteHoliday($event.holidayId)" (edit)="editHolidays($event.holidayId)"
+                            [columns]="columns" [data]="holidaysList" [deleteOn]="true"
+                            [editOn]="true" [headers]="headers" [icons]="'two'">
+            </app-data-table>
+<!--            <table [dataSource]="dataSource" mat-table matSort matSortDisableClear-->
+<!--                   style="width: 100%">-->
+<!--                &lt;!&ndash;Action Column&ndash;&gt;-->
+<!--                <ng-container matColumnDef="action2">-->
+<!--                    <th *matHeaderCellDef mat-header-cell style="width: 5%">-->
+<!--                        <div class=" th-header d-flex align-items-center text-left">-->
+<!--                            Action-->
+<!--                        </div>-->
+<!--                    </th>-->
+<!--                    <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">-->
 
-                        <div class="hover-effect-menu">
-                            <!--              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>-->
-                            <span class="material-icons short-arrow">more_horiz</span>
-                            <div class="hover-half-round-two">
-                                <div class="quarter-circle">
-                                    <button (click)="editHolidays(element.holidayId)"
-                                            class="material-icons mat-menu-item mat-menu-delete"
-                                            matTooltip="Details"
-                                            matTooltipClass='tooltip-color'
-                                            tabindex="0">
-                                        drive_file_rename_outline
-                                    </button>
-                                    <button (click)="deleteHoliday(element.holidayId)"
-                                            class="material-icons mat-menu-item mat-menu-web"
-                                            matTooltip="Cancel-Leave"
-                                            matTooltipClass='tooltip-color'
-                                            tabindex="0">
-                                        delete
-                                    </button>
-                                    <div class="quarter-circle-nested"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="holidayName">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">
-                        <div class="th-header d-flex align-items-center text-left">
-                            Holidays
-                        </div>
-                    </th>
-                    <td *matCellDef="let element" class="text-capitalize" mat-cell>
-                        {{element.holidayName}}
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="holidayDate">
-                    <th *matHeaderCellDef mat-header-cell>
-                        <div class="th-header d-flex align-items-center text-left">
-                            Date
-                        </div>
-                    </th>
-                    <td *matCellDef="let element" class="text-capitalize"
-                        mat-cell> {{element.holidayDate | date:'dd/MM/yyyy'}} </td>
-                </ng-container>
-                <ng-container matColumnDef="holidayDay">
-                    <th *matHeaderCellDef mat-header-cell>
-                        <div class="th-header d-flex align-items-center text-left">
-                            day
-                        </div>
-                    </th>
-                    <td *matCellDef="let element" class="text-capitalize"
-                        mat-cell> {{element.holidayDate | date:'EEEE'}} </td>
-                </ng-container>
-                <tr *matHeaderRowDef="holidaysColumns;sticky:true" mat-header-row></tr>
-                <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: holidaysColumns;" mat-row></tr>
-                <!-- Row shown when there is no matching data. -->
-                <tr *matNoDataRow class="mat-row">
-                    <td class="mat-cell text-center" colspan="10">Data Not Available</td>
-                </tr>
-            </table>
+<!--                        <div class="hover-effect-menu">-->
+<!--                            &lt;!&ndash;              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>&ndash;&gt;-->
+<!--                            <span class="material-icons short-arrow">more_horiz</span>-->
+<!--                            <div class="hover-half-round-two">-->
+<!--                                <div class="quarter-circle">-->
+<!--                                    <button (click)="editHolidays(element.holidayId)"-->
+<!--                                            class="material-icons mat-menu-item mat-menu-delete"-->
+<!--                                            matTooltip="Details"-->
+<!--                                            matTooltipClass='tooltip-color'-->
+<!--                                            tabindex="0">-->
+<!--                                        drive_file_rename_outline-->
+<!--                                    </button>-->
+<!--                                    <button (click)="deleteHoliday(element.holidayId)"-->
+<!--                                            class="material-icons mat-menu-item mat-menu-web"-->
+<!--                                            matTooltip="Cancel-Leave"-->
+<!--                                            matTooltipClass='tooltip-color'-->
+<!--                                            tabindex="0">-->
+<!--                                        delete-->
+<!--                                    </button>-->
+<!--                                    <div class="quarter-circle-nested"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </ng-container>-->
+<!--                <ng-container matColumnDef="holidayName">-->
+<!--                    <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">-->
+<!--                        <div class="th-header d-flex align-items-center text-left">-->
+<!--                            Holidays-->
+<!--                        </div>-->
+<!--                    </th>-->
+<!--                    <td *matCellDef="let element" class="text-capitalize" mat-cell>-->
+<!--                        {{element.holidayName}}-->
+<!--                    </td>-->
+<!--                </ng-container>-->
+<!--                <ng-container matColumnDef="holidayDate">-->
+<!--                    <th *matHeaderCellDef mat-header-cell>-->
+<!--                        <div class="th-header d-flex align-items-center text-left">-->
+<!--                            Date-->
+<!--                        </div>-->
+<!--                    </th>-->
+<!--                    <td *matCellDef="let element" class="text-capitalize"-->
+<!--                        mat-cell> {{element.holidayDate | date:'dd/MM/yyyy'}} </td>-->
+<!--                </ng-container>-->
+<!--                <ng-container matColumnDef="holidayDay">-->
+<!--                    <th *matHeaderCellDef mat-header-cell>-->
+<!--                        <div class="th-header d-flex align-items-center text-left">-->
+<!--                            day-->
+<!--                        </div>-->
+<!--                    </th>-->
+<!--                    <td *matCellDef="let element" class="text-capitalize"-->
+<!--                        mat-cell> {{element.holidayDate | date:'EEEE'}} </td>-->
+<!--                </ng-container>-->
+<!--                <tr *matHeaderRowDef="holidaysColumns;sticky:true" mat-header-row></tr>-->
+<!--                <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: holidaysColumns;" mat-row></tr>-->
+<!--                &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+<!--                <tr *matNoDataRow class="mat-row">-->
+<!--                    <td class="mat-cell text-center" colspan="10">Data Not Available</td>-->
+<!--                </tr>-->
+<!--            </table>-->
         </div>
         <!--[length]="meta"-->
         <mat-paginator
