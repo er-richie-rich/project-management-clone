@@ -15,6 +15,24 @@
                 {{headers[i]}}</th>
             <ng-container *ngIf="column == 'action'">
                 <td *matCellDef="let element" mat-cell>
+
+                    <ng-template #content let-modal >
+                        <div class="modal-header document-modal">
+                            <h4 class="modal-title" id="modal-basic-title">{{element.documentName}}</h4>
+                            <div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
+                                 type="button">
+                                <img src="../../../assets/images/cross-icon.svg">
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document" class="pdf-viewer"></pdf-viewer>
+                        </div>
+                        <div class="modal-footer">
+                            <button (click)="modal.close({document:element.document,fileName:element.documentName})"
+                                    class="btn-style black-btn" type="button">Close
+                            </button>
+                        </div>
+                    </ng-template>
                     <div class="hover-effect-menu {{icons}}-icons">
                         <div class="short-arrow">
                             <span class="material-icons">more_horiz</span>
@@ -44,9 +62,11 @@
                                     matTooltip="{{'open' }}">
                                 <span class="material-icons">web</span>
                             </button>
+
                         </div>
 
                     </div>
+                </td>
             </ng-container>
             <ng-container *ngIf="column == 'selectAll'">
                 <td *matCellDef="let element" mat-cell>
@@ -72,24 +92,6 @@
             </ng-container>
 
             <ng-container>
-                <ng-template #content let-modal >
-                    <div class="modal-header document-modal">
-                        <h4 class="modal-title" id="modal-basic-title">{{element.documentName}}</h4>
-                        <div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
-                             type="button">
-                            <img src="../../../assets/images/cross-icon.svg">
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document"
-                                    class="pdf-viewer"></pdf-viewer>
-                    </div>
-                    <div class="modal-footer">
-                        <button (click)="modal.close({document:element.document,fileName:element.documentName})"
-                                class="btn-style black-btn" type="button">Close
-                        </button>
-                    </div>
-                </ng-template>
                 <td *matCellDef="let element" mat-cell>
                    <div>{{(element[column])?element[column] : '-'}}</div>
                 </td>
