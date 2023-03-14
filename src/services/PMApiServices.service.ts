@@ -14,7 +14,6 @@ export class PMApiServicesService {
   baseUrl: string = environment.baseURL;
   newBaseUrl: string = environment.newBaseURL;
   private httpOptions: any;
-
   constructor(
     private http: HttpClient,
     private router: Router,

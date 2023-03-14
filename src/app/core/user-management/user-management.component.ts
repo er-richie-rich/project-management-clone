@@ -14,7 +14,6 @@ import {MatSort, Sort} from '@angular/material/sort';
 import swal from "sweetalert2";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
-import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {SelectionModel} from "@angular/cdk/collections";
 import {DatePipe} from "@angular/common";
 import {saveAs} from "file-saver";
@@ -90,7 +89,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   url: any;
   user_type: any;
   filename: any;
-  displayedColumns: string[] = ['selectall', 'action2', 'empCode', 'fullName', 'email', 'mobileNumber', 'userRole', 'status'];
+  // displayedColumns: string[] = ['selectall', 'action2', 'empCode', 'fullName', 'email', 'mobileNumber', 'userRole', 'status'];
   selection = new SelectionModel<users>(true, []);
 
   constructor(
@@ -140,24 +139,22 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected():any {
+  isAllSelected = () => {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    console.log(numSelected,numRows)
     this.selectedUserId = this.dataSource.data.filter((e: users) => this.selection.isSelected(e)).map((e: { userId: any; }) => e.userId);
     return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
- /* masterToggle = ($event: any) => {
-    // console.log($event)
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach((row: users) => this.selection.select(row));
-  }*/
+ // /* masterToggle = ($event: any) => {
+ //    // console.log($event)
+ //    this.isAllSelected()
+ //      ? this.selection.clear()
+ //      : this.dataSource.data.forEach((row: users) => this.selection.select(row));
+ //  }*/
   masterToggle = ($event: any) => {
-    console.log($event)
-    if($event.checked){
+      if($event.checked){
       this.dataSource.data.forEach((row: users) => this.selection.select(row));
     } else {
       this.selection.clear()
@@ -434,7 +431,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   updateActiveStatus(event:any) {
-    console.log(event)
+
     const data = {
       userId: event.element.userId,
       status: event.element.status == 1 ? 2 : 1

@@ -69,9 +69,9 @@
       </div>
     </div>
     <div>
-      <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear
+    <!--  <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort matSortDisableClear
              style="width: 100%">
-        <!--Select All Checkbox-->
+        &lt;!&ndash;Select All Checkbox&ndash;&gt;
         <ng-container matColumnDef="selectall">
           <th *matHeaderCellDef mat-header-cell style="width: 2%">
             <mat-checkbox (change)="$event ? masterToggle($event) : null"
@@ -86,8 +86,8 @@
             </mat-checkbox>
           </td>
         </ng-container>
-        <!--Select All Checkbox-->
-        <!--Action Column-->
+        &lt;!&ndash;Select All Checkbox&ndash;&gt;
+        &lt;!&ndash;Action Column&ndash;&gt;
         <ng-container matColumnDef="action2">
           <th *matHeaderCellDef class="th-header" mat-header-cell style="width: 5%">Action</th>
           <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
@@ -121,8 +121,8 @@
             </div>
           </td>
         </ng-container>
-        <!--Action Column-->
-        <!-- Lead Title Column -->
+        &lt;!&ndash;Action Column&ndash;&gt;
+        &lt;!&ndash; Lead Title Column &ndash;&gt;
         <ng-container matColumnDef="leadTitle">
           <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">
             <div class=" th-header d-flex align-items-center text-left">
@@ -133,8 +133,8 @@
             {{element.leadTitle}}
           </td>
         </ng-container>
-        <!-- Lead Title Column -->
-        <!-- Client Name Column -->
+        &lt;!&ndash; Lead Title Column &ndash;&gt;
+        &lt;!&ndash; Client Name Column &ndash;&gt;
         <ng-container matColumnDef="clientName">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
@@ -143,8 +143,8 @@
           </th>
           <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.clientName}} </td>
         </ng-container>
-        <!-- Client Name Column -->
-        <!-- Email Column -->
+        &lt;!&ndash; Client Name Column &ndash;&gt;
+        &lt;!&ndash; Email Column &ndash;&gt;
         <ng-container matColumnDef="email">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class=" th-header d-flex align-items-center text-left">
@@ -153,8 +153,8 @@
           </th>
           <td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{element.email}} </td>
         </ng-container>
-        <!-- Email Column -->
-        <!--Lead Created At-->
+        &lt;!&ndash; Email Column &ndash;&gt;
+        &lt;!&ndash;Lead Created At&ndash;&gt;
         <ng-container matColumnDef="createdAt">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
@@ -163,8 +163,8 @@
           </th>
           <td *matCellDef="let element" mat-cell> {{element.createdAt | date: "dd/MM/YYYY"}} </td>
         </ng-container>
-        <!--Lead Created At-->
-        <!-- Lead Created Date Column -->
+        &lt;!&ndash;Lead Created At&ndash;&gt;
+        &lt;!&ndash; Lead Created Date Column &ndash;&gt;
         <ng-container matColumnDef="leadGenerationDate">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
@@ -173,8 +173,8 @@
           </th>
           <td *matCellDef="let element" mat-cell> {{element.leadGenerationDate | date: "dd/MM/YYYY"}} </td>
         </ng-container>
-        <!-- Lead Created Date Column -->
-        <!-- Lead Type Column -->
+        &lt;!&ndash; Lead Created Date Column &ndash;&gt;
+        &lt;!&ndash; Lead Type Column &ndash;&gt;
         <ng-container matColumnDef="leadType">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
@@ -183,8 +183,8 @@
           </th>
           <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.leadType}}</td>
         </ng-container>
-        <!-- Lead Type Column -->
-        <!-- Lead Generation By Column -->
+        &lt;!&ndash; Lead Type Column &ndash;&gt;
+        &lt;!&ndash; Lead Generation By Column &ndash;&gt;
         <ng-container matColumnDef="leadGeneratedBy">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
@@ -195,8 +195,8 @@
             {{(element.leadGeneratedByName)?element.leadGeneratedByName: '-'}}
           </td>
         </ng-container>
-        <!-- Lead Generation By Column -->
-        <!-- Lead Status Column -->
+        &lt;!&ndash; Lead Generation By Column &ndash;&gt;
+        &lt;!&ndash; Lead Status Column &ndash;&gt;
         <ng-container matColumnDef="leadStatus">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
@@ -207,8 +207,8 @@
             {{element.leadStatus}}
           </td>
         </ng-container>
-        <!-- Lead Status Column -->
-        <!-- Is Hot Lead Column -->
+        &lt;!&ndash; Lead Status Column &ndash;&gt;
+        &lt;!&ndash; Is Hot Lead Column &ndash;&gt;
         <ng-container matColumnDef="isHotLead">
           <th *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
@@ -216,7 +216,7 @@
             </div>
           </th>
           <td *matCellDef="let element" mat-cell>
-            <!--{{element.leadStatus}}-->
+            &lt;!&ndash;{{element.leadStatus}}&ndash;&gt;
             <div *ngIf="element.leadStatus !== 'won' && element.leadStatus !== 'lost'">
               <mat-slide-toggle (change)="changeHotLeadStatus(element.leadId, $event)" [checked]="element.isHotLead"
                                 class="button-switch"></mat-slide-toggle>
@@ -228,15 +228,21 @@
 
           </td>
         </ng-container>
-        <!-- Is Hot Lead Column -->
+        &lt;!&ndash; Is Hot Lead Column &ndash;&gt;
         <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
 	      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-<!--        <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
-        <!-- Row shown when there is no matching data. -->
+&lt;!&ndash;        <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>&ndash;&gt;
+        &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;
         <tr *matNoDataRow class="mat-row">
           <td class="mat-cell text-center" colspan="10">Data Not Available</td>
         </tr>
-      </table>
+      </table>-->
+      <app-data-table (change)="changeHotLeadStatus($event)"
+                     (delete)="deleteLeads($event.leadId)" (edit)="editLeads($event.leadId)" (isAllSelected)="isAllSelected()" (masterToggle)="masterToggle($event)" (view)="leadsDetail($event.leadId)" [changeOn]="true" [columns]="columns" [data]="salesLeads"
+                      [dateFields]="dateFields"  [deleteOn]="true"  [editOn]="true" [headers]="headers" [icons]="'three'" [isAllSelectedCheck]="isAllSelected()"
+                      [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [selection]="selection" [viewOn]="true">
+
+      </app-data-table>
     </div>
     <mat-paginator
       (page)="pageChange($event)"

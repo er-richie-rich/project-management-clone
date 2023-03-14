@@ -11,10 +11,12 @@ export class DataTableComponent implements OnInit {
   @Input() columns :any;
   @Input() headers :any;
   @Input() data:any;
+  @Input() dateFields:any;
 
 
   //checkbox selection
   @Input() selection :any;
+  @Input() isAllSelectedCheck :any;
   @Output() masterToggle = new EventEmitter<any>();
   @Output() isAllSelected = new EventEmitter<any>();
 
@@ -44,7 +46,8 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.columns)
+    // console.log(this.columns)
+    console.log(this.headers.includes('date'))
   }
 
   viewDetail(element:any) {
@@ -67,16 +70,12 @@ export class DataTableComponent implements OnInit {
   changePasswordEvent(element:any) {
     this.changePassword.emit(element)
   }
-
   masterToggleEvent(element:any) {
     this.masterToggle.emit(element)
-    console.log(element)
+    }
+ isAllSelectedEvent(){
+  this.isAllSelected.emit()
   }
-
-  isAllSelectedEvent():any{
-    this.isAllSelected.emit()
-  }
-
 
 
 
