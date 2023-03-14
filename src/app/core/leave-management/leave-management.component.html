@@ -82,6 +82,8 @@
 		</div>
 		
 		<div class="table-wrapper resource-color-table">
+
+
 			<table [dataSource]="leaveDataSource" mat-table matSort style="width: 100%">
 				<ng-container matColumnDef="empName">
 					<th (click)="sortData('userDetails.fullName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>

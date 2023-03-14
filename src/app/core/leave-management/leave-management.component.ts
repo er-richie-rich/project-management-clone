@@ -61,6 +61,8 @@ export class LeaveManagementComponent implements OnInit {
   authUserId:any;
   statusType:any;
   leaveColumns: string[] = ['empName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','total','availableBalance','appliedDate', 'action'];
+  columns: string[] = ['empName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','total','availableBalance','appliedDate', 'action2'];
+  header: string[] = ['EmpName', 'Leave Duration', 'Leave Duration Detail', 'Leave Type','Leave Reason', 'From Date', 'To Date','Total','Available Balance','Applied Date', 'Action'];
   leaveDataSource: any = new MatTableDataSource([]);
   isVisible:boolean = false;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;

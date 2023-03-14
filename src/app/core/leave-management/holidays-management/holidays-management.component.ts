@@ -38,9 +38,9 @@ export class HolidaysManagementComponent implements OnInit {
   isVisible: boolean = false;
   search:any;
   // holidaysColumns: string[] = ['action2','holidayName','holidayDate','holidayDay'];
-  columns: string[] = ['action2','holidayName','holidayDate','holidayDay'];
+  columns: string[] = ['action','holidayName','holidayDate','holidayDay'];
   headers: string[] = ['Action','Name','Date','Day'];
-  dateFields:string[]=['holidayDate','holidayDay']
+  dateFields:string[]=['holidayDate', 'holidayDay']
   selection = new SelectionModel<holidays>(true, []);
   userRole:any
   user:any
@@ -53,11 +53,11 @@ export class HolidaysManagementComponent implements OnInit {
               ){
     this.user =JSON.parse(localStorage.getItem('loggedInUser') || '{}')
     this.userRole=this.user.roleKey
-if(this.userRole !== 'HRMANAGERS'){
-  // this.holidaysColumns = ['holidayName','holidayDate','holidayDay'];
-  this.columns = ['holidayName','holidayDate','holidayDay'];
-  this.headers = ['Name','Date','Day'];
-}
+  if(this.userRole !== 'HRMANAGERS'){
+    // this.holidaysColumns = ['holidayName','holidayDate','holidayDay'];
+    this.columns = ['holidayName','holidayDate','holidayDay'];
+    this.headers = ['Name','Date','Day'];
+  }
   }
 
   ngOnInit(): void {

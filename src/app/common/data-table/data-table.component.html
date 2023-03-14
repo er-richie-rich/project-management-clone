@@ -33,6 +33,7 @@
                             </button>
                         </div>
                     </ng-template>
+
                     <div class="hover-effect-menu {{icons}}-icons">
                         <div class="short-arrow">
                             <span class="material-icons">more_horiz</span>
@@ -58,6 +59,10 @@
                                     matTooltip="{{'Download' }}">
                                 <span class="material-icons">download</span>
                             </button>
+                            <button (click)="openEvent(content,element)" *ngIf="openOn" mat-menu-item
+                                    matTooltip="{{'open' }}">
+                                <span class="material-icons">web</span>
+                            </button>
                             <button (click)="cancelEvent(element)" *ngIf="cancelOn" mat-menu-item
                                     matTooltip="{{'Cancel'}}">
                                 <span class="material-icons">cancel</span>
@@ -77,7 +82,7 @@
 
                     <div *ngIf="column == 'isHotLead'">
                         <div *ngIf="element.leadStatus !== 'won' && element.leadStatus !== 'lost'">
-                    <mat-slide-toggle  (change)="changeEvent($event,element)"[checked]="element.isHotLead" class="button-switch"></mat-slide-toggle>
+                    <mat-slide-toggle  (change)="changeEvent($event,element)" [checked]="element.isHotLead" class="button-switch"></mat-slide-toggle>
                         </div>
                         <div  *ngIf="element.leadStatus == 'won' || element.leadStatus == 'lost'"> <span>-</span> </div>
                     </div>
@@ -93,10 +98,6 @@
 
             <ng-container>
                 <td *matCellDef="let element" mat-cell>{{(element[column])?element[column] : '-'}}</td>
-                <!--<td *matCellDef="let element" mat-cell>
-                <td *matCellDef="let element" mat-cell>-->
-<!--                   <div>{{(element[column])?element[column] : '-'}}</div>-->
-<!--                </td>-->
             </ng-container>
         </ng-container>
     </ng-container>

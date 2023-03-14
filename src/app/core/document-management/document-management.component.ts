@@ -104,8 +104,6 @@ export class DocumentManagementComponent implements OnInit, AfterViewInit, OnDes
 
   // Open modal
   open(event:any) {
-    // window.open(event.element.document,"_self")
-    console.log(event)
     if (event.element.documentName && event.content ) {
       this.modle.open(event.content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
         // this.closeResult = `Closed with: ${result}`;
