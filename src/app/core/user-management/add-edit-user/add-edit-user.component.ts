@@ -95,7 +95,6 @@ export class AddEditUserComponent implements OnInit {
     this.getDepartmentList();
   }
   getReportingManager(userRole: any){
-
     this.addUserForm.patchValue({
       reportingManager: '',
     })

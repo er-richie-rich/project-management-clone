@@ -216,8 +216,7 @@
         <ng-container matColumnDef="startDate">
           <th (click)="sortData('startDate', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
             <div class="th-header d-flex align-items-center text-left">
-              Start Date <span [ngClass]="{'down': sortBy === -1 && sortKey === 'startDate', 'up': sortBy === 1 && sortKey === 'startDate'}">
-                      </span>
+              Start Date <span [ngClass]="{'down': sortBy === -1 && sortKey === 'startDate', 'up': sortBy === 1 && sortKey === 'startDate'}"></span>
             </div>
           </th>
           <td *matCellDef="let element" mat-cell

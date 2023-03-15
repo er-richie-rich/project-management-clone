@@ -14,6 +14,7 @@ import {MatSort, Sort} from '@angular/material/sort';
 import swal from "sweetalert2";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {SelectionModel} from "@angular/cdk/collections";
 import {DatePipe} from "@angular/common";
 import {saveAs} from "file-saver";
@@ -75,6 +76,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       {name: 'Project Manager', value: 'Project Manager'},
       {name: 'Team Leader', value: 'Team Leader'},
       {name: 'Team Member', value: 'Team Member'},
+      {name: 'Network Engineer', value: 'Network Engineer'},
     ]
   isVisible: boolean = false
   email: any;
@@ -116,6 +118,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       this.selectedValue = 'Team Leader';
     }else if (this.user_type === 'Team Member') {
       this.selectedValue = 'Team Member';
+    }else if (this.user_type === 'Network Engineer') {
+      this.selectedValue = 'Network Engineer';
     }
   }
 
@@ -147,14 +151,14 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
- // /* masterToggle = ($event: any) => {
- //    // console.log($event)
- //    this.isAllSelected()
- //      ? this.selection.clear()
- //      : this.dataSource.data.forEach((row: users) => this.selection.select(row));
- //  }*/
+ /* masterToggle = ($event: any) => {
+    // console.log($event)
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row: users) => this.selection.select(row));
+  }*/
   masterToggle = ($event: any) => {
-      if($event.checked){
+    if($event.checked){
       this.dataSource.data.forEach((row: users) => this.selection.select(row));
     } else {
       this.selection.clear()
@@ -208,9 +212,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
           )
         } else {
           this.selection.clear();
+          this.selectedUserId = null
           this.getUserData({})
-          /*this.selection.clear();
-          window.location.reload();*/
         }
       })
     }
@@ -331,6 +334,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
 
   // Chnage Password
   changePassword(id: any) {
+    this.setLocalStorage()
     this.router.navigate(['user-management/user-change-password/' + id]);
   }
 

@@ -34,7 +34,6 @@ export class DataTableComponent implements OnInit {
   @Input() openOn: boolean = false;
   @Input() changePasswordOn: boolean = false;
 
-
   @Output() view = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
@@ -52,7 +51,7 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.columns)
-    console.log(this.headers.includes('date'))
+    // console.log(this.headers.includes('date'))
   }
 
   viewDetail(element:any) {
@@ -87,7 +86,5 @@ export class DataTableComponent implements OnInit {
   isAllSelectedEvent(){
   this.isAllSelected.emit()
   }
-
-
 
 }

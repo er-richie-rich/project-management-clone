@@ -138,6 +138,7 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 				data: {message: 'Are you sure you want to delete this Inquiry?',key:"Delete Inquiry",icon:"delete-icon.png"}
 			});
 			dialogRef.afterClosed().subscribe(result => {
+				console.log(result);
 				if (result) {
 					this.apiService.inquiryDeleteRows({inquiryIds: this.inquiryLeadId}).subscribe(
 						data => {
@@ -172,7 +173,8 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 					)
 				} else {
 					this.selection.clear();
-					window.location.reload();
+					this.inquiryLeadId = null
+					// window.location.reload();
 				}
 			})
 		}

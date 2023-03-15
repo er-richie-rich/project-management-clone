@@ -33,6 +33,7 @@
                             </button>
                         </div>
                     </ng-template>
+
                     <div class="hover-effect-menu {{icons}}-icons">
                         <div class="short-arrow">
                             <span class="material-icons">more_horiz</span>
@@ -62,11 +63,12 @@
                                     matTooltip="{{'open' }}">
                                 <span class="material-icons">web</span>
                             </button>
-
+                            <button (click)="cancelEvent(element)" *ngIf="cancelOn" mat-menu-item
+                                    matTooltip="{{'Cancel'}}">
+                                <span class="material-icons">cancel</span>
+                            </button>
                         </div>
-
                     </div>
-                </td>
             </ng-container>
             <ng-container *ngIf="column == 'selectAll'">
                 <td *matCellDef="let element" mat-cell>
@@ -80,7 +82,7 @@
 
                     <div *ngIf="column == 'isHotLead'">
                         <div *ngIf="element.leadStatus !== 'won' && element.leadStatus !== 'lost'">
-                    <mat-slide-toggle  (change)="changeEvent($event,element)"[checked]="element.isHotLead" class="button-switch"></mat-slide-toggle>
+                    <mat-slide-toggle  (change)="changeEvent($event,element)" [checked]="element.isHotLead" class="button-switch"></mat-slide-toggle>
                         </div>
                         <div  *ngIf="element.leadStatus == 'won' || element.leadStatus == 'lost'"> <span>-</span> </div>
                     </div>
@@ -88,7 +90,10 @@
             </ng-container>
 
             <ng-container *ngIf="dateFields && dateFields.includes(column)">
-                <td *matCellDef="let element" mat-cell>{{element[column] | date:"dd/MM/YYYY"}}</td>
+                <td *matCellDef="let element" mat-cell>
+                    <div>{{element[column] | date:"dd/MM/YYYY"}}</div>
+                    <div *ngIf="column == 'holidayDay'">{{element.holidayDate | date: 'EEEE'}}</div>
+                </td>
             </ng-container>
 
             <ng-container>

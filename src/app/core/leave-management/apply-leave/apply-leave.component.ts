@@ -20,6 +20,7 @@ export class ApplyLeaveComponent implements OnInit {
 	selectedLeaveType: any;
 	LWPLeaveBalance: any;
 	casualLeaveBalance: any;
+	sickLeaveBalance: any;
 	disableField:boolean=false;
 	applyLeaveForm: FormGroup;
 	leaveType: any = [
@@ -96,6 +97,7 @@ export class ApplyLeaveComponent implements OnInit {
 			if (data && data?.meta && data.meta.status == 1) {
 				this.LWPLeaveBalance = data.data.LWPLeaveBalance;
 				this.casualLeaveBalance = data.data.casualLeaveBalance;
+				this.sickLeaveBalance = data.data.sickLeaveBalance;
 			}
 		});
 	}
@@ -193,7 +195,8 @@ export class ApplyLeaveComponent implements OnInit {
 		if (this.applyLeaveForm.valid){
 			var start = moment(this.toDate, "YYYY-MM-DD");
 			var end = moment(this.fromDate, "YYYY-MM-DD");
-			this.totalLeaveDaysApplied = moment.duration(start.diff(end)).asDays() + 1;
+			var daysDifferance = moment.duration(start.diff(end)).asDays() + 1
+			this.totalLeaveDaysApplied = this.applyLeaveForm.value.leaveDuration === 'Half Day' ? daysDifferance/2 : daysDifferance;
 			if ((this.applyLeaveForm.value.leaveType === 'LWP' && this.totalLeaveDaysApplied > this.LWPLeaveBalance) || (this.applyLeaveForm.value.leaveType === 'Casual' && this.totalLeaveDaysApplied > this.casualLeaveBalance)) {
 				swal.fire(
 					'Oops!',

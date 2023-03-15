@@ -36,6 +36,7 @@
                   </mat-error>
 	              <p *ngIf="leaveTypeSelected && selectedLeaveType === 'LWP'" class="card-error"> Available LWP Balance is:{{LWPLeaveBalance??0}}</p>
 	              <p *ngIf="leaveTypeSelected && selectedLeaveType === 'Casual'" class="card-error">Available Casual Balance is:{{casualLeaveBalance??0}}</p>
+	              <p *ngIf="leaveTypeSelected && selectedLeaveType === 'Sick'" class="card-error">Available Sick Leave Balance is:{{sickLeaveBalance??0}}</p>
                 </mat-form-field>
               </div>
             </div>

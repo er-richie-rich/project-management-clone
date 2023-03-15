@@ -133,6 +133,14 @@
                                                     [message]="'Team Members'">
                                 </app-dashboard-card>
                             </div>
+                            <div class="col-sm-3">
+                                <app-dashboard-card (popup)="noOfTotalNetworkEngineer()"
+                                                    [color]="'#469D89'"
+                                                    [count]="totalNetworkEngineer"
+                                                    [icon]="'BDE.svg'"
+                                                    [message]="'Network Engineer'">
+                                </app-dashboard-card>
+                            </div>
                         </div>
                     </div>
                     <h2 class="accordion-header">

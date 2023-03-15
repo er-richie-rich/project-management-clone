@@ -39,6 +39,7 @@ export class MyLeavesComponent implements OnInit {
     leaveType: any = [
         {value: 'LWP'},
         {value: 'Casual'},
+        {value: 'Sick'},
     ];
     leaveData: any;
     employeeName: any = [];
