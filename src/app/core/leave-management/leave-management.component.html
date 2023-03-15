@@ -83,7 +83,7 @@
 		
 		<div class="table-wrapper resource-color-table">
 
-			<app-data-table [columns]="columns" [data]="leaveData" [dateFields]="dateFields" [headers]="headers">
+			<app-data-table (approve)="leaveApprove($event.leaveId)" (reject)="confirmReject($event.leaveId)" [columns]="columns" [data]="leaveData" [dateFields]="dateFields" [headers]="headers">
 			</app-data-table>
 <!--			<table [dataSource]="leaveDataSource" mat-table matSort style="width: 100%">-->
 <!--				<ng-container matColumnDef="empName">-->

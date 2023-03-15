@@ -33,6 +33,8 @@ export class DataTableComponent implements OnInit {
   @Input() downloadOn: boolean = false;
   @Input() openOn: boolean = false;
   @Input() changePasswordOn: boolean = false;
+  // @Input() rejectOn: boolean = false;
+  // @Input() approveOn: boolean = false;
 
   @Output() view = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
@@ -42,6 +44,8 @@ export class DataTableComponent implements OnInit {
   @Output() changePassword = new EventEmitter<any>();
   @Output() download = new EventEmitter<any>();
   @Output() open = new EventEmitter<any>();
+  @Output() reject = new EventEmitter<any>();
+  @Output() approve = new EventEmitter<any>();
 
 
   @Input() id: any;
@@ -85,6 +89,14 @@ export class DataTableComponent implements OnInit {
     }
   isAllSelectedEvent(){
   this.isAllSelected.emit()
+  }
+
+  rejectEvent(element:any){
+    this.reject.emit(element)
+  }
+
+  approveEvent(element:any){
+    this.approve.emit(element)
   }
 
 }
