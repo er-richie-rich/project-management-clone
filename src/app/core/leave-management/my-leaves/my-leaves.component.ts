@@ -40,13 +40,19 @@ export class MyLeavesComponent implements OnInit {
         {value: 'LWP'},
         {value: 'Casual'},
     ];
+    leaveData: any;
     employeeName: any = [];
+    headers: string[] = ['Action','Leave Type','Leave Duration','Leave Duration Detail', 'From Date', 'To Date', 'Total Taken Leaves','Available Balance', 'Leave Status'];
+    columns: string[] = ['action','leaveType', 'leaveDuration','leaveDurationDetail', 'fromDate', 'toDate', 'totalTakenLeave','availableBalance', 'leaveStatus'];
+
+
     leaveColumns: string[] = ['action2','leaveType', 'leaveDuration','leaveDurationDetail', 'fromDate', 'toDate', 'totalTakenLeave','availableBalance', 'leaveStatus'];
     leaveDataSource: any = new MatTableDataSource([]);
     @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort!: MatSort
     @ViewChild('searchString') searchString!: ElementRef;
     private subject: Subject<string> = new Subject();
+
 
 
     constructor(private apiService: PMApiServicesService, private helper: PMHelperService,
@@ -152,6 +158,7 @@ export class MyLeavesComponent implements OnInit {
         }
         this.helper.toggleLoaderVisibility(true)
         this.apiService.myLeaveListing(req).subscribe((data: any) => {
+            this.leaveData=data.data
             this.leaveDataSource = new MatTableDataSource(data.data);
             let isClicked = localStorage.getItem('isClicked');
             if(isClicked){

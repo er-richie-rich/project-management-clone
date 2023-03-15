@@ -92,9 +92,7 @@
             </ng-container>
 
             <ng-container>
-                <td *matCellDef="let element" mat-cell>
-                   <div>{{(element[column])?element[column] : '-'}}</div>
-                </td>
+                <td *matCellDef="let element" mat-cell>{{(element[column])?element[column] : '-'}}</td>
             </ng-container>
         </ng-container>
     </ng-container>

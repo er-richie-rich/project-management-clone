@@ -21,9 +21,9 @@
 			</div>
 		</div>
 		<div>
-			<table [dataSource]="dataSource" mat-table matSort matSortDisableClear
+	<!--		<table [dataSource]="dataSource" mat-table matSort matSortDisableClear
 			       style="width: 100%">
-				<!--Action Column-->
+				&lt;!&ndash;Action Column&ndash;&gt;
 				<ng-container matColumnDef="action2">
 					<th *matHeaderCellDef class="th-header" mat-header-cell style="width: 5%">Action</th>
 					<td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
@@ -45,7 +45,7 @@
 											tabindex="0">
 										delete
 									</button>
-<!--									[routerLink]="[ 'view-lead', element.inventoryId]"-->
+&lt;!&ndash;									[routerLink]="[ 'view-lead', element.inventoryId]"&ndash;&gt;
 									<button (click)="inventoryDetail(element.inventoryId)"
 											class="material-icons mat-menu-item"
 									        matTooltip="Detail"
@@ -58,10 +58,10 @@
 						</div>
 					</td>
 				</ng-container>
-				<!--Action Column-->
-				<!-- Employee Code Column -->
-				<!-- Employee Code Column -->
-				<!-- Employee Name Column -->
+				&lt;!&ndash;Action Column&ndash;&gt;
+				&lt;!&ndash; Employee Code Column &ndash;&gt;
+				&lt;!&ndash; Employee Code Column &ndash;&gt;
+				&lt;!&ndash; Employee Name Column &ndash;&gt;
 				<ng-container matColumnDef="employeeName">
 					<th (click)="sortingData('userData.fullName', sortBy)"  *matHeaderCellDef mat-header-cell mat-sort-header>
 						<div class=" th-header d-flex align-items-center text-left">
@@ -70,8 +70,8 @@
 					</th>
 					<td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.empName}} </td>
 				</ng-container>
-				<!-- Employee Name Column -->
-				<!--SystemType Column-->
+				&lt;!&ndash; Employee Name Column &ndash;&gt;
+				&lt;!&ndash;SystemType Column&ndash;&gt;
 				<ng-container matColumnDef="systemType">
 					<th *matHeaderCellDef mat-header-cell>
 						<div class="th-header d-flex align-items-center text-left">
@@ -80,8 +80,8 @@
 					</th>
 					<td *matCellDef="let element" mat-cell> {{element.systemType}} </td>
 				</ng-container>
-				<!--SystemType Column-->
-				<!-- System Column-->
+				&lt;!&ndash;SystemType Column&ndash;&gt;
+				&lt;!&ndash; System Column&ndash;&gt;
 				<ng-container matColumnDef="system">
 					<th *matHeaderCellDef mat-header-cell >
 						<div class="th-header d-flex align-items-center text-left">
@@ -90,8 +90,8 @@
 					</th>
 					<td *matCellDef="let element" mat-cell style="text-transform: lowercase;"> {{(element.pc)?element.pc:'-'}} </td>
 				</ng-container>
-				<!-- System Column -->
-				<!-- Operating System Column -->
+				&lt;!&ndash; System Column &ndash;&gt;
+				&lt;!&ndash; Operating System Column &ndash;&gt;
 				<ng-container matColumnDef="os">
 					<th *matHeaderCellDef mat-header-cell >
 						<div class="th-header d-flex align-items-center text-left">
@@ -100,8 +100,8 @@
 					</th>
 					<td *matCellDef="let element" mat-cell> {{element.os }} </td>
 				</ng-container>
-				<!-- Operating System Column -->
-				<!-- RAM Column -->
+				&lt;!&ndash; Operating System Column &ndash;&gt;
+				&lt;!&ndash; RAM Column &ndash;&gt;
 				<ng-container matColumnDef="ram">
 					<th (click)="sortingData('ram', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
 						<div class="th-header d-flex align-items-center text-left">
@@ -110,26 +110,29 @@
 					</th>
 					<td *matCellDef="let element" mat-cell>{{element.ram}} </td>
 				</ng-container>
-				<!-- RAM Column -->
-				<!--  -->
-				<!--<ng-container matColumnDef="storage">
+				&lt;!&ndash; RAM Column &ndash;&gt;
+				&lt;!&ndash;  &ndash;&gt;
+				&lt;!&ndash;<ng-container matColumnDef="storage">
 					<th *matHeaderCellDef mat-header-cell mat-sort-header>
 						<div class="d-flex align-items-center text-left">
 							Storage
 						</div>
 					</th>
 					<td *matCellDef="let element" mat-cell> {{element.os }} </td>
-				</ng-container>-->
-				<!--  -->
+				</ng-container>&ndash;&gt;
+				&lt;!&ndash;  &ndash;&gt;
 
 
 				<tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
 				<tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-				<!-- Row shown when there is no matching data. -->
+				&lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;
 				<tr *matNoDataRow class="mat-row">
 					<td class="mat-cell text-center" colspan="10">Data Not Available</td>
 				</tr>
-			</table>
+			</table>-->
+
+			<app-data-table (delete)="deleteInventory($event.inventoryId)" (edit)="editInventory($event.inventoryId)" (view)="inventoryDetail($event.inventoryId)" [columns]="columns" [data]="inventoryData" [deleteOn]="true" [editOn]="true"
+							[headers]="headers" [icons]="'three'" [viewOn]="true"></app-data-table>
 		</div>
 		<mat-paginator
 				(page)="pageChange($event)"

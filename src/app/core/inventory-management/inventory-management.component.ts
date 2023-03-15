@@ -41,7 +41,9 @@ export class InventoryManagementComponent implements OnInit {
   dataSource: any = new MatTableDataSource([]);
   isVisible: boolean = false
   meta: any;
-  displayedColumns: string[] = ['action2','employeeName','systemType','system','os','ram'];
+  headers: string[] = ['Action','Employee Name','System','System Type','Os','Ram Size'];
+  columns: string[] = ['action', 'empName','systemType','pc','os','ram'];
+  // displayedColumns: string[] = ['action2','employeeName','systemType','system','os','ram'];
   selection = new SelectionModel<inventory>(true, []);
 
   /**
