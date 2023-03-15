@@ -89,6 +89,28 @@
                 </td>
             </ng-container>
 
+            <ng-container *ngIf="column == 'action2'">
+                <td *matCellDef="let element; let i = index" class="text-center" mat-cell>
+                    <div *ngIf="element.leaveStatus === 'Pending'" class="btn-wrapper">
+                        <button (click)="approveEvent(element.leaveId)" class="material-icons green-color"
+                                mat-menu-item matTooltip="Approve Leave">check_circle
+                        </button>
+                        <button (click)="rejectEvent(element.leaveId)" class="material-icons red-color"
+                                mat-menu-item matTooltip="Reject Leave">cancel
+                        </button>
+                    </div>
+                    <div *ngIf="element.leaveStatus !== 'Pending'" [ngClass]="{'Rejected' : element.leaveStatus === 'Rejected' ,'Cancelled' :  element.leaveStatus === 'Cancelled' }" class="btn-wrapper Approved">
+                        {{element.leaveStatus}}
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container *ngIf="column == 'leaveStatus'">
+                <td *matCellDef="let element; let i = index ; let headers" [ngClass]="{'Pending': element.leaveStatus === 'Pending' , 'Rejected' : element.leaveStatus === 'Rejected' ,'Cancelled' :  element.leaveStatus === 'Cancelled' }" class="text-center Approved" mat-cell>
+                    {{element[column]}}
+                </td>
+            </ng-container>
+
             <ng-container *ngIf="dateFields && dateFields.includes(column)">
                 <td *matCellDef="let element" mat-cell>
                     <div>{{element[column] | date:"dd/MM/YYYY"}}</div>
@@ -97,7 +119,7 @@
             </ng-container>
 
             <ng-container>
-                <td *matCellDef="let element" mat-cell>{{(element[column])?element[column] : '-'}}</td>
+                <td *matCellDef="let element" mat-cell>{{(element[column])??'-'}}</td>
             </ng-container>
         </ng-container>
     </ng-container>

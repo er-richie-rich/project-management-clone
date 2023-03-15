@@ -319,3 +319,16 @@ table {
   height: 500px;
   width: 100%;
 }
+
+.Approved{
+  color: green;
+}
+.Pending{
+  color: orange;
+}
+.Rejected{
+  color: red;
+}
+.Cancelled{
+  color: gray;
+}
