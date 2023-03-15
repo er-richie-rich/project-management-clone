@@ -60,9 +60,10 @@ export class LeaveManagementComponent implements OnInit {
   employeeName: any = [];
   authUserId:any;
   statusType:any;
-  leaveColumns: string[] = ['empName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','total','availableBalance','appliedDate', 'action'];
-  columns: string[] = ['empName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','total','availableBalance','appliedDate', 'action2'];
-  header: string[] = ['EmpName', 'Leave Duration', 'Leave Duration Detail', 'Leave Type','Leave Reason', 'From Date', 'To Date','Total','Available Balance','Applied Date', 'Action'];
+  // leaveColumns: string[] = ['empName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','total','availableBalance','appliedDate', 'action'];
+  columns: string[] = ['fullName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','totalDays','availableBalance','AppliedLeaveDate', 'action2'];
+  headers: string[] = ['Emp Name', 'Leave Duration', 'Leave Duration Detail', 'Leave Type','Leave Reason', 'From Date', 'To Date','Total','Available Balance','Applied Date', 'Action'];
+  dateFields:string[]=['fromDate', 'toDate', 'AppliedLeaveDate']
   leaveDataSource: any = new MatTableDataSource([]);
   isVisible:boolean = false;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;

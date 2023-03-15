@@ -20,6 +20,7 @@ export class ApplyLeaveComponent implements OnInit {
 	selectedLeaveType: any;
 	LWPLeaveBalance: any;
 	casualLeaveBalance: any;
+	sickLeaveBalance: any;
 	disableField:boolean=false;
 	applyLeaveForm: FormGroup;
 	leaveType: any = [
@@ -96,6 +97,7 @@ export class ApplyLeaveComponent implements OnInit {
 			if (data && data?.meta && data.meta.status == 1) {
 				this.LWPLeaveBalance = data.data.LWPLeaveBalance;
 				this.casualLeaveBalance = data.data.casualLeaveBalance;
+				this.sickLeaveBalance = data.data.sickLeaveBalance;
 			}
 		});
 	}

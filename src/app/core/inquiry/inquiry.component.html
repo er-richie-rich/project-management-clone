@@ -137,7 +137,8 @@
       </table>-->
       <app-data-table (delete)="deleteItem($event.id)"
                       (isAllSelected)="isAllSelected()" (masterToggle)="masterToggle($event)"  (view)="inquiryDetail($event.id)" [columns]="columns" [data]="inquiryList"  [deleteOn]="true" [headers]="headers"
-                      [icons]="'two'" [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [viewOn]="true"></app-data-table>
+                      [icons]="'two'" [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [viewOn]="true">
+      </app-data-table>
     </div>
 
     <mat-paginator

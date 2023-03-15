@@ -83,164 +83,165 @@
 		
 		<div class="table-wrapper resource-color-table">
 
+			<app-data-table [columns]="columns" [data]="leaveData" [dateFields]="dateFields" [headers]="headers">
+			</app-data-table>
+<!--			<table [dataSource]="leaveDataSource" mat-table matSort style="width: 100%">-->
+<!--				<ng-container matColumnDef="empName">-->
+<!--					<th (click)="sortData('userDetails.fullName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--						<div class="th-header">-->
+<!--							Emp Name  <span [ngClass]="{'down': sortBy === -1 && sortKey === 'userDetails.fullName', 'up': sortBy === 1 && sortKey === 'userDetails.fullName'}">-->
+<!--                      </span>-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell style="padding-left: 22px;" >-->
+<!--						{{ element.fullName }}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="leaveDuration">-->
+<!--					<th *matHeaderCellDef mat-header-cell>-->
+<!--						<div class=" th-header d-flex align-items-center text-left">-->
+<!--							Duration-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.leaveDuration }}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="leaveDurationDetail">-->
+<!--					<th *matHeaderCellDef mat-header-cell>-->
+<!--						<div class=" th-header d-flex align-items-center text-left">-->
+<!--							Duration Detail-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.leaveDurationDetail }}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="leaveType">-->
+<!--					<th *matHeaderCellDef mat-header-cell>-->
+<!--						<div class=" th-header d-flex align-items-center text-left">-->
+<!--							Leave Type-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.leaveType }}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				<ng-container matColumnDef="leaveReason">-->
+<!--					<th *matHeaderCellDef mat-header-cell>-->
+<!--						<div class=" th-header d-flex align-items-center text-left">-->
+<!--							Leave Reason-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						<div class="leaveReason">{{ element.leaveReason }}</div>-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="fromDate">-->
+<!--					<th (click)="sortData('fromDate', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--						<div class="th-header d-flex align-items-center text-left">-->
+<!--							From Date-->
+<!--							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'fromDate', 'up': sortBy === 1 && sortKey === 'fromDate'}">-->
+<!--                      </span>-->
+<!--						</div>-->
+<!--						</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.fromDate | date : "dd/MM/YYYY"  }}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="toDate">-->
+<!--					<th (click)="sortData('toDate', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--						<div class="th-header d-flex align-items-center text-left">-->
+<!--							To Date-->
+<!--							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'toDate', 'up': sortBy === 1 && sortKey === 'toDate'}">-->
+<!--                      </span>-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.toDate | date : "dd/MM/YYYY"}}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="total">-->
+<!--					<th (click)="sortData('days', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--						<div class=" th-header d-flex align-items-center text-left">-->
+<!--							Total-->
+<!--							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'days', 'up': sortBy === 1 && sortKey === 'days'}">-->
+<!--                      </span>-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.totalDays }}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="availableBalance">-->
+<!--					<th (click)="sortData('availableBalance', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--						<div class="th-header d-flex align-items-center text-left">-->
+<!--							Available Balance-->
+<!--							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'availableBalance', 'up': sortBy === 1 && sortKey === 'availableBalance'}">-->
+<!--                      </span>-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.availableBalance }}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="appliedDate">-->
+<!--					<th (click)="sortData('createdAt', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--						<div class="th-header d-flex align-items-center text-left">-->
+<!--							Applied Date-->
+<!--							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'createdAt', 'up': sortBy === 1 && sortKey === 'createdAt'}">-->
+<!--                      </span>-->
+<!--						</div>-->
+<!--					</th>-->
+<!--					<td *matCellDef="let element" mat-cell >-->
+<!--						{{ element.AppliedLeaveDate | date : "dd/MM/YYYY"}}-->
+<!--					</td>-->
+<!--				</ng-container>-->
+<!--				-->
+<!--				<ng-container matColumnDef="action">-->
+<!--					<th *matHeaderCellDef class="text-center" mat-header-cell-->
+<!--					    style="max-width: 90px; width: 90px; min-width: 90px">-->
+<!--						<div class=" th-header d-flex align-items-center text-left">-->
+<!--							Action-->
+<!--						</div>-->
 
-			<table [dataSource]="leaveDataSource" mat-table matSort style="width: 100%">
-				<ng-container matColumnDef="empName">
-					<th (click)="sortData('userDetails.fullName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-						<div class="th-header">
-							Emp Name  <span [ngClass]="{'down': sortBy === -1 && sortKey === 'userDetails.fullName', 'up': sortBy === 1 && sortKey === 'userDetails.fullName'}">
-                      </span>
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell style="padding-left: 22px;" >
-						{{ element.fullName }}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="leaveDuration">
-					<th *matHeaderCellDef mat-header-cell>
-						<div class=" th-header d-flex align-items-center text-left">
-							Duration
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.leaveDuration }}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="leaveDurationDetail">
-					<th *matHeaderCellDef mat-header-cell>
-						<div class=" th-header d-flex align-items-center text-left">
-							Duration Detail
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.leaveDurationDetail }}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="leaveType">
-					<th *matHeaderCellDef mat-header-cell>
-						<div class=" th-header d-flex align-items-center text-left">
-							Leave Type
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.leaveType }}
-					</td>
-				</ng-container>
-				<ng-container matColumnDef="leaveReason">
-					<th *matHeaderCellDef mat-header-cell>
-						<div class=" th-header d-flex align-items-center text-left">
-							Leave Reason
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						<div class="leaveReason">{{ element.leaveReason }}</div>
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="fromDate">
-					<th (click)="sortData('fromDate', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-						<div class="th-header d-flex align-items-center text-left">
-							From Date
-							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'fromDate', 'up': sortBy === 1 && sortKey === 'fromDate'}">
-                      </span>
-						</div>
-						</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.fromDate | date : "dd/MM/YYYY"  }}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="toDate">
-					<th (click)="sortData('toDate', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-						<div class="th-header d-flex align-items-center text-left">
-							To Date
-							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'toDate', 'up': sortBy === 1 && sortKey === 'toDate'}">
-                      </span>
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.toDate | date : "dd/MM/YYYY"}}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="total">
-					<th (click)="sortData('days', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-						<div class=" th-header d-flex align-items-center text-left">
-							Total
-							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'days', 'up': sortBy === 1 && sortKey === 'days'}">
-                      </span>
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.totalDays }}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="availableBalance">
-					<th (click)="sortData('availableBalance', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-						<div class="th-header d-flex align-items-center text-left">
-							Available Balance
-							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'availableBalance', 'up': sortBy === 1 && sortKey === 'availableBalance'}">
-                      </span>
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.availableBalance }}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="appliedDate">
-					<th (click)="sortData('createdAt', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-						<div class="th-header d-flex align-items-center text-left">
-							Applied Date
-							<span [ngClass]="{'down': sortBy === -1 && sortKey === 'createdAt', 'up': sortBy === 1 && sortKey === 'createdAt'}">
-                      </span>
-						</div>
-					</th>
-					<td *matCellDef="let element" mat-cell >
-						{{ element.AppliedLeaveDate | date : "dd/MM/YYYY"}}
-					</td>
-				</ng-container>
-				
-				<ng-container matColumnDef="action">
-					<th *matHeaderCellDef class="text-center" mat-header-cell
-					    style="max-width: 90px; width: 90px; min-width: 90px">
-						<div class=" th-header d-flex align-items-center text-left">
-							Action
-						</div>
+<!--					</th>-->
+<!--					<td *matCellDef="let element; let i = index" class="text-center" mat-cell-->
+<!--					    style="max-width: 90px; width: 90px; min-width: 90px">-->
+<!--						<div *ngIf="element.leaveStatus === 'Pending'" class="btn-wrapper">-->
+<!--							<button (click)="leaveApprove(element.leaveId)" class="material-icons green-color"-->
+<!--							        mat-menu-item matTooltip="Approve Leave">check_circle-->
+<!--							</button>-->
+<!--							<button (click)="confirmReject(element.leaveId)" class="material-icons red-color"-->
+<!--							        mat-menu-item matTooltip="Reject Leave">cancel-->
+<!--							</button>-->
+<!--						</div>-->
+<!--						<div *ngIf="element.leaveStatus === 'Approved'" class="btn-wrapper">-->
+<!--							<button class="green-color" mat-menu-item>Approved</button>-->
+<!--						</div>-->
+<!--						<div *ngIf="element.leaveStatus === 'Cancelled'" class="btn-wrapper">-->
+<!--							<button class="bg-gray" mat-menu-item>Cancelled</button>-->
+<!--						</div>-->
+<!--						<div *ngIf="element.leaveStatus === 'Rejected'" class="btn-wrapper">-->
+<!--							<button class="red-color" mat-menu-item>Rejected</button>-->
+<!--						</div>-->
+<!--					</td>-->
+<!--				</ng-container>-->
 
-					</th>
-					<td *matCellDef="let element; let i = index" class="text-center" mat-cell
-					    style="max-width: 90px; width: 90px; min-width: 90px">
-						<div *ngIf="element.leaveStatus === 'Pending'" class="btn-wrapper">
-							<button (click)="leaveApprove(element.leaveId)" class="material-icons green-color"
-							        mat-menu-item matTooltip="Approve Leave">check_circle
-							</button>
-							<button (click)="confirmReject(element.leaveId)" class="material-icons red-color"
-							        mat-menu-item matTooltip="Reject Leave">cancel
-							</button>
-						</div>
-						<div *ngIf="element.leaveStatus === 'Approved'" class="btn-wrapper">
-							<button class="green-color" mat-menu-item>Approved</button>
-						</div>
-						<div *ngIf="element.leaveStatus === 'Cancelled'" class="btn-wrapper">
-							<button class="bg-gray" mat-menu-item>Cancelled</button>
-						</div>
-						<div *ngIf="element.leaveStatus === 'Rejected'" class="btn-wrapper">
-							<button class="red-color" mat-menu-item>Rejected</button>
-						</div>
-					</td>
-				</ng-container>
-
-				<tr *matHeaderRowDef="leaveColumns" mat-header-row></tr>
-				<tr *matRowDef="let element; columns: leaveColumns" mat-row></tr>
-				<tr *matNoDataRow class="mat-row">
-					<td class="mat-cell text-center" colspan="10">Data Not Available</td>
-				</tr>
-			</table>
+<!--				<tr *matHeaderRowDef="leaveColumns" mat-header-row></tr>-->
+<!--				<tr *matRowDef="let element; columns: leaveColumns" mat-row></tr>-->
+<!--				<tr *matNoDataRow class="mat-row">-->
+<!--					<td class="mat-cell text-center" colspan="10">Data Not Available</td>-->
+<!--				</tr>-->
+<!--			</table>-->
 		</div>
 		<!--<div *ngIf="leaveDataSource && leaveDataSource.length == 0" class="text-center">
 			<div class="text-muted font-medium-2 p-2">No Data Available</div>
