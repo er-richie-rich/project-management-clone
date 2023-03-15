@@ -44,10 +44,10 @@ export class MyLeavesComponent implements OnInit {
     leaveData: any;
     employeeName: any = [];
     headers: string[] = ['Action','Leave Type','Leave Duration','Leave Duration Detail', 'From Date', 'To Date', 'Total Taken Leaves','Available Balance', 'Leave Status'];
-    columns: string[] = ['action','leaveType', 'leaveDuration','leaveDurationDetail', 'fromDate', 'toDate', 'totalTakenLeave','availableBalance', 'leaveStatus'];
+    columns: string[] = ['action','leaveType', 'leaveDuration','leaveDurationDetail', 'fromDate', 'toDate', 'totalDays','availableBalance', 'leaveStatus'];
+    dateFields:string[] =['fromDate', 'toDate', ];
 
-
-    leaveColumns: string[] = ['action2','leaveType', 'leaveDuration','leaveDurationDetail', 'fromDate', 'toDate', 'totalTakenLeave','availableBalance', 'leaveStatus'];
+        leaveColumns: string[] = ['action2','leaveType', 'leaveDuration','leaveDurationDetail', 'fromDate', 'toDate', 'totalTakenLeave','availableBalance', 'leaveStatus'];
     leaveDataSource: any = new MatTableDataSource([]);
     @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort!: MatSort

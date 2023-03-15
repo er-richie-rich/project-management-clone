@@ -16,7 +16,7 @@
             <ng-container *ngIf="column == 'action'">
                 <td *matCellDef="let element" mat-cell>
 
-                    <ng-template #content let-modal >
+                    <ng-template #content let-modal>
                         <div class="modal-header document-modal">
                             <h4 class="modal-title" id="modal-basic-title">{{element.documentName}}</h4>
                             <div (click)="modal.dismiss('Cross click')" aria-label="Close" class="close"
@@ -25,7 +25,8 @@
                             </div>
                         </div>
                         <div class="modal-body">
-                            <pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document" class="pdf-viewer"></pdf-viewer>
+                            <pdf-viewer [autoresize]="true" [original-size]="false" [src]="element.document"
+                                        class="pdf-viewer"></pdf-viewer>
                         </div>
                         <div class="modal-footer">
                             <button (click)="modal.close({document:element.document,fileName:element.documentName})"
@@ -72,19 +73,23 @@
             </ng-container>
             <ng-container *ngIf="column == 'selectAll'">
                 <td *matCellDef="let element" mat-cell>
-                    <mat-checkbox (change)="$event ? selection.toggle(element) : null" (click)="$event.stopPropagation()" [checked]="selection.isSelected(element)"></mat-checkbox>
+                    <mat-checkbox (change)="$event ? selection.toggle(element) : null"
+                                  (click)="$event.stopPropagation()"
+                                  [checked]="selection.isSelected(element)"></mat-checkbox>
                 </td>
             </ng-container>
 
             <ng-container *ngIf="column == 'status' || column == 'isHotLead' ">
-                <td *matCellDef="let element"  mat-cell>
-                    <mat-slide-toggle  (change)="changeEvent($event,element)" *ngIf="column == 'status'" [checked]="element.status==1" class="button-switch"></mat-slide-toggle>
+                <td *matCellDef="let element" mat-cell>
+                    <mat-slide-toggle (change)="changeEvent($event,element)" *ngIf="column == 'status'"
+                                      [checked]="element.status==1" class="button-switch"></mat-slide-toggle>
 
                     <div *ngIf="column == 'isHotLead'">
                         <div *ngIf="element.leadStatus !== 'won' && element.leadStatus !== 'lost'">
-                    <mat-slide-toggle  (change)="changeEvent($event,element)" [checked]="element.isHotLead" class="button-switch"></mat-slide-toggle>
+                            <mat-slide-toggle (change)="changeEvent($event,element)" [checked]="element.isHotLead"
+                                              class="button-switch"></mat-slide-toggle>
                         </div>
-                        <div  *ngIf="element.leadStatus == 'won' || element.leadStatus == 'lost'"> <span>-</span> </div>
+                        <div *ngIf="element.leadStatus == 'won' || element.leadStatus == 'lost'"><span>-</span></div>
                     </div>
                 </td>
             </ng-container>
@@ -97,7 +102,16 @@
             </ng-container>
 
             <ng-container>
-                <td *matCellDef="let element" mat-cell>{{(element[column])?element[column] : '-'}}</td>
+                <div *ngIf="column == 'leaveStatus'">
+                    <td *matCellDef="let element"
+                        [ngClass]="{'Pending': element[column] === 'Pending' , 'Rejected' : element[column] === 'Rejected' ,'Cancelled' :  element[column] === 'Cancelled' }"
+                        class="Approved" mat-cell>
+                        {{element[column]}}
+                    </td>
+                </div>
+
+                <td *matCellDef="let element" mat-cell>{{(element[column]) ? element[column] : '-'}}</td>
+
             </ng-container>
         </ng-container>
     </ng-container>

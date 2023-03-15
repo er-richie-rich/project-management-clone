@@ -302,14 +302,14 @@ table {
 
       button.mat-menu-item:nth-child(1) {
         border: none;
-        top: 35px !important;
-        left: 44px !important;
+        top: 33px !important;
+        left: 43px !important;
       }
 
       button.mat-menu-item:nth-child(2) {
         border: none;
         top: 74px !important;
-        left: 44px !important;
+        left: 42px !important;
       }
     }
   }
@@ -318,4 +318,19 @@ table {
 .pdf-viewer {
   height: 500px;
   width: 100%;
+}
+
+
+
+.Approved{
+  color: green;
+}
+.Pending{
+  color: orange;
+}
+.Rejected{
+  color: red;
+}
+.Cancelled{
+  color: gray;
 }
