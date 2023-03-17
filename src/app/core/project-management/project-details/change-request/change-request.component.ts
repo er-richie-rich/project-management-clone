@@ -25,7 +25,10 @@ export class ChangeRequestComponent implements OnInit {
     changeRequest: any;
     @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
-    changeRequestColumns: string[] = ['action', 'title', 'version', 'description', 'estimation', 'receiveDate'];
+    // changeRequestColumns: string[] = ['action', 'title', 'version', 'description', 'estimation', 'receiveDate'];
+    columns: string[] = ['action', 'title', 'version', 'description', 'estimation', 'receiveDate'];
+    headers: string[] = ['Action', 'Title', 'Version', 'Description', 'Estimation', 'Receive Date'];
+    dateFields:string[]=['receiveDate'];
     changeRequestDataSource: any = new MatTableDataSource([]);
 
     constructor(private router: Router, private helper: PMHelperService,
@@ -89,7 +92,7 @@ export class ChangeRequestComponent implements OnInit {
         this.router.navigate([`/project-management/project-details/add-change-request/${this.projectId}/${id}`]);
     }
 
-    deleteChangeRequest(id: any, index: number, event: any): any {
+    deleteChangeRequest(id: any){
         const dialogRef = this.dialog.open(CancelDeletePopupComponent, {
             width: "500px",
             data: {message: 'Are you sure you want to delete this change request?',key:"Delete Change Request",icon:"delete-icon.png"}
@@ -98,8 +101,9 @@ export class ChangeRequestComponent implements OnInit {
             if (result) {
                 this.apiService.deleteChangeRequest(id).subscribe((data: any) => {
                     let metaData: any = data.meta.message;
-                    this.changeRequestDataSource.data.splice(index, 1);
-                    this.changeRequestDataSource = new MatTableDataSource(this.changeRequestDataSource.data);
+                    // this.changeRequestDataSource.data.splice(index, 1);
+                    this.changeRequest = data.data;
+                    this.changeRequestDataSource = new MatTableDataSource(this.changeRequest);
                     swal.fire(
                         'Deleted!',
                         metaData,

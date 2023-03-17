@@ -63,7 +63,10 @@ export class ProjectLogComponent implements OnInit, AfterViewInit, OnDestroy {
   activeSort: any;
   directionSort: any;
   projectId: string | null = "0";
-  displayedColumns: string[] = ['editedBy','message','date'];
+  // displayedColumns: string[] = ['editedBy','message','date'];
+  columns: string[] = ['editBy','message','createdAt'];
+  headers: string[] = ['Edited By','Message','Date'];
+  dateFields:string[]=['createdAt'];
   selection = new SelectionModel<projects>(true, []);
 
   constructor(

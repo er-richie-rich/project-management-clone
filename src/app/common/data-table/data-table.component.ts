@@ -33,8 +33,6 @@ export class DataTableComponent implements OnInit {
   @Input() downloadOn: boolean = false;
   @Input() openOn: boolean = false;
   @Input() changePasswordOn: boolean = false;
-  // @Input() rejectOn: boolean = false;
-  // @Input() approveOn: boolean = false;
 
   @Output() view = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
@@ -54,8 +52,6 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.columns)
-    // console.log(this.headers.includes('date'))
   }
 
   viewDetail(element:any) {
@@ -70,7 +66,7 @@ export class DataTableComponent implements OnInit {
     this.delete.emit(element)
   }
   cancelEvent(element:any) {
-    this.delete.emit(element)
+    this.cancel.emit(element)
   }
   changeEvent(event:any ,element:any) {
     this.change.emit({event,element})

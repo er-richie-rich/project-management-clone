@@ -4,8 +4,6 @@
 		<ul class="breadcrumb">
 			<li><a (click)="backToEmployeeList()" style="color: black; font-weight: 500">Employee Management</a></li>
 			<li class="active" style="color: black; font-weight: 500">{{editMode}} Employee</li>
-			<!--<li class="pointer-event" routerLink="/employee-management/">Employee Management</li>
-			<li>{{editMode}} User</li>-->
 		</ul>
 		<div>
 			<button class="btn-style red-btn" form="ngForm" type="submit">Save</button>
@@ -23,7 +21,6 @@
 						<div class="col-sm-12">
 							<div class="profile-upload">
 								<label for="emp-input-profile">
-									
 									<img height="200" src="{{url}}">
 									<span class="material-icons">photo_camera</span>
 								</label>
@@ -91,80 +88,6 @@
 								</mat-form-field>
 							</div>
 						</div>
-						<div class="col-sm-3">
-							<div class="form-field">
-								<mat-form-field appearance="outline" class="element-full-width">
-									<mat-label>Date Of Birth</mat-label>
-									<input #date (click)="date_of_birth.open()" (dateChange)="getDate($event)"
-									       (focus)="date_of_birth.open()" [matDatepicker]="date_of_birth"
-									       [max]="minBirthDate" autocomplete="off"
-									       formControlName="dateOfBirth" matInput
-									       maxlength="150" name="dateOfBirth" required>
-									<mat-datepicker-toggle [for]="date_of_birth" matSuffix></mat-datepicker-toggle>
-									<mat-datepicker #date_of_birth></mat-datepicker>
-									<mat-error
-											*ngIf=" myProfileForm.controls.dateOfBirth.errors?.required">
-										Date Of Birth is required!
-									</mat-error>
-									
-									<mat-error
-											*ngIf="(myProfileForm.controls.dateOfBirth.touched ) && myProfileForm.controls.dateOfBirth.errors?.minAge">
-										Age must greater then 18 years
-									</mat-error>
-								</mat-form-field>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="form-field">
-								<mat-form-field appearance="outline" class="element-full-width">
-									<mat-label>Date Of Join</mat-label>
-									<input (click)="date_of_join.open()" (dateChange)="getProbDate($event)" [matDatepicker]="date_of_join"
-									       [max]="maxDate" [min]="minDate" autocomplete="off"
-									       formControlName="dateOfJoining" matInput
-									       maxlength="150" name="dateOfJoining" required>
-									<mat-datepicker-toggle [for]="date_of_join" matSuffix></mat-datepicker-toggle>
-									<mat-datepicker #date_of_join></mat-datepicker>
-									<mat-error
-											*ngIf="myProfileForm.controls.dateOfJoining.errors?.required">
-										Date Of Join is required!
-									</mat-error>
-									<mat-error
-											*ngIf="(myProfileForm.controls.dateOfJoining.touched ) && myProfileForm.controls.dateOfJoining.errors?.minJoin">
-										Only those eighteen years of age or older may be employed.
-									</mat-error>
-								</mat-form-field>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="form-field">
-								<mat-form-field appearance="outline" class="element-full-width">
-									<mat-label>Designation</mat-label>
-									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="designation"
-									       matInput maxlength="150" name="designation" required
-									       type="text"/>
-									<mat-error *ngIf="myProfileForm.controls.designation.errors?.required">
-										Designation is required!
-									</mat-error>
-								</mat-form-field>
-							</div>
-						</div>
-						<div class="col-sm-3">
-							<div class="form-field">
-								<mat-form-field appearance="outline" class="element-full-width">
-									<mat-label>PAN No</mat-label>
-									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" (ngModelChange)="panCardNumberUpperCase = $event.toUpperCase()" [ngModel]="panCardNumberUpperCase"
-										   formControlName="panCardNumber" matInput
-										   maxlength="10" minlength="10" name="panCardNumber"
-										   onkeypress="return  event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122" required type="text" />
-									<mat-error *ngIf="myProfileForm.controls.panCardNumber.errors?.required">
-										PAN NO is required!
-									</mat-error>
-									<mat-error *ngIf="myProfileForm.controls.panCardNumber.errors?.minlength">
-										Enter valid PAN NO!
-									</mat-error>
-								</mat-form-field>
-							</div>
-						</div>
 						<div [hidden]="activeStatus" class="col-sm-3" >
 							<div class="form-field">
 								<mat-form-field appearance="outline" class="element-full-width">
@@ -221,6 +144,75 @@
 									</mat-select>
 									<mat-error>
 										Department is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Date Of Birth</mat-label>
+									<input #date (click)="date_of_birth.open()" (dateChange)="getDate($event)"
+										   (focus)="date_of_birth.open()" [matDatepicker]="date_of_birth"
+										   [max]="minBirthDate" autocomplete="off"
+										   formControlName="dateOfBirth" matInput
+										   maxlength="150" name="dateOfBirth" required>
+									<mat-datepicker-toggle [for]="date_of_birth" matSuffix></mat-datepicker-toggle>
+									<mat-datepicker #date_of_birth></mat-datepicker>
+									<mat-error *ngIf=" myProfileForm.controls.dateOfBirth.errors?.required">
+										Date Of Birth is required!
+									</mat-error>
+									<mat-error *ngIf="(myProfileForm.controls.dateOfBirth.touched ) && myProfileForm.controls.dateOfBirth.errors?.minAge">
+										Age must greater then 18 years
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Date Of Join</mat-label>
+									<input (click)="date_of_join.open()" (dateChange)="getProbDate($event)" [matDatepicker]="date_of_join"
+										   [max]="maxDate" [min]="minDate" autocomplete="off"
+										   formControlName="dateOfJoining" matInput
+										   maxlength="150" name="dateOfJoining" required>
+									<mat-datepicker-toggle [for]="date_of_join" matSuffix></mat-datepicker-toggle>
+									<mat-datepicker #date_of_join></mat-datepicker>
+									<mat-error *ngIf="myProfileForm.controls.dateOfJoining.errors?.required">
+										Date Of Join is required!
+									</mat-error>
+									<mat-error *ngIf="(myProfileForm.controls.dateOfJoining.touched ) && myProfileForm.controls.dateOfJoining.errors?.minJoin">
+										Only those eighteen years of age or older may be employed.
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>Designation</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" formControlName="designation"
+										   matInput maxlength="150" name="designation" required
+										   type="text"/>
+									<mat-error *ngIf="myProfileForm.controls.designation.errors?.required">
+										Designation is required!
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-field">
+								<mat-form-field appearance="outline" class="element-full-width">
+									<mat-label>PAN No</mat-label>
+									<input (keydown)="space($event)" (keyup)="helper.spaceTrim($event)" (ngModelChange)="panCardNumberUpperCase = $event.toUpperCase()" [ngModel]="panCardNumberUpperCase"
+										   formControlName="panCardNumber" matInput
+										   maxlength="10" minlength="10" name="panCardNumber"
+										   onkeypress="return  event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122" required type="text" />
+									<mat-error *ngIf="myProfileForm.controls.panCardNumber.errors?.required">
+										PAN NO is required!
+									</mat-error>
+									<mat-error *ngIf="myProfileForm.controls.panCardNumber.errors?.minlength">
+										Enter valid PAN NO!
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -323,12 +315,12 @@
 							</div>
 						</div>
 						<div class="col-sm-3">
-							<!--							<div class="form-field">-->
-							<!--									<mat-radio-group>-->
-							<!--										<mat-radio-button value="1" style="padding: 5px">Male</mat-radio-button>-->
-							<!--										<mat-radio-button value="2" style="padding: 5px">Female</mat-radio-button>-->
-							<!--									</mat-radio-group>-->
-							<!--							</div>-->
+														<!--<div class="form-field">
+																<mat-radio-group>
+																	<mat-radio-button value="1" style="padding: 5px">Male</mat-radio-button>
+																	<mat-radio-button value="2" style="padding: 5px">Female</mat-radio-button>
+																</mat-radio-group>
+														</div>-->
 							<div class="form-field">
 								<mat-form-field appearance="outline" class="element-full-width">
 									<mat-label>Gender</mat-label>
@@ -432,12 +424,6 @@
 					</div>
 				</div>
 				<div class="modal-body">
-					<!--<ngx-doc-viewer
-							[url]="imagePreview"
-							style="width:100%;height:80vh;"
-							viewer="url">
-					</ngx-doc-viewer>-->
-					
 					<pdf-viewer [autoresize]="true" [original-size]="false" [src]="imagePreview" class="pdf-viewer"></pdf-viewer>
 				</div>
 				<div class="modal-footer">
@@ -447,14 +433,7 @@
 				</div>
 			</ng-template>
 			<button (click)="openTemplate(content)" class="btn-style red-btn" type="button">Preview</button>
-			<!--<button (click)="onAddUser()" class="btn-style red-btn" type="submit">Save</button>
-			<button class="btn-style black-btn" routerLink="/employee-management/" type="reset">Back</button>-->
 		</div>
-		<!--<div *ngIf="!fileName" class="form-footer box-style-breadcrumb mt-3 p-3">
-			<button (click)="onAddUser()" class="btn-style red-btn" type="submit">Save</button>
-			<button class="btn-style black-btn" routerLink="/employee-management/" type="reset">Back</button>
-		</div>-->
 	</form>
 	<!--Card-->
-
 </section>

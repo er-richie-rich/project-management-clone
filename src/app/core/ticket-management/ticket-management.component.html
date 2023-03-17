@@ -217,8 +217,6 @@
                     </th>
                     <td *matCellDef="let element" class="text-capitalize" mat-cell style="width: 350px">  {{element.subject}} </td>
                 </ng-container>
-
-
 <!--                &lt;!&ndash; message Column &ndash;&gt;-->
 <!--                <ng-container matColumnDef="message">-->
 <!--                    <th (click)="sortData('message', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
@@ -231,9 +229,6 @@
 <!--                    <td *matCellDef="let element" class="text-capitalize cutom-line" mat-cell> {{element.message}} </td>-->
 <!--                </ng-container>-->
 <!--                &lt;!&ndash; message Column &ndash;&gt;-->
-
-
-
                 <ng-container matColumnDef="status">
                     <th (click)="sortData('status', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
                         <div class="d-flex align-items-center text-left">
@@ -248,7 +243,7 @@
                 </ng-container>
 
                 <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
-                <!--        <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
+                <!-- <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr> -->
                 <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
                 <!-- Row shown when there is no matching data. -->
                 <tr *matNoDataRow class="mat-row">

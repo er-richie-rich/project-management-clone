@@ -17,7 +17,6 @@
                     <button class="btn-style red-btn" routerLink="apply-leave/">Apply Leave</button>
                 </div>
                     </div>
-
                 </div>
             </div>
             <div class="search-form-wrapper">
@@ -179,7 +178,7 @@
 <!--                </tr>-->
 <!--            </table>-->
 
-            <app-data-table (cancel)="cancelLeave($event.leaveId)" (view)="leaveDetail($event.leaveId)" [cancelOn]="true" [columns]="columns" [data]="leaveData" [dateFields]="dateFields" [headers]="headers" [icons]="'two'" [viewOn]="true"></app-data-table>
+            <app-data-table (cancel)="$event.fromDate <= todayDate || $event.leaveStatus != 'Pending'?'':cancelLeave($event.leaveId)" (view)="leaveDetail($event.leaveId)" [cancelOn]="true" [columns]="columns" [data]="leaveData" [dateFields]="dateFields" [headers]="headers" [icons]="'two'" [viewOn]="true"></app-data-table>
 
         </div>
         <!--<div *ngIf="leaveDataSource && leaveDataSource.length == 0" class="text-center">

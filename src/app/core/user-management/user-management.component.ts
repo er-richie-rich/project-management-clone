@@ -87,7 +87,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   directionSort: any;
   listUser: any;
   isChecked: boolean = false;
-  selectedUserId: any;
+  selectedUserId: any = [];
   url: any;
   user_type: any;
   filename: any;
@@ -143,7 +143,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected = () => {
+    isAllSelected = () => {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     this.selectedUserId = this.dataSource.data.filter((e: users) => this.selection.isSelected(e)).map((e: { userId: any; }) => e.userId);
@@ -162,12 +162,12 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       this.dataSource.data.forEach((row: users) => this.selection.select(row));
     } else {
       this.selection.clear()
-      this.selectedUserId = null
+      this.selectedUserId = []
     }
   }
 
   deleteAllUsers = () => {
-    if (this.selectedUserId === null) {
+    if (this.selectedUserId.length === 0) {
       swal.fire(
         '',
         "Please select at least one row to delete",
@@ -192,6 +192,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
                     'success'
                   ).then(()=>{
                     this.selection.clear();
+                    this.selectedUserId = []
                     this.getUserData({})
                   });
                 } else {
@@ -210,10 +211,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
               }
             }
           )
-        } else {
-          this.selection.clear();
-          this.selectedUserId = null
-          this.getUserData({})
         }
       })
     }
@@ -236,7 +233,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
               data.meta.message,
               'success'
             ).then(()=>{
-              this.selectedUserId = null;
+              this.selectedUserId = []
             });
             this.getUserData({})
           } else {
@@ -257,19 +254,11 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     )
   }
 
-  /////////////////////////////////////////////////////////////////
-/*  pageChange(obj: any) {
-    this.currentPage = (this.paginator?.pageIndex ?? 0) + 1;
-    this.perPage = obj.pageSize;
-    this.getUserData({limit: this.perPage, page: this.currentPage});
-  }*/
-
   pageChange(page: PageEvent): void {
-    // this.search = '';
     this.currentPage = page.pageIndex + 1 ;
     this.perPage= page.pageSize
     this.selection.clear()
-    this.selectedUserId = null
+    this.selectedUserId = []
     this.getUserData({});
   }
 

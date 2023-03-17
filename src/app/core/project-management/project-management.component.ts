@@ -20,12 +20,21 @@ import {CancelDeletePopupComponent} from "../../popup/cancel-delete-popup/cancel
 
 
 export interface projects {
-  projectId: any;
-  projectName: string;
-  status: any;
-  projectDescription: any;
-  action2: string;
-  selectall: any;
+  id:any;
+  clientName:any;
+  completedHours:any;
+  email:any;
+  estimatedHours:any;
+  projectCode:any;
+  projectDescription:any;
+  projectId:any;
+  projectManagerId:any;
+  projectManagerName:any;
+  projectName:any;
+  projectStatus:any;
+  startDate:any;
+  status:any;
+  technology:any;
 }
 
 interface DataObject {
@@ -69,12 +78,12 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
   isDisabled: boolean = true;
   isVisible: boolean = false
   meta: any;
-  selectedProjectId: any;
+  selectedProjectId: any = [];
   url: any;
   projectStatus: any = 'all';
-  displayedColumns: string[] = [
+  /*displayedColumns: string[] = [
     'selectAll',
-    'action2',
+    'action',
     'projectCode',
     'projectName',
     'clientName',
@@ -82,7 +91,30 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
     'startDate',
     'technology',
     'projectStatus',
+  ];*/
+  headers: string[] = [
+    '',
+    'Action',
+    'Project Code',
+    'Project Name',
+    'Client Name',
+    'Manager',
+    'Start Date',
+    'Technology',
+    'Project Status',
   ];
+  columns: string[] = [
+    'selectAll',
+    'action',
+    'projectCode',
+    'projectName',
+    'clientName',
+    'projectManagerName',
+    'startDate',
+    'technology',
+    'projectStatus',
+  ];
+  dateFields:string[]=['startDate'];
   selection = new SelectionModel<projects>(true, []);
 
   constructor(
@@ -205,7 +237,7 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
   isAllSelected = () => {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    this.selectedProjectId = this.dataSource.data.filter((e: projects) => this.selection.isSelected(e)).map((e: { projectId: any; }) => e.projectId);
+    this.selectedProjectId = this.dataSource.data.filter((e: projects) => this.selection.isSelected(e)).map((e: { projectId: any }) => e.projectId);
     return numSelected === numRows;
   }
 
@@ -216,7 +248,7 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
       this.dataSource.data.forEach((row: projects) => this.selection.select(row));
     } else {
       this.selection.clear()
-      this.selectedProjectId = null
+      this.selectedProjectId = []
     }
   }
 
@@ -224,7 +256,7 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
     this.currentPage = (this.paginator?.pageIndex ?? 0) + 1;
     this.perPage = obj.pageSize;
     this.selection.clear()
-    this.selectedProjectId = null
+    this.selectedProjectId = []
     this.getProjectList({});
   }
 
@@ -284,7 +316,7 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
 
 
   deleteRow = () => {
-    if (this.selectedProjectId === null) {
+    if (this.selectedProjectId.length === 0) {
       swal.fire(
         '',
         "Please select at least one row to delete",
@@ -310,6 +342,7 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
                     'success'
                   ).then();
                   this.selection.clear();
+                  this.selectedProjectId = []
                   this.getProjectList({})
                 } else {
                   swal.fire(
@@ -327,8 +360,6 @@ export class ProjectManagementComponent implements OnInit, AfterViewInit, OnDest
               }
             }
           )
-        } else {
-          this.selection.clear();
         }
       })
     }

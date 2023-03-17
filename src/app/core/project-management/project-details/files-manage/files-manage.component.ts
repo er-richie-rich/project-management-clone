@@ -104,8 +104,7 @@ export class FilesManageComponent implements OnInit {
     open(content: any, document: any) {
         const exc = document.lastIndexOf('.')
         this.extension = document.substring(exc).toLowerCase();
-        var parts = document.split("/");
-        this.prFileName = parts[parts.length - 1];
+        this.prFileName = document.split("/").pop();
         if (this.extension === '.pdf'|| this.extension === '.png'||this.extension === '.jpg'||this.extension === '.jpeg'||this.extension === '.svg') {
             if (document && content) {
                 this.modle.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {

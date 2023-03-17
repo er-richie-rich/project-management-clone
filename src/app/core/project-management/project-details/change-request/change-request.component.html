@@ -35,99 +35,105 @@
           </button>
         </div>
       </div>
-        <table [dataSource]="changeRequestDataSource" mat-table style="width: 100%">
-          <ng-container matColumnDef="action">
-            <th *matHeaderCellDef class="text-center" mat-header-cell
-                style="max-width: 90px; width: 90px; min-width: 90px">
-              Actions
-            </th>
-            <td *matCellDef="let element; let i = index" class="text-center" mat-cell
-                style="max-width: 90px; width: 90px; min-width: 90px">
-              <div class="hover-effect-menu">
-                <!--              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>-->
-                <span class="material-icons short-arrow">more_horiz</span>
-                <div class="hover-half-round-two">
-                  <div class="quarter-circle">
-                    <button
-                            (click)="editChangeRequest(element._id)"
-                            class="material-icons mat-menu-item mat-menu-delete"
-                            matTooltip="Edit"
-                            matTooltipClass='tooltip-color'
-                            tabindex="0">
-                      edit
-                    </button>
-                    <button (click)="deleteChangeRequest(element._id, i, $event)"
-                            class="material-icons mat-menu-item mat-menu-web"
-                            matTooltip="Delete"
-                            matTooltipClass='tooltip-color'
-                            tabindex="0">delete
-                    </button>
-                    <div class="quarter-circle-nested"></div>
-                  </div>
-                </div>
-              </div>
-<!--              <div class="btn-wrapper">-->
-<!--                <button (click)="editChangeRequest(element._id)" class="material-icons"  mat-menu-item matTooltip="Edit">drive_file_rename_outline</button>-->
-<!--                <button (click)="deleteChangeRequest(element._id, i, $event)" class="material-icons" mat-menu-item matTooltip="Delete">delete</button>-->
+
+      <app-data-table (delete)="deleteChangeRequest($event._id)" (edit)="editChangeRequest($event._id)"
+          [columns]="columns" [data]="changeRequest"  [dateFields]="dateFields" [deleteOn]="true"  [editOn]="true"
+          [headers]="headers" [icons]="'two'">
+      </app-data-table>
+
+<!--        <table [dataSource]="changeRequestDataSource" mat-table style="width: 100%">-->
+<!--          <ng-container matColumnDef="action">-->
+<!--            <th *matHeaderCellDef class="text-center" mat-header-cell-->
+<!--                style="max-width: 90px; width: 90px; min-width: 90px">-->
+<!--              Actions-->
+<!--            </th>-->
+<!--            <td *matCellDef="let element; let i = index" class="text-center" mat-cell-->
+<!--                style="max-width: 90px; width: 90px; min-width: 90px">-->
+<!--              <div class="hover-effect-menu">-->
+<!--                &lt;!&ndash;              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>&ndash;&gt;-->
+<!--                <span class="material-icons short-arrow">more_horiz</span>-->
+<!--                <div class="hover-half-round-two">-->
+<!--                  <div class="quarter-circle">-->
+<!--                    <button-->
+<!--                            (click)="editChangeRequest(element._id)"-->
+<!--                            class="material-icons mat-menu-item mat-menu-delete"-->
+<!--                            matTooltip="Edit"-->
+<!--                            matTooltipClass='tooltip-color'-->
+<!--                            tabindex="0">-->
+<!--                      edit-->
+<!--                    </button>-->
+<!--                    <button (click)="deleteChangeRequest(element._id)"-->
+<!--                            class="material-icons mat-menu-item mat-menu-web"-->
+<!--                            matTooltip="Delete"-->
+<!--                            matTooltipClass='tooltip-color'-->
+<!--                            tabindex="0">delete-->
+<!--                    </button>-->
+<!--                    <div class="quarter-circle-nested"></div>-->
+<!--                  </div>-->
+<!--                </div>-->
 <!--              </div>-->
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="title">
-            <th *matHeaderCellDef mat-header-cell>
-              <div class="d-flex align-items-center text-left">
-                Title
-              </div>
-            </th>
-            <td *matCellDef="let element" mat-cell style="white-space: nowrap">
-              {{element.title}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="version">
-            <th *matHeaderCellDef mat-header-cell>
-              <div class="d-flex align-items-center text-left">
-                Version
-              </div>
-            </th>
-            <td *matCellDef="let element" mat-cell style="white-space: nowrap">
-              {{element.version}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="description">
-            <th *matHeaderCellDef mat-header-cell>
-              <div class="d-flex align-items-center text-left">
-                Description
-              </div>
-            </th>
-            <td *matCellDef="let element" mat-cell>
-              {{element.description}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="estimation">
-            <th *matHeaderCellDef mat-header-cell>
-              <div class="d-flex align-items-center text-left">
-                Estimation
-              </div>
-            </th>
-            <td *matCellDef="let element" mat-cell style="white-space: nowrap">
-              {{element.estimation}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="receiveDate">
-            <th *matHeaderCellDef mat-header-cell>
-              <div class="d-flex align-items-center text-left">
-                Receive Date
-              </div>
-            </th>
-            <td *matCellDef="let element" mat-cell style="white-space: nowrap">
-              {{element.receiveDate | date : "MM/dd/YYYY" : 'UTC'}}
-            </td>
-          </ng-container>
-          <tr *matHeaderRowDef="changeRequestColumns" mat-header-row></tr>
-          <tr *matRowDef="let element; columns: changeRequestColumns" mat-row></tr>
-          <tr *matNoDataRow class="mat-row">
-            <td class="mat-cell text-center" colspan="10">Data Not Available</td>
-          </tr>
-        </table>
+<!--&lt;!&ndash;              <div class="btn-wrapper">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button (click)="editChangeRequest(element._id)" class="material-icons"  mat-menu-item matTooltip="Edit">drive_file_rename_outline</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button (click)="deleteChangeRequest(element._id, i, $event)" class="material-icons" mat-menu-item matTooltip="Delete">delete</button>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--            </td>-->
+<!--          </ng-container>-->
+<!--          <ng-container matColumnDef="title">-->
+<!--            <th *matHeaderCellDef mat-header-cell>-->
+<!--              <div class="d-flex align-items-center text-left">-->
+<!--                Title-->
+<!--              </div>-->
+<!--            </th>-->
+<!--            <td *matCellDef="let element" mat-cell style="white-space: nowrap">-->
+<!--              {{element.title}}-->
+<!--            </td>-->
+<!--          </ng-container>-->
+<!--          <ng-container matColumnDef="version">-->
+<!--            <th *matHeaderCellDef mat-header-cell>-->
+<!--              <div class="d-flex align-items-center text-left">-->
+<!--                Version-->
+<!--              </div>-->
+<!--            </th>-->
+<!--            <td *matCellDef="let element" mat-cell style="white-space: nowrap">-->
+<!--              {{element.version}}-->
+<!--            </td>-->
+<!--          </ng-container>-->
+<!--          <ng-container matColumnDef="description">-->
+<!--            <th *matHeaderCellDef mat-header-cell>-->
+<!--              <div class="d-flex align-items-center text-left">-->
+<!--                Description-->
+<!--              </div>-->
+<!--            </th>-->
+<!--            <td *matCellDef="let element" mat-cell>-->
+<!--              {{element.description}}-->
+<!--            </td>-->
+<!--          </ng-container>-->
+<!--          <ng-container matColumnDef="estimation">-->
+<!--            <th *matHeaderCellDef mat-header-cell>-->
+<!--              <div class="d-flex align-items-center text-left">-->
+<!--                Estimation-->
+<!--              </div>-->
+<!--            </th>-->
+<!--            <td *matCellDef="let element" mat-cell style="white-space: nowrap">-->
+<!--              {{element.estimation}}-->
+<!--            </td>-->
+<!--          </ng-container>-->
+<!--          <ng-container matColumnDef="receiveDate">-->
+<!--            <th *matHeaderCellDef mat-header-cell>-->
+<!--              <div class="d-flex align-items-center text-left">-->
+<!--                Receive Date-->
+<!--              </div>-->
+<!--            </th>-->
+<!--            <td *matCellDef="let element" mat-cell style="white-space: nowrap">-->
+<!--              {{element.receiveDate | date : "MM/dd/YYYY" : 'UTC'}}-->
+<!--            </td>-->
+<!--          </ng-container>-->
+<!--          <tr *matHeaderRowDef="changeRequestColumns" mat-header-row></tr>-->
+<!--          <tr *matRowDef="let element; columns: changeRequestColumns" mat-row></tr>-->
+<!--          <tr *matNoDataRow class="mat-row">-->
+<!--            <td class="mat-cell text-center" colspan="10">Data Not Available</td>-->
+<!--          </tr>-->
+<!--        </table>-->
       <mat-paginator
               (page)="pageChange($event)"
               [length]="meta"

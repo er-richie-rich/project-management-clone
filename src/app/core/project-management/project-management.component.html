@@ -71,64 +71,72 @@
       </div>
     </div>
     <div>
-      <table [dataSource]="dataSource" mat-table matSort style="width: 100%" >
+
+      <app-data-table (delete)="deleteProject($event.projectId)" (edit)="editProject($event.projectId)"
+                      (isAllSelected)="isAllSelected()" (masterToggle)="masterToggle($event)"  (view)="viewProject($event.projectId)" [columns]="columns" [data]="projects"  [dateFields]="dateFields" [deleteOn]="true"  [editOn]="true"
+                      [headers]="headers" [icons]="'three'" [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [viewOn]="true">
+      </app-data-table>
+
+
+<!--      <table [dataSource]="dataSource" mat-table matSort style="width: 100%" >-->
 
         <!--Select All Checkbox-->
-        <ng-container matColumnDef="selectAll">
-          <th *matHeaderCellDef mat-header-cell style="width: 2%">
-            <mat-checkbox (change)="$event ? masterToggle($event) : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [disabled]="isDisabled"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-          </th>
-          <td *matCellDef="let element;index as i;" mat-cell>
-            <mat-checkbox (change)="$event ? selection.toggle(element) : null" (click)="$event.stopPropagation()"
-                          [checked]="selection.isSelected(element)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
+<!--        <ng-container matColumnDef="selectAll">-->
+<!--          <th *matHeaderCellDef mat-header-cell style="width: 2%">-->
+<!--            <mat-checkbox (change)="$event ? masterToggle($event) : null"-->
+<!--                          [checked]="selection.hasValue() && isAllSelected()"-->
+<!--                          [disabled]="isDisabled"-->
+<!--                          [indeterminate]="selection.hasValue() && !isAllSelected()">-->
+<!--            </mat-checkbox>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element;" mat-cell>-->
+<!--            <mat-checkbox (change)="$event ? selection.toggle(element) : null"-->
+<!--                          (click)="$event.stopPropagation()"-->
+<!--                          [checked]="selection.isSelected(element)">-->
+<!--            </mat-checkbox>-->
+<!--          </td>-->
+<!--        </ng-container>-->
         <!--Select All Checkbox-->
         <!--Action Column-->
-        <ng-container matColumnDef="action2">
-          <th *matHeaderCellDef mat-header-cell style="width: 5%">
-              <div class=" th-header d-flex align-items-center text-left">
-                Action
-              </div>
-          </th>
-          <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">
-            <div class="hover-effect-menu">
-              <span class="material-icons short-arrow">more_horiz</span>
-              <div class="hover-half-round-three">
-                <div class="quarter-circle">
-                  <button
-                    (click)="editProject(element.projectId)"
-                    class="material-icons mat-menu-item"
-                    matTooltip="Edit"
-                    matTooltipClass='tooltip-color'
-                    tabindex="0">
-                    drive_file_rename_outline
-                  </button>
-                  <button
-                    (click)="deleteProject(element.projectId)"
-                    class="material-icons mat-menu-item"
-                    matTooltip="Delete"
-                    matTooltipClass='tooltip-color'
-                    tabindex="0">
-                    delete
-                  </button>
-                  <button
-                    (click)="viewProject(element.projectId)"
-                    class="material-icons mat-menu-item"
-                    matTooltip="Detail"
-                    matTooltipClass='tooltip-color'
-                    tabindex="0">web
-                  </button>
-                  <div class="quarter-circle-nested"></div>
-                </div>
-              </div>
-            </div>
-          </td>
+<!--        <ng-container matColumnDef="action2">-->
+<!--          <th *matHeaderCellDef mat-header-cell style="width: 5%">-->
+<!--              <div class=" th-header d-flex align-items-center text-left">-->
+<!--                Action-->
+<!--              </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element;index as i;" mat-cell style="width: 5%">-->
+<!--            <div class="hover-effect-menu">-->
+<!--              <span class="material-icons short-arrow">more_horiz</span>-->
+<!--              <div class="hover-half-round-three">-->
+<!--                <div class="quarter-circle">-->
+<!--                  <button-->
+<!--                    (click)="editProject(element.projectId)"-->
+<!--                    class="material-icons mat-menu-item"-->
+<!--                    matTooltip="Edit"-->
+<!--                    matTooltipClass='tooltip-color'-->
+<!--                    tabindex="0">-->
+<!--                    drive_file_rename_outline-->
+<!--                  </button>-->
+<!--                  <button-->
+<!--                    (click)="deleteProject(element.projectId)"-->
+<!--                    class="material-icons mat-menu-item"-->
+<!--                    matTooltip="Delete"-->
+<!--                    matTooltipClass='tooltip-color'-->
+<!--                    tabindex="0">-->
+<!--                    delete-->
+<!--                  </button>-->
+<!--                  <button-->
+<!--                    (click)="viewProject(element.projectId)"-->
+<!--                    class="material-icons mat-menu-item"-->
+<!--                    matTooltip="Detail"-->
+<!--                    matTooltipClass='tooltip-color'-->
+<!--                    tabindex="0">web-->
+<!--                  </button>-->
+<!--                  <div class="quarter-circle-nested"></div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </td>-->
 <!--          <td style="width: 5%" mat-cell *matCellDef="let element;index as i;">-->
 <!--            <div class="hover-effect-menu three-icon">-->
 <!--              <span class="material-icons short-arrow">more_horiz</span>-->
@@ -158,109 +166,109 @@
 <!--              </div>-->
 <!--            </div>-->
 <!--          </td>-->
-        </ng-container>
-        <!--Action Column-->
-        <!-- projectCode Column -->
-        <ng-container matColumnDef="projectCode">
-          <th (click)="sortData('projectCode', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">
-            <div class="th-header d-flex align-items-center text-left">
-               Code <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectCode', 'up': sortBy === 1 && sortKey === 'projectCode'}">
-                      </span>
-            </div>
-          </th>
-          <td *matCellDef="let element" class="text-capitalize" mat-cell>
-            {{element.projectCode}}
-          </td>
-        </ng-container>
-        <!-- projectCode Column -->
-        <!-- projectName Column -->
-        <ng-container matColumnDef="projectName">
-          <th (click)="sortData('projectName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">
-            <div class="th-header d-flex align-items-center text-left">
-              Project Name <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectName', 'up': sortBy === 1 && sortKey === 'projectName'}">
-                      </span>
-            </div>
-          </th>
-          <td *matCellDef="let element" class="text-capitalize" mat-cell>
-            {{element.projectName}}
-          </td>
-        </ng-container>
-        <!-- projectName Column -->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash;Action Column&ndash;&gt;-->
+<!--        &lt;!&ndash; projectCode Column &ndash;&gt;-->
+<!--        <ng-container matColumnDef="projectCode">-->
+<!--          <th (click)="sortData('projectCode', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">-->
+<!--            <div class="th-header d-flex align-items-center text-left">-->
+<!--               Code <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectCode', 'up': sortBy === 1 && sortKey === 'projectCode'}">-->
+<!--                      </span>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element" class="text-capitalize" mat-cell>-->
+<!--            {{element.projectCode}}-->
+<!--          </td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash; projectCode Column &ndash;&gt;-->
+<!--        &lt;!&ndash; projectName Column &ndash;&gt;-->
+<!--        <ng-container matColumnDef="projectName">-->
+<!--          <th (click)="sortData('projectName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header style="width: 15%">-->
+<!--            <div class="th-header d-flex align-items-center text-left">-->
+<!--              Project Name <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectName', 'up': sortBy === 1 && sortKey === 'projectName'}">-->
+<!--                      </span>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element" class="text-capitalize" mat-cell>-->
+<!--            {{element.projectName}}-->
+<!--          </td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash; projectName Column &ndash;&gt;-->
 
-        <!-- clientName Column -->
-        <ng-container matColumnDef="clientName">
-          <th (click)="sortData('clientName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-            <div class=" th-header d-flex align-items-center text-left">
-              Client Name <span [ngClass]="{'down': sortBy === -1 && sortKey === 'clientName', 'up': sortBy === 1 && sortKey === 'clientName'}">
-                      </span>
-            </div>
-          </th>
-          <td *matCellDef="let element" mat-cell style="max-width: 130px"> {{element.clientName }} </td>
-        </ng-container>
-        <!-- clientName Column -->
+<!--        &lt;!&ndash; clientName Column &ndash;&gt;-->
+<!--        <ng-container matColumnDef="clientName">-->
+<!--          <th (click)="sortData('clientName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--            <div class=" th-header d-flex align-items-center text-left">-->
+<!--              Client Name <span [ngClass]="{'down': sortBy === -1 && sortKey === 'clientName', 'up': sortBy === 1 && sortKey === 'clientName'}">-->
+<!--                      </span>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element" mat-cell style="max-width: 130px"> {{element.clientName }} </td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash; clientName Column &ndash;&gt;-->
 
-        <!-- managerName Column -->
-        <ng-container matColumnDef="manager">
-          <th (click)="sortData('projectManagerData.fullName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-            <div class=" th-header d-flex align-items-center text-left">
-              Project Manager <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectManagerData.fullName', 'up': sortBy === 1 && sortKey === 'projectManagerData.fullName'}">
-                      </span>
-            </div>
-          </th>
-          <td *matCellDef="let element" mat-cell>
-            {{ element.projectManagerName }} </td>
-        </ng-container>
-        <!-- managerName Column -->
+<!--        &lt;!&ndash; managerName Column &ndash;&gt;-->
+<!--        <ng-container matColumnDef="manager">-->
+<!--          <th (click)="sortData('projectManagerData.fullName', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--            <div class=" th-header d-flex align-items-center text-left">-->
+<!--              Project Manager <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectManagerData.fullName', 'up': sortBy === 1 && sortKey === 'projectManagerData.fullName'}">-->
+<!--                      </span>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element" mat-cell>-->
+<!--            {{ element.projectManagerName }} </td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash; managerName Column &ndash;&gt;-->
 
-        <!-- startDate Column -->
-        <ng-container matColumnDef="startDate">
-          <th (click)="sortData('startDate', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-            <div class="th-header d-flex align-items-center text-left">
-              Start Date <span [ngClass]="{'down': sortBy === -1 && sortKey === 'startDate', 'up': sortBy === 1 && sortKey === 'startDate'}"></span>
-            </div>
-          </th>
-          <td *matCellDef="let element" mat-cell
-              style="white-space: nowrap;"> {{element.startDate | date : "dd/MM/YYYY"}} </td>
-        </ng-container>
-        <!-- startDate Column -->
-        <!-- technology Column -->
-        <ng-container matColumnDef="technology">
-          <th (click)="sortData('technology', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-            <div class="th-header d-flex align-items-center text-left">
-              Technology <span [ngClass]="{'down': sortBy === -1 && sortKey === 'technology', 'up': sortBy === 1 && sortKey === 'technology'}">
-                      </span>
-            </div>
-          </th>
-          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.technology}} </td>
-        </ng-container>
-        <!-- technology Column -->
+<!--        &lt;!&ndash; startDate Column &ndash;&gt;-->
+<!--        <ng-container matColumnDef="startDate">-->
+<!--          <th (click)="sortData('startDate', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--            <div class="th-header d-flex align-items-center text-left">-->
+<!--              Start Date <span [ngClass]="{'down': sortBy === -1 && sortKey === 'startDate', 'up': sortBy === 1 && sortKey === 'startDate'}"></span>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element" mat-cell-->
+<!--              style="white-space: nowrap;"> {{element.startDate | date : "dd/MM/YYYY"}} </td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash; startDate Column &ndash;&gt;-->
+<!--        &lt;!&ndash; technology Column &ndash;&gt;-->
+<!--        <ng-container matColumnDef="technology">-->
+<!--          <th (click)="sortData('technology', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--            <div class="th-header d-flex align-items-center text-left">-->
+<!--              Technology <span [ngClass]="{'down': sortBy === -1 && sortKey === 'technology', 'up': sortBy === 1 && sortKey === 'technology'}">-->
+<!--                      </span>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element" class="text-capitalize" mat-cell> {{element.technology}} </td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash; technology Column &ndash;&gt;-->
 
-        <!-- projectStatus Column -->
-        <ng-container matColumnDef="projectStatus">
-          <th (click)="sortData('projectStatus', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>
-            <div class="th-header d-flex align-items-center text-left">
-              Status  <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectStatus', 'up': sortBy === 1 && sortKey === 'projectStatus'}">
-                      </span>
-            </div>
-          </th>
-          <td *matCellDef="let element"
-              [ngClass]="{'completed': element.projectStatus==='completed', 'in-progress': element.projectStatus==='in progress', 'on-hold': element.projectStatus==='on hold'}"
-              mat-cell
-              style="white-space: nowrap;">
-            {{element.projectStatus === 'completed' ? 'Completed' : '' }}
-            {{element.projectStatus === 'in progress' ? 'In Progress' : '' }}
-            {{element.projectStatus === 'on hold' ? 'On Hold' : '' }}
-          </td>
-        </ng-container>
-        <!-- projectStatus Column -->
-        <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
-<!--        <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
-        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-        <!-- Row shown when there is no matching data. -->
-        <tr *matNoDataRow class="mat-row">
-          <td class="mat-cell text-center" colspan="10">Data Not Available</td>
-        </tr>
-      </table>
+<!--        &lt;!&ndash; projectStatus Column &ndash;&gt;-->
+<!--        <ng-container matColumnDef="projectStatus">-->
+<!--          <th (click)="sortData('projectStatus', sortBy)" *matHeaderCellDef mat-header-cell mat-sort-header>-->
+<!--            <div class="th-header d-flex align-items-center text-left">-->
+<!--              Status  <span [ngClass]="{'down': sortBy === -1 && sortKey === 'projectStatus', 'up': sortBy === 1 && sortKey === 'projectStatus'}">-->
+<!--                      </span>-->
+<!--            </div>-->
+<!--          </th>-->
+<!--          <td *matCellDef="let element"-->
+<!--              [ngClass]="{'completed': element.projectStatus==='completed', 'in-progress': element.projectStatus==='in progress', 'on-hold': element.projectStatus==='on hold'}"-->
+<!--              mat-cell-->
+<!--              style="white-space: nowrap;">-->
+<!--            {{element.projectStatus === 'completed' ? 'Completed' : '' }}-->
+<!--            {{element.projectStatus === 'in progress' ? 'In Progress' : '' }}-->
+<!--            {{element.projectStatus === 'on hold' ? 'On Hold' : '' }}-->
+<!--          </td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash; projectStatus Column &ndash;&gt;-->
+<!--        <tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>-->
+<!--&lt;!&ndash;        <tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>&ndash;&gt;-->
+<!--        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
+<!--        &lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+<!--        <tr *matNoDataRow class="mat-row">-->
+<!--          <td class="mat-cell text-center" colspan="10">Data Not Available</td>-->
+<!--        </tr>-->
+<!--      </table>-->
     </div>
     <mat-paginator
       (page)="pageChange($event)"

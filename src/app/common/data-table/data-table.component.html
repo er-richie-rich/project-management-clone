@@ -109,8 +109,8 @@
                 </td>
             </ng-container>
 
-            <ng-container *ngIf="column == 'leaveStatus'">
-                <td *matCellDef="let element; let i = index ; let headers" [ngClass]="{'Pending': element.leaveStatus === 'Pending' , 'Rejected' : element.leaveStatus === 'Rejected' ,'Cancelled' :  element.leaveStatus === 'Cancelled' }" class="text-center Approved" mat-cell>
+            <ng-container *ngIf="column == 'leaveStatus' || column == 'projectStatus'|| column == 'milestoneStatus' ">
+                <td *matCellDef="let element; let i = index ; let headers" [ngClass]="{'Pending': element[column] === 'Pending' || element[column] === 'in progress' , 'Rejected' : element[column] === 'Rejected' || element[column] === 'on hold' ,'Cancelled' :  element[column] === 'Cancelled' }" class="text-center Approved" mat-cell>
                     {{element[column]}}
                 </td>
             </ng-container>
@@ -123,7 +123,7 @@
             </ng-container>
 
             <ng-container>
-                <td *matCellDef="let element" mat-cell>{{(element[column])??'-'}}</td>
+                <td *matCellDef="let element" mat-cell>{{(element[column])?element[column]:'-'}}</td>
             </ng-container>
         </ng-container>
     </ng-container>

@@ -61,7 +61,7 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 	sort_by: any;
 	isVisible: boolean = false;
 	search: any;
-	inquiryLeadId: any;
+	inquiryLeadId: any = [];
 	url: any;
 	context: any;
 	fileName: any;
@@ -109,10 +109,10 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 	
 	/** Whether the number of selected elements matches the total number of rows. */
 	isAllSelected = () => {
-		this.numSelected = this.selection.selected.length;
-		this.numRows = this.dataSource.data.length;
+		const numSelected = this.selection.selected.length;
+		const numRows = this.dataSource.data.length;
 		this.inquiryLeadId = this.dataSource.data.filter((e: inquiry) => this.selection.isSelected(e)).map((e: { id: any; }) => e.id);
-		return this.numSelected === this.numRows;
+		return numSelected === numRows;
 	}
 	
 	/** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -121,12 +121,12 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.dataSource.data.forEach((row: inquiry) => this.selection.select(row));
 		} else {
 			this.selection.clear()
-			this.inquiryLeadId = null
+			this.inquiryLeadId = []
 		}
 	}
 	
 	deleteRow = () => {
-		if (this.inquiryLeadId === null) {
+		if (this.inquiryLeadId.length === 0) {
 			swal.fire(
 				'',
 				"Please select at least one row to delete",
@@ -138,7 +138,6 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 				data: {message: 'Are you sure you want to delete this Inquiry?',key:"Delete Inquiry",icon:"delete-icon.png"}
 			});
 			dialogRef.afterClosed().subscribe(result => {
-				console.log(result);
 				if (result) {
 					this.apiService.inquiryDeleteRows({inquiryIds: this.inquiryLeadId}).subscribe(
 						data => {
@@ -154,6 +153,7 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 										// window.location.reload();
 									});
 									this.selection.clear();
+									this.inquiryLeadId = []
 									this.inquiryListing({});
 								} else {
 									swal.fire(
@@ -172,8 +172,6 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 						}
 					)
 				} else {
-					this.selection.clear();
-					this.inquiryLeadId = null
 					// window.location.reload();
 				}
 			})
@@ -264,7 +262,7 @@ export class InquiryComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.currentPage = (this.paginator?.pageIndex ?? 0) + 1;
 		this.perPage = obj.pageSize;
 		this.selection.clear()
-		this.inquiryLeadId = null
+		this.inquiryLeadId = []
 		this.inquiryListing({});
 	}
 	

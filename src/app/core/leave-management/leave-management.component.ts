@@ -19,8 +19,6 @@ import 'moment/locale/ja';
   templateUrl: './leave-management.component.html',
   styleUrls: ['./leave-management.component.scss'],
   providers: [
-    // The locale would typically be provided on the root module of your application. We do it at
-    // the component level here, due to limitations of our example generation script.
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'}
   ]
 })
@@ -60,7 +58,6 @@ export class LeaveManagementComponent implements OnInit {
   employeeName: any = [];
   authUserId:any;
   statusType:any;
-  // leaveColumns: string[] = ['empName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','total','availableBalance','appliedDate', 'action'];
   columns: string[] = ['fullName', 'leaveDuration', 'leaveDurationDetail', 'leaveType','leaveReason', 'fromDate', 'toDate','totalDays','availableBalance','AppliedLeaveDate', 'action2'];
   headers: string[] = ['Emp Name', 'Leave Duration', 'Leave Duration Detail', 'Leave Type','Leave Reason', 'From Date', 'To Date','Total','Available Balance','Applied Date', 'Action'];
   dateFields:string[]=['fromDate', 'toDate', 'AppliedLeaveDate']
@@ -213,12 +210,21 @@ export class LeaveManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getLeaveList({});
-        swal.fire({
-          icon: 'success',
-          title: result.data.meta.message,
-          showConfirmButton: false,
-          timer: 2000
-        });
+        if(result.data.meta.status === 1){
+          swal.fire({
+            icon: 'success',
+            title: result.data.meta.message,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+          swal.fire({
+            icon: 'error',
+            title: result.data.meta.message,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
       }
     });
   }
@@ -236,7 +242,7 @@ export class LeaveManagementComponent implements OnInit {
       this.getLeaveList({});
       if (data && data.meta.status === 0){
         swal.fire({
-          icon: 'info',
+          icon: 'error',
           title: data.meta.message,
           showConfirmButton: false,
           timer: 2000
@@ -249,7 +255,6 @@ export class LeaveManagementComponent implements OnInit {
           timer: 2000
         });
       }
-      
     })
   }
   
@@ -273,7 +278,6 @@ export class LeaveManagementComponent implements OnInit {
     this.filterLeaveType=this.filterempDetail.value.leaveType;
     this.filterUserId=this.filterempDetail.value.userId;
     this.getLeaveList({});
-    
   }
   
   resetData() {
@@ -302,9 +306,6 @@ export class LeaveManagementComponent implements OnInit {
     this.sortKey = sortKey;
     this.getLeaveList({});
   }
-  // public leaveReasonflag = false;
-  // public checkVisited() {
-  //   this.leaveReasonflag = !this.leaveReasonflag;
-  // }
+
   ngOnDestroy(): void { }
 }

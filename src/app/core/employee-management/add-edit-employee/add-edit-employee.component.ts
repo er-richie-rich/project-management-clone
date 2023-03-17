@@ -145,6 +145,9 @@ export class AddEditEmployeeComponent implements OnInit  {
           gender:userData.gender,
           aadhaarNumber:userData.aadhaarNumber
         });
+        if(doj){
+          this.minDate = doj
+        }
         this.url = userData.profileImage ? userData.profileImage : this.url
         this.fileName = userData.idProofFiles
       }, err => {
@@ -217,8 +220,6 @@ export class AddEditEmployeeComponent implements OnInit  {
     let maxYear = this.currentDate.getFullYear();
     this.maxDate = new Date(maxYear, maxMonth, maxDay);
     }
-    
-
 
   onFileChanged(event: any) {
     this.docRefName =event.target.files[0].name;

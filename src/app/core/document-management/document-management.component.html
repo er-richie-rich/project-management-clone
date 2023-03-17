@@ -203,16 +203,19 @@
                         </tr>
                     </table>
         -->
-            <div *ngIf="adminRole === 'HRMANAGERS'" >
-                <app-data-table (delete)="deleteDocument($event.documentId)" (download)="documentDownload($event)" (edit)="editDocument($event.documentId)" (open)="open($event)" [columns]="columns" [data]="documents" [deleteOn]="true"
-                              [downloadOn]="true" [editOn]="true"  [headers]="headers" [icons]="'four'" [openOn]="true"></app-data-table>
-
-            </div>
-            <div *ngIf="adminRole !== 'HRMANAGERS'" >
-                <app-data-table (download)="documentDownload($event)" (open)="open($event)" [columns]="columns"  [data]="documents"
-                                [downloadOn]="true" [headers]="headers"  [icons]="'two'"  [openOn]="true"></app-data-table>
-            </div>
-
+                <app-data-table (delete)="adminRole === 'HRMANAGERS' ? deleteDocument($event.documentId) :''"
+                                (download)="documentDownload($event)"
+                                (edit)="adminRole === 'HRMANAGERS' ? editDocument($event.documentId):''"
+                                (open)="open($event)"
+                                [columns]="columns"
+                                [data]="documents"
+                                [deleteOn]="adminRole === 'HRMANAGERS'"
+                                [downloadOn]="true"
+                                [editOn]="adminRole === 'HRMANAGERS'"
+                                [headers]="headers"
+                                [icons]="adminRole === 'HRMANAGERS' ? 'four' : 'two'"
+                                [openOn]="true">
+                </app-data-table>
         </div>
         <mat-paginator
                 (page)="pageChange($event)"

@@ -82,7 +82,10 @@ export class ProjectDetailsComponent implements OnInit, AfterViewInit, OnDestroy
   url: any;
   projectStatus: any = 'all';
   projectId: string | null = "0";
-  displayedColumns: string[] = ['action2','title', 'expectedDate', 'milestoneStatus'];
+  // displayedColumns: string[] = ['action2','title', 'expectedDate', 'milestoneStatus'];
+  columns: string[] = ['action','milestoneTitle', 'expectedDate', 'milestoneStatus'];
+  headers: string[] = ['Action','Title', 'Expected Date', 'Status'];
+  dateFields:string[]=['expectedDate'];
   selection = new SelectionModel<projects>(true, []);
   
   constructor(

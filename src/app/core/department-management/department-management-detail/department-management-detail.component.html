@@ -6,8 +6,6 @@
                 <ul class="breadcrumb">
 	                <li><a (click)="goToDepartmentList()" style="color: black; font-weight: 500">Department Management</a></li>
 	                <li *ngIf="departmentData?.departmentTitle" class="active" style="color: black; font-weight: 500">{{departmentData.departmentTitle}}</li>
-                    <!--<li class="pointer-event" routerLink="/department-management">Department Management</li>
-                    <li *ngIf="departmentData?.departmentTitle">{{departmentData.departmentTitle}}</li>-->
                 </ul>
                 <!--BreadCrumb-->
             </ul>

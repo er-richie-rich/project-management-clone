@@ -28,100 +28,105 @@
 						</button>
 					</div>
 				</div>
+
+				<app-data-table (delete)="deleteMilestone($event.milestoneId)" (edit)="updateProjet($event.milestoneId)"
+								[columns]="columns" [data]="projects"  [dateFields]="dateFields" [deleteOn]="true"  [editOn]="true"
+								[headers]="headers" [icons]="'two'">
+				</app-data-table>
 				
 				<!--      'title', 'expectedDate', 'milestoneStatus', 'action'-->
-				<table [dataSource]="dataSource" mat-table matSort style="width: 100%">
-					
-					<!--Action Column-->
-					<ng-container matColumnDef="action2">
-						<th *matHeaderCellDef mat-header-cell>
-							<div class="d-flex align-items-center ">
-								Action
-							</div></th>
-						<td *matCellDef="let element;index as i;" mat-cell>
-							<div class="hover-effect-menu">
-								<!--              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>-->
-								<span class="material-icons short-arrow">more_horiz</span>
-								<div class="hover-half-round-two">
-									<div class="quarter-circle">
-										<button
-												(click)="deleteMilestone(element.milestoneId)"
-												class="material-icons mat-menu-item mat-menu-delete"
-												matTooltip="Delete"
-												matTooltipClass='tooltip-color'
-												tabindex="0">
-											delete
-										</button>
-										<button
-												(click)="updateProjet(element.milestoneId)"
-												class="material-icons mat-menu-item mat-menu-web"
-												matTooltip="Edit"
-												matTooltipClass='tooltip-color'
-												tabindex="0">
-											drive_file_rename_outline
-										</button>
-										<div class="quarter-circle-nested"></div>
-									</div>
-								</div>
-							</div>
-						</td>
-					</ng-container>
-					<!--Action Column-->
-					
-					<!-- projectCode Column -->
-					<ng-container matColumnDef="title">
-						<th (click)="sortData('milestoneTitle', sortBy)" *matHeaderCellDef mat-header-cell
-						    mat-sort-header style="width: 15%">
-							<div class="th-header d-flex align-items-center ">
-								Title <span
-									[ngClass]="{'down': sortBy === -1 && sortKey === 'milestoneTitle', 'up': sortBy === 1 && sortKey === 'milestoneTitle'}">
-                      </span>
-							</div>
-						</th>
-						<td *matCellDef="let element" class="text-capitalize" mat-cell>
-							{{element.milestoneTitle}}
-						</td>
-					</ng-container>
-					<!-- projectCode Column -->
-					
-					<!-- startDate Column -->
-					<ng-container matColumnDef="expectedDate">
-						<th (click)="sortData('expectedDate', sortBy)" *matHeaderCellDef mat-header-cell
-						    mat-sort-header>
-							<div class="th-header d-flex align-items-center ">
-								Expected Date <span
-									[ngClass]="{'down': sortBy === -1 && sortKey === 'expectedDate', 'up': sortBy === 1 && sortKey === 'expectedDate'}">
-                      </span>
-							</div>
-						</th>
-						<td *matCellDef="let element" mat-cell
-						    style="white-space: nowrap;"> {{element.expectedDate | date : "MM/dd/YYYY"}} </td>
-					</ng-container>
-					<!-- startDate Column -->
-					
-					<!-- projectName Column -->
-					<ng-container matColumnDef="milestoneStatus">
-						<th (click)="sortData('milestoneStatus', sortBy)" *matHeaderCellDef mat-header-cell
-						    mat-sort-header style="width: 15%">
-							<div class="th-header d-flex align-items-center ">
-								Status <span
-									[ngClass]="{'down': sortBy === -1 && sortKey === 'milestoneStatus', 'up': sortBy === 1 && sortKey === 'milestoneStatus'}">
-                      </span>
-							</div>
-						</th>
-						<td *matCellDef="let element" [ngClass]="{'Completed': element.milestoneStatus === 'completed' , 'onHold' : element.milestoneStatus === 'on hold' ,'inProgress' :  element.milestoneStatus === 'in progress' }" class="text-capitalize" mat-cell>
-							{{element.milestoneStatus}}
-						</td>
-					</ng-container>
-					<!-- projectName Column -->
-					
-					<tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>
-					<tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-					<!-- Row shown when there is no matching data. -->
-					<tr *matNoDataRow class="mat-row">
-						<td class="mat-cell text-center" colspan="10">Data Not Available</td>
-					</tr>
-				</table>
+<!--				<table [dataSource]="dataSource" mat-table matSort style="width: 100%">-->
+<!--					-->
+<!--					&lt;!&ndash;Action Column&ndash;&gt;-->
+<!--					<ng-container matColumnDef="action2">-->
+<!--						<th *matHeaderCellDef mat-header-cell>-->
+<!--							<div class="d-flex align-items-center ">-->
+<!--								Action-->
+<!--							</div></th>-->
+<!--						<td *matCellDef="let element;index as i;" mat-cell>-->
+<!--							<div class="hover-effect-menu">-->
+<!--								&lt;!&ndash;              <span class="material-icons short-arrow" (mouseover)='over()' (mouseout)='out()'>more_horiz</span>&ndash;&gt;-->
+<!--								<span class="material-icons short-arrow">more_horiz</span>-->
+<!--								<div class="hover-half-round-two">-->
+<!--									<div class="quarter-circle">-->
+<!--										<button-->
+<!--												(click)="deleteMilestone(element.milestoneId)"-->
+<!--												class="material-icons mat-menu-item mat-menu-delete"-->
+<!--												matTooltip="Delete"-->
+<!--												matTooltipClass='tooltip-color'-->
+<!--												tabindex="0">-->
+<!--											delete-->
+<!--										</button>-->
+<!--										<button-->
+<!--												(click)="updateProjet(element.milestoneId)"-->
+<!--												class="material-icons mat-menu-item mat-menu-web"-->
+<!--												matTooltip="Edit"-->
+<!--												matTooltipClass='tooltip-color'-->
+<!--												tabindex="0">-->
+<!--											drive_file_rename_outline-->
+<!--										</button>-->
+<!--										<div class="quarter-circle-nested"></div>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</td>-->
+<!--					</ng-container>-->
+<!--					&lt;!&ndash;Action Column&ndash;&gt;-->
+<!--					-->
+<!--					&lt;!&ndash; projectCode Column &ndash;&gt;-->
+<!--					<ng-container matColumnDef="title">-->
+<!--						<th (click)="sortData('milestoneTitle', sortBy)" *matHeaderCellDef mat-header-cell-->
+<!--						    mat-sort-header style="width: 15%">-->
+<!--							<div class="th-header d-flex align-items-center ">-->
+<!--								Title <span-->
+<!--									[ngClass]="{'down': sortBy === -1 && sortKey === 'milestoneTitle', 'up': sortBy === 1 && sortKey === 'milestoneTitle'}">-->
+<!--                      </span>-->
+<!--							</div>-->
+<!--						</th>-->
+<!--						<td *matCellDef="let element" class="text-capitalize" mat-cell>-->
+<!--							{{element.milestoneTitle}}-->
+<!--						</td>-->
+<!--					</ng-container>-->
+<!--					&lt;!&ndash; projectCode Column &ndash;&gt;-->
+<!--					-->
+<!--					&lt;!&ndash; startDate Column &ndash;&gt;-->
+<!--					<ng-container matColumnDef="expectedDate">-->
+<!--						<th (click)="sortData('expectedDate', sortBy)" *matHeaderCellDef mat-header-cell-->
+<!--						    mat-sort-header>-->
+<!--							<div class="th-header d-flex align-items-center ">-->
+<!--								Expected Date <span-->
+<!--									[ngClass]="{'down': sortBy === -1 && sortKey === 'expectedDate', 'up': sortBy === 1 && sortKey === 'expectedDate'}">-->
+<!--                      </span>-->
+<!--							</div>-->
+<!--						</th>-->
+<!--						<td *matCellDef="let element" mat-cell-->
+<!--						    style="white-space: nowrap;"> {{element.expectedDate | date : "MM/dd/YYYY"}} </td>-->
+<!--					</ng-container>-->
+<!--					&lt;!&ndash; startDate Column &ndash;&gt;-->
+<!--					-->
+<!--					&lt;!&ndash; projectName Column &ndash;&gt;-->
+<!--					<ng-container matColumnDef="milestoneStatus">-->
+<!--						<th (click)="sortData('milestoneStatus', sortBy)" *matHeaderCellDef mat-header-cell-->
+<!--						    mat-sort-header style="width: 15%">-->
+<!--							<div class="th-header d-flex align-items-center ">-->
+<!--								Status <span-->
+<!--									[ngClass]="{'down': sortBy === -1 && sortKey === 'milestoneStatus', 'up': sortBy === 1 && sortKey === 'milestoneStatus'}">-->
+<!--                      </span>-->
+<!--							</div>-->
+<!--						</th>-->
+<!--						<td *matCellDef="let element" [ngClass]="{'Completed': element.milestoneStatus === 'completed' , 'onHold' : element.milestoneStatus === 'on hold' ,'inProgress' :  element.milestoneStatus === 'in progress' }" class="text-capitalize" mat-cell>-->
+<!--							{{element.milestoneStatus}}-->
+<!--						</td>-->
+<!--					</ng-container>-->
+<!--					&lt;!&ndash; projectName Column &ndash;&gt;-->
+<!--					-->
+<!--					<tr *matHeaderRowDef="displayedColumns;sticky:true" mat-header-row></tr>-->
+<!--					<tr (click)="selection.toggle(row)" *matRowDef="let row; columns: displayedColumns;" mat-row></tr>-->
+<!--					&lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+<!--					<tr *matNoDataRow class="mat-row">-->
+<!--						<td class="mat-cell text-center" colspan="10">Data Not Available</td>-->
+<!--					</tr>-->
+<!--				</table>-->
 				<mat-paginator
 						(page)="pageChange($event)"
 						[hidePageSize]="false"

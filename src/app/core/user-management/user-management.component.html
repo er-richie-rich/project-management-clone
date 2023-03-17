@@ -191,7 +191,8 @@
                             (masterToggle)="masterToggle($event)" (view)="userDetail($event.userId)" [changeOn]="true"
                             [changePasswordOn]="true" [columns]="columns" [data]="listUser" [deleteOn]="true"
                             [editOn]="true" [headers]="headers" [icons]="'four'"
-                            [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [viewOn]="true"></app-data-table>
+                            [isAllSelectedCheck]="isAllSelected()" [selection]="selection" [viewOn]="true">
+            </app-data-table>
         </div>
         <mat-paginator
                 (page)="pageChange($event)"
